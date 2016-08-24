@@ -82,5 +82,35 @@ namespace ApiExamples
             DigitalSignatureUtil.Sign(docInStream, docOutStream, ch, "My comment", DateTime.Now);
             //ExEnd
         }
+
+        [Test]
+        [ExpectedException(typeof(ArgumentException))]
+        public void SingNull()
+        {
+            DigitalSignatureUtil.Sign(String.Empty, String.Empty, null, String.Empty, DateTime.Now, String.Empty);
+        }
+
+        [Test]
+        [ExpectedException(typeof(ArgumentException))]
+        public void SingWithPasswordDecrypring()
+        {
+            Document doc = new Document();
+
+            // Create certificate holder from a file.
+            CertificateHolder cert = CertificateHolder.Create(MyDir + "MyPkcs12.pfx", "My password");
+
+            // Digitally sign encrypted with "docPassword" document in the specified path.
+            DigitalSignatureUtil.Sign("srcDocFileName", "signedDocFileName", cert, "Comment", DateTime.Now, "docPassword");
+            
+            // Open encrypted document from a file.
+            var signedDoc = new Document("signedDocFileName", new LoadOptions("docPassword"));
+
+            // Check that encrypted document was successfully signed.
+            DigitalSignatureCollection signatures = doc.DigitalSignatures;
+            if (signatures.IsValid && (signatures.Count > 0))
+            {
+                Console.WriteLine("The document was signed successfully.");
+            }
+        }
     }
 }

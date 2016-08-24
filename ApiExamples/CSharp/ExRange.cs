@@ -15,6 +15,8 @@ using NUnit.Framework;
 
 namespace ApiExamples
 {
+    using Aspose.Words.Replacing;
+
     [TestFixture]
     public class ExRange : ApiExampleBase
     {

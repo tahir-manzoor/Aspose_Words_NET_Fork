@@ -12,6 +12,8 @@ using NUnit.Framework;
 
 namespace ApiExamples
 {
+    using System.Data;
+
     [TestFixture]
     internal class ExImageSaveOptions : ApiExampleBase
     {
@@ -26,6 +28,19 @@ namespace ApiExamples
             ImageSaveOptions saveOptions = new ImageSaveOptions(SaveFormat.Emf);
             saveOptions.UseGdiEmfRenderer = false;
             //ExEnd
+        }
+
+        [Test]
+        public void SaveIntoGif()
+        {
+            // Test case 1: Assert that saving into gif format correct
+            //Test case 2: Assert that pageindex that we try to save are correct
+            Document doc = new Document(MyDir + "SaveOptions.MyraidPro.docx");
+
+            ImageSaveOptions saveOptions = new ImageSaveOptions(SaveFormat.Gif);
+            saveOptions.PageIndex = 1;
+
+            doc.Save(MyDir + @"\Artifacts\SaveOptions.MyraidPro Out.gif", saveOptions);
         }
     }
 }
