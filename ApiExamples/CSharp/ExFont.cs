@@ -19,6 +19,8 @@ using NUnit.Framework;
 
 namespace ApiExamples
 {
+    using System.IO;
+
     [TestFixture]
     public class ExFont : ApiExampleBase
     {
@@ -103,6 +105,34 @@ namespace ApiExamples
                 fontIndex++;
             }
             //ExEnd
+        }
+
+        [Test]
+        public void DefaulValuesEmbeddedFontsParametrs()
+        {
+            Document doc = new Document();
+            
+            MemoryStream dstStream = new MemoryStream();
+            doc.Save(dstStream, SaveFormat.Docx);
+
+            Assert.IsFalse(doc.FontInfos.EmbedTrueTypeFonts);
+            Assert.IsFalse(doc.FontInfos.EmbedSystemFonts); //Bug: ? this default value is true, not false
+            Assert.IsFalse(doc.FontInfos.SaveSubsetFonts);
+        }
+        
+        //ToDo: Check gold tests, add more asserts
+        [Test]
+        [TestCase(true, false)]
+        public void WorkWithEmbeddedFonts(bool embedFonts, bool notEmbedFonts)
+        {
+            Document doc = new Document("fileName");
+            FontInfoCollection fontInfos = doc.FontInfos;
+
+            fontInfos.EmbedTrueTypeFonts = embedFonts;
+            fontInfos.EmbedSystemFonts = notEmbedFonts;
+            fontInfos.SaveSubsetFonts = notEmbedFonts;
+
+            doc.Save(MyDir + "DocWithEmbeddedFonts");
         }
 
         [Test]

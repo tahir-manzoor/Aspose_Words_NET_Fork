@@ -90,6 +90,7 @@ namespace ApiExamples
             DigitalSignatureUtil.Sign(String.Empty, String.Empty, null, String.Empty, DateTime.Now, String.Empty);
         }
 
+        //ToDo: Need to rework with certificate and add test which use stream
         [Test]
         [ExpectedException(typeof(ArgumentException))]
         public void SingWithPasswordDecrypring()

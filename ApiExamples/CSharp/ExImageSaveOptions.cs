@@ -33,7 +33,8 @@ namespace ApiExamples
         [Test]
         public void SaveIntoGif()
         {
-            // Test case 1: Assert that saving into gif format correct
+            //ToDo:
+            //Test case 1: Assert that saving into gif format correct
             //Test case 2: Assert that pageindex that we try to save are correct
             Document doc = new Document(MyDir + "SaveOptions.MyraidPro.docx");
 
