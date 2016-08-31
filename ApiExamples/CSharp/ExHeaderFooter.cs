@@ -98,6 +98,7 @@ namespace ApiExamples
             Assert.IsFalse(doc.Range.Text.Contains("DYNAMIC TEMPLATE"));
         }
 
+        //ToDo: Fix obsolete method
         [Test]
         public void ReplaceText()
         {

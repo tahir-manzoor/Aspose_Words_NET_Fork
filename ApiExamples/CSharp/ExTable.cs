@@ -484,6 +484,7 @@ namespace ApiExamples
             //ExEnd
         }
 
+        //ToDo: Fix obsolete method
         [Test]
         public void ReplaceTextInTable()
         {

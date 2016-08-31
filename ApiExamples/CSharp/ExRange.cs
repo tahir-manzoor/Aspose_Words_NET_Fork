@@ -43,6 +43,7 @@ namespace ApiExamples
             Assert.AreEqual("Hello2\x000c", doc.GetText());
         }
 
+        //ToDo: Fix obsolete method
         [Test]
         public void ReplaceSimple()
         {
@@ -74,6 +75,7 @@ namespace ApiExamples
             this.ReplaceWithInsertHtml();
         }
 
+        //ToDo: Fix obsolete method
         //ExStart
         //ExFor:Range.Replace(Regex,IReplacingCallback,Boolean)
         //ExFor:ReplacingArgs.Replacement
@@ -127,6 +129,7 @@ namespace ApiExamples
             //ExEnd
         }
 
+        //ToDo: Fix obsolete method
         [Test]
         public void ReplaceWithString()
         {
@@ -140,6 +143,7 @@ namespace ApiExamples
             doc.Save(MyDir + @"\Artifacts\ReplaceWithString.doc");
         }
 
+        //ToDo: Fix obsolete method
         [Test]
         public void ReplaceWithRegex()
         {
@@ -162,6 +166,7 @@ namespace ApiExamples
             this.ReplaceWithEvaluator();
         }
 
+        //ToDo: Fix obsolete method
         //ExStart
         //ExFor:Range
         //ExFor:ReplacingArgs.Match
@@ -202,6 +207,7 @@ namespace ApiExamples
             //ExEnd
         }
 
+        //ToDo: Fix obsolete method
         /// <summary>
         /// RK This works, but the logic is so complicated that I don't want to show it to users.
         /// </summary>

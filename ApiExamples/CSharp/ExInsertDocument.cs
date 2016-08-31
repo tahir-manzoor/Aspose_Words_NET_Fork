@@ -203,7 +203,8 @@ namespace ApiExamples
         {
             this.InsertDocumentAtReplace();
         }
-        
+
+        //ToDo: Fix obsolete method
         //ExStart
         //ExFor:Range.Replace(Regex,IReplacingCallback,Boolean)
         //ExFor:IReplacingCallback

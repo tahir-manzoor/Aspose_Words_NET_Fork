@@ -414,6 +414,7 @@ namespace ApiExamples
             builder.InsertCheckBox(string.Empty, false, 1);
         }
 
+        //ToDo: Fix obsolete method
         [Test]
         public void WorkingWithNodes()
         {

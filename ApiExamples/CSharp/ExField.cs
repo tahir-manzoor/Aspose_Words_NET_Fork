@@ -152,6 +152,7 @@ namespace ApiExamples
             //ExEnd
         }
 
+        //ToDo: Fix obsolete method
         [Test]
         //ExStart
         //ExId:TCFieldsRangeReplace
