@@ -42,7 +42,7 @@ namespace ApiExamples
 
             Assert.AreEqual("Hello2\x000c", doc.GetText());
         }
-
+        
         //ToDo: Fix obsolete method
         [Test]
         public void ReplaceSimple()

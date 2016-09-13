@@ -15,13 +15,12 @@ using System.Threading;
 using Aspose.BarCodeRecognition;
 using Aspose.Words;
 using Aspose.Words.Fields;
+using Aspose.Words.Replacing;
 
 using NUnit.Framework;
 
 namespace ApiExamples
 {
-    using Aspose.Words.Replacing;
-
     [TestFixture]
     public class ExField : ApiExampleBase
     {
@@ -152,7 +151,7 @@ namespace ApiExamples
             //ExEnd
         }
 
-        //ToDo: Fix obsolete method
+        //ToDo: Add assert result
         [Test]
         //ExStart
         //ExId:TCFieldsRangeReplace
@@ -161,8 +160,11 @@ namespace ApiExamples
         {
             Document doc = new Document();
 
+            FindReplaceOptions options = new FindReplaceOptions();
+            options.ReplacingCallback = new InsertTcFieldHandler("Chapter 1", "\\l 1");
+
             // Insert a TC field which displays "Chapter 1" just before the text "The Beginning" in the document.
-            doc.Range.Replace(new Regex("The Beginning"), new InsertTcFieldHandler("Chapter 1", "\\l 1"), false);
+            doc.Range.Replace(new Regex("The Beginning"), "", options);
         }
 
         public class InsertTcFieldHandler : IReplacingCallback
@@ -214,7 +216,7 @@ namespace ApiExamples
 
         //ExEnd
 
-        //Bug: there is no isAfter parameter at BuildAndInsert (exception), need more info from dev
+        //Bug: there is no isAfter parameter at BuildAndInsert(exception), need more info from dev
         [Test]
         public void InsertFieldWithFieldBuilder()
         {
