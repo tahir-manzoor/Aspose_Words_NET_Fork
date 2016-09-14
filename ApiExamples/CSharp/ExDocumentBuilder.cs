@@ -20,6 +20,8 @@ using NUnit.Framework;
 
 namespace ApiExamples
 {
+    using Aspose.Words.Replacing;
+
     [TestFixture]
     public class ExDocumentBuilder : ApiExampleBase
     {
@@ -414,7 +416,6 @@ namespace ApiExamples
             builder.InsertCheckBox(string.Empty, false, 1);
         }
 
-        //ToDo: Fix obsolete method
         [Test]
         public void WorkingWithNodes()
         {
@@ -433,9 +434,13 @@ namespace ApiExamples
             builder.MoveToBookmark("ParaToDelete");
             builder.CurrentParagraph.Remove();
 
+            FindReplaceOptions options = new FindReplaceOptions();
+            options.MatchCase = false;
+            options.FindWholeWordsOnly = true;
+
             // Move to a particular paragraph's run and replace all occurrences of "bad" with "good" within this run.
             builder.MoveTo(doc.LastSection.Body.Paragraphs[0].Runs[0]);
-            builder.CurrentNode.Range.Replace("bad", "good", false, true);
+            builder.CurrentNode.Range.Replace("bad", "good", options);
 
             // Mark the beginning of the document.
             builder.MoveToDocumentStart();

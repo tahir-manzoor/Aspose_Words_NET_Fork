@@ -17,7 +17,6 @@ namespace ApiExamples
     [TestFixture]
     public class ExDigitalSignatureUtil : ApiExampleBase
     {
-        //ToDo: Change "Document.Signed.doc" to "Document.doc"
         [Test]
         public void RemoveAllSignaturesEx()
         {
@@ -26,8 +25,8 @@ namespace ApiExamples
             //ExFor:DigitalSignatureUtil.RemoveAllSignatures(String, String)
             //ExSummary:Shows how to remove every signature from a document.
             //By stream:
-            Stream docStreamIn = new FileStream(MyDir + "Document.Signed.doc", FileMode.Open);
-            Stream docStreamOut = new FileStream(MyDir + "Document.NoSignatures.FromStream.doc", FileMode.Create);
+            Stream docStreamIn = new FileStream(MyDir + "Document.doc", FileMode.Open);
+            Stream docStreamOut = new FileStream(MyDir + @"\Artifacts\Document.NoSignatures.FromStream.doc", FileMode.Create);
 
             DigitalSignatureUtil.RemoveAllSignatures(docStreamIn, docStreamOut);
 
@@ -35,14 +34,13 @@ namespace ApiExamples
             docStreamOut.Close();
 
             //By string:
-            Document doc = new Document(MyDir + "Document.Signed.doc");
-            string outFileName = MyDir + "Document.NoSignatures.FromString.doc";
+            Document doc = new Document(MyDir + "Document.doc");
+            string outFileName = MyDir + @"\Artifacts\Document.NoSignatures.FromString.doc";
 
             DigitalSignatureUtil.RemoveAllSignatures(doc.OriginalFileName, outFileName);
             //ExEnd
         }
 
-        //ToDo: Change "Document.Signed.doc" to "Document.doc"
         [Test]
         public void LoadSignaturesEx()
         {
@@ -50,14 +48,14 @@ namespace ApiExamples
             //ExFor:DigitalSignatureUtil.LoadSignatures(Stream)
             //ExFor:DigitalSignatureUtil.LoadSignatures(String)
             //ExSummary:Shows how to load signatures from a document by stream and by string.
-            Stream docStream = new FileStream(MyDir + "Document.Signed.doc", FileMode.Open);
+            Stream docStream = new FileStream(MyDir + "Document.doc", FileMode.Open);
 
             // By stream:
             DigitalSignatureCollection digitalSignatures = DigitalSignatureUtil.LoadSignatures(docStream);
             docStream.Close();
 
             // By string:
-            digitalSignatures = DigitalSignatureUtil.LoadSignatures(MyDir + "Document.Signed.doc");
+            digitalSignatures = DigitalSignatureUtil.LoadSignatures(MyDir + "Document.doc");
             //ExEnd
         }
 

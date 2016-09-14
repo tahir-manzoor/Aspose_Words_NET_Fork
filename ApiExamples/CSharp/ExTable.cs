@@ -16,6 +16,8 @@ using NUnit.Framework;
 
 namespace ApiExamples
 {
+    using Aspose.Words.Replacing;
+
     /// <summary>
     /// Examples using tables in documents.
     /// </summary>
@@ -484,12 +486,11 @@ namespace ApiExamples
             //ExEnd
         }
 
-        //ToDo: Fix obsolete method
         [Test]
         public void ReplaceTextInTable()
         {
             //ExStart
-            //ExFor:Range.Replace(String, String, Boolean, Boolean)
+            //ExFor:Range.Replace(String, String, FindReplaceOptions)
             //ExFor:Cell
             //ExId:ReplaceTextTable
             //ExSummary:Shows how to replace all instances of string of text in a table and cell.
@@ -498,10 +499,14 @@ namespace ApiExamples
             // Get the first table in the document.
             Table table = (Table)doc.GetChild(NodeType.Table, 0, true);
 
+            FindReplaceOptions options = new FindReplaceOptions();
+            options.MatchCase = true;
+            options.FindWholeWordsOnly = true;
+            
             // Replace any instances of our string in the entire table.
-            table.Range.Replace("Carrots", "Eggs", true, true);
+            table.Range.Replace("Carrots", "Eggs", options);
             // Replace any instances of our string in the last cell of the table only.
-            table.LastRow.LastCell.Range.Replace("50", "20", true, true);
+            table.LastRow.LastCell.Range.Replace("50", "20", options);
 
             doc.Save(MyDir + @"\Artifacts\Table.ReplaceCellText.doc");
             //ExEnd

@@ -14,6 +14,8 @@ using NUnit.Framework;
 
 namespace ApiExamples
 {
+    using Aspose.Words.Replacing;
+
     [TestFixture]
     public class ExHeaderFooter : ApiExampleBase
     {
@@ -98,7 +100,6 @@ namespace ApiExamples
             Assert.IsFalse(doc.Range.Text.Contains("DYNAMIC TEMPLATE"));
         }
 
-        //ToDo: Fix obsolete method
         [Test]
         public void ReplaceText()
         {
@@ -107,14 +108,19 @@ namespace ApiExamples
             //ExFor:Section.HeadersFooters
             //ExFor:HeaderFooterCollection.Item(HeaderFooterType)
             //ExFor:HeaderFooter
-            //ExFor:Range.Replace(String, String, Boolean, Boolean)
+            //ExFor:Range.Replace(String, String, FindReplaceOptions)
             //ExSummary:Shows how to replace text in the document footer.
             // Open the template document, containing obsolete copyright information in the footer.
             Document doc = new Document(MyDir + "HeaderFooter.ReplaceText.doc");
 
             HeaderFooterCollection headersFooters = doc.FirstSection.HeadersFooters;
             HeaderFooter footer = headersFooters[HeaderFooterType.FooterPrimary];
-            footer.Range.Replace("(C) 2006 Aspose Pty Ltd.", "Copyright (C) 2011 by Aspose Pty Ltd.", false, false);
+            
+            FindReplaceOptions options = new FindReplaceOptions();
+            options.MatchCase = false;
+            options.FindWholeWordsOnly = false;
+
+            footer.Range.Replace("(C) 2006 Aspose Pty Ltd.", "Copyright (C) 2011 by Aspose Pty Ltd.", options);
 
             doc.Save(MyDir + @"\Artifacts\HeaderFooter.ReplaceText.doc");
             //ExEnd

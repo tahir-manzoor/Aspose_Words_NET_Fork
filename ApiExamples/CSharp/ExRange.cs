@@ -43,12 +43,11 @@ namespace ApiExamples
             Assert.AreEqual("Hello2\x000c", doc.GetText());
         }
         
-        //ToDo: Fix obsolete method
         [Test]
         public void ReplaceSimple()
         {
             //ExStart
-            //ExFor:Range.Replace(String,String,Boolean,Boolean)
+            //ExFor:Range.Replace(String, String, FindReplaceOptions)
             //ExSummary:Simple find and replace operation.
             // Open the document.
             Document doc = new Document(MyDir + "Range.ReplaceSimple.doc");
@@ -56,8 +55,12 @@ namespace ApiExamples
             // Check the document contains what we are about to test.
             Console.WriteLine(doc.FirstSection.Body.Paragraphs[0].GetText());
 
+            FindReplaceOptions options = new FindReplaceOptions();
+            options.MatchCase = false;
+            options.FindWholeWordsOnly = false;
+
             // Replace the text in the document.
-            doc.Range.Replace("_CustomerName_", "James Bond", false, false);
+            doc.Range.Replace("_CustomerName_", "James Bond", options);
 
             // Save the modified document.
             doc.Save(MyDir + @"\Artifacts\Range.ReplaceSimple.doc");
@@ -75,9 +78,8 @@ namespace ApiExamples
             this.ReplaceWithInsertHtml();
         }
 
-        //ToDo: Fix obsolete method
         //ExStart
-        //ExFor:Range.Replace(Regex,IReplacingCallback,Boolean)
+        //ExFor:Range.Replace(Regex, string, FindReplaceOptions)
         //ExFor:ReplacingArgs.Replacement
         //ExFor:IReplacingCallback
         //ExFor:IReplacingCallback.Replacing
@@ -89,7 +91,11 @@ namespace ApiExamples
             // Open the document.
             Document doc = new Document(MyDir + "Range.ReplaceWithInsertHtml.doc");
 
-            doc.Range.Replace(new Regex(@"<CustomerName>"), new ReplaceWithHtmlEvaluator(), false);
+            FindReplaceOptions options = new FindReplaceOptions();
+            options.Direction = FindReplaceDirection.Backward;
+            options.ReplacingCallback = new ReplaceWithHtmlEvaluator();
+
+            doc.Range.Replace(new Regex(@"<CustomerName>"), "", options);
 
             // Save the modified document.
             doc.Save(MyDir + @"\Artifacts\Range.ReplaceWithInsertHtml.doc");
@@ -129,7 +135,6 @@ namespace ApiExamples
             //ExEnd
         }
 
-        //ToDo: Fix obsolete method
         [Test]
         public void ReplaceWithString()
         {
@@ -138,12 +143,17 @@ namespace ApiExamples
             //ExId:RangesReplaceString
             //ExSummary:Shows how to replace all occurrences of word "sad" to "bad".
             Document doc = new Document(MyDir + "Document.doc");
-            doc.Range.Replace("sad", "bad", false, true);
+
+            FindReplaceOptions options = new FindReplaceOptions();
+            options.MatchCase = false;
+            options.FindWholeWordsOnly = true;
+            
+            doc.Range.Replace("sad", "bad", options);
             //ExEnd
+
             doc.Save(MyDir + @"\Artifacts\ReplaceWithString.doc");
         }
 
-        //ToDo: Fix obsolete method
         [Test]
         public void ReplaceWithRegex()
         {
@@ -152,8 +162,9 @@ namespace ApiExamples
             //ExId:RangesReplaceRegex
             //ExSummary:Shows how to replace all occurrences of words "sad" or "mad" to "bad".
             Document doc = new Document(MyDir + "Document.doc");
-            doc.Range.Replace(new Regex("[s|m]ad"), "bad");
+            doc.Range.Replace(new Regex("[s|m]ad"), "bad"); //this method still continues to work
             //ExEnd
+            
             doc.Save(MyDir + @"\Artifacts\ReplaceWithRegex.doc");
         }
 
@@ -166,7 +177,6 @@ namespace ApiExamples
             this.ReplaceWithEvaluator();
         }
 
-        //ToDo: Fix obsolete method
         //ExStart
         //ExFor:Range
         //ExFor:ReplacingArgs.Match
@@ -175,7 +185,13 @@ namespace ApiExamples
         public void ReplaceWithEvaluator()
         {
             Document doc = new Document(MyDir + "Range.ReplaceWithEvaluator.doc");
-            doc.Range.Replace(new Regex("[s|m]ad"), new MyReplaceEvaluator(), true);
+            
+            FindReplaceOptions options = new FindReplaceOptions();
+            options.Direction = FindReplaceDirection.Forward;
+            options.ReplacingCallback = new MyReplaceEvaluator();
+
+            doc.Range.Replace(new Regex("[s|m]ad"), "", options); //except doc.Range.Replace(new Regex("[s|m]ad"), new MyReplaceEvaluator(), true); 
+
             doc.Save(MyDir + @"\Artifacts\Range.ReplaceWithEvaluator.doc");
         }
 
@@ -207,10 +223,6 @@ namespace ApiExamples
             //ExEnd
         }
 
-        //ToDo: Fix obsolete method
-        /// <summary>
-        /// RK This works, but the logic is so complicated that I don't want to show it to users.
-        /// </summary>
         [Test]
         public void ChangeTextToHyperlinks()
         {
@@ -219,8 +231,12 @@ namespace ApiExamples
             // Create regular expression for URL search
             Regex regexUrl = new Regex(@"(?<Protocol>\w+):\/\/(?<Domain>[\w.]+\/?)\S*(?x)");
 
+            FindReplaceOptions options = new FindReplaceOptions();
+            options.Direction = FindReplaceDirection.Backward;
+            options.ReplacingCallback = new ChangeTextToHyperlinksEvaluator(doc);
+
             // Run replacement, using regular expression and evaluator.
-            doc.Range.Replace(regexUrl, new ChangeTextToHyperlinksEvaluator(doc), false);
+            doc.Range.Replace(regexUrl, "", options);
 
             // Save updated document.
             doc.Save(MyDir + @"\Artifacts\Range.ChangeTextToHyperlinks.docx");
@@ -244,10 +260,14 @@ namespace ApiExamples
 
                 string url = e.Match.Value;
 
+                FindReplaceOptions options = new FindReplaceOptions();
+                options.MatchCase = true;
+                options.FindWholeWordsOnly = true;
+                
                 // We are using \xbf (inverted question mark) symbol for temporary purposes.
                 // Any symbol will do that is non-special and is guaranteed not to be presented in the document.
                 // The purpose is to split the matched run into two and insert a hyperlink field between them.
-                para.Range.Replace(url, "\xbf", true, true);
+                para.Range.Replace(url, "\xbf", options);
 
                 Run subRun = (Run)run.Clone(false);
                 int pos = run.Text.IndexOf("\xbf");

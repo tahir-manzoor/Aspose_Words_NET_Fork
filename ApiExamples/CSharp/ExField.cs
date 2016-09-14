@@ -151,7 +151,6 @@ namespace ApiExamples
             //ExEnd
         }
 
-        //ToDo: Add assert result
         [Test]
         //ExStart
         //ExId:TCFieldsRangeReplace
