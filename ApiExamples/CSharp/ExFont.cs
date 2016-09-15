@@ -120,19 +120,21 @@ namespace ApiExamples
             Assert.IsFalse(doc.FontInfos.SaveSubsetFonts);
         }
         
-        //ToDo: Check gold tests, add more asserts
+        //ToDo: Add gold test asserts
         [Test]
-        [TestCase(true, false)]
-        public void WorkWithEmbeddedFonts(bool embedFonts, bool notEmbedFonts)
+        [TestCase(true, false, false, Description = "Save document with embedded TrueType fonts. System fonts are not included. Saves full versions of embedding fonts.")]
+        [TestCase(true, true, false, Description = "Save document with embedded TrueType fonts. System fonts are included. Saves full versions of embedding fonts.")]
+        [TestCase(true, true, true, Description = "Save document with embedded TrueType fonts. System fonts are included. Saves subset of embedding fonts.")]
+        [TestCase(true, false, true, Description = "Save document with embedded TrueType fonts. System fonts are not included. Saves subset of embedding fonts.")]
+        [TestCase(false, false, false, Description = "Remove embedded fonts from the saved document.")]
+        public void WorkWithEmbeddedFonts(bool embedTrueTypeFonts, bool embedSystemFonts, bool saveSubsetFonts)
         {
-            Document doc = new Document("fileName");
+            Document doc = new Document(MyDir + "Document.doc");
+            
             FontInfoCollection fontInfos = doc.FontInfos;
+            fontInfos.EmbedTrueTypeFonts = embedTrueTypeFonts;
 
-            fontInfos.EmbedTrueTypeFonts = embedFonts;
-            fontInfos.EmbedSystemFonts = notEmbedFonts;
-            fontInfos.SaveSubsetFonts = notEmbedFonts;
-
-            doc.Save(MyDir + "DocWithEmbeddedFonts");
+            doc.Save(MyDir + @"/Artifacts/Document.doc");
         }
 
         [Test]
