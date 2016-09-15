@@ -16,6 +16,8 @@ namespace ApiExamples
     [TestFixture]
     internal class ExHtmlSaveOptions : ApiExampleBase
     {
+        #region PageMargins
+
         //For assert this test you need to open html docs and they shouldn't have negative left margins
         [Test]
         [TestCase(SaveFormat.Html)]
@@ -32,47 +34,52 @@ namespace ApiExamples
             Save(doc, "HtmlSaveOptions.ExportPageMargins." + saveFormat.ToString().ToLower(), saveFormat, saveOptions);
         }
 
+        #endregion
+
+        #region HtmlOfficeMathOutputMode
+
         [Test]
-        [TestCase(SaveFormat.Html)]
-        [TestCase(SaveFormat.Mhtml)]
-        [TestCase(SaveFormat.Epub)]
-        public void ExportToHtmlUsingImage(SaveFormat saveFormat)
+        [TestCase(SaveFormat.Html, HtmlOfficeMathOutputMode.Image)]
+        [TestCase(SaveFormat.Mhtml, HtmlOfficeMathOutputMode.Image)]
+        [TestCase(SaveFormat.Epub, HtmlOfficeMathOutputMode.Image)]
+        [TestCase(SaveFormat.Html, HtmlOfficeMathOutputMode.MathML)]
+        [TestCase(SaveFormat.Mhtml, HtmlOfficeMathOutputMode.MathML)]
+        [TestCase(SaveFormat.Epub, HtmlOfficeMathOutputMode.MathML)]
+        [TestCase(SaveFormat.Html, HtmlOfficeMathOutputMode.Text)]
+        [TestCase(SaveFormat.Mhtml, HtmlOfficeMathOutputMode.Text)]
+        [TestCase(SaveFormat.Epub, HtmlOfficeMathOutputMode.Text)]
+        public void ExportToHtmlUsingImage(SaveFormat saveFormat, HtmlOfficeMathOutputMode outputMode)
         {
             Document doc = new Document();
             
             HtmlSaveOptions saveOptions = new HtmlSaveOptions();
-            saveOptions.OfficeMathOutputMode = HtmlOfficeMathOutputMode.Image;
+            saveOptions.OfficeMathOutputMode = outputMode;
 
             Save(doc, "HtmlSaveOptions.ExportToHtmlUsingImage" + saveFormat.ToString().ToLower(), saveFormat, saveOptions);
         }
 
+        #endregion
+
+        #region ExportTextBoxAsSvg
+
         [Test]
-        [TestCase(SaveFormat.Html)]
-        [TestCase(SaveFormat.Mhtml)]
-        [TestCase(SaveFormat.Epub)]
-        public void ExportToHtmlUsingMathMl(SaveFormat saveFormat)
+        [TestCase(SaveFormat.Html, true, Description = "TextBox as svg (html)")]
+        [TestCase(SaveFormat.Html, false, Description = "TextBox as img (html)")]
+        [TestCase(SaveFormat.Mhtml, true, Description = "TextBox as svg (mhtml)")]
+        [TestCase(SaveFormat.Mhtml, false, Description = "TextBox as img (mhtml)")]
+        [TestCase(SaveFormat.Epub, true, Description = "TextBox as svg (epub)")]
+        [TestCase(SaveFormat.Epub, false, Description = "TextBox as img (epub)")]
+        public void ExportTextBoxAsSvg(SaveFormat saveFormat, bool textBoxAsSvg)
         {
             Document doc = new Document();
 
             HtmlSaveOptions saveOptions = new HtmlSaveOptions();
-            saveOptions.OfficeMathOutputMode = HtmlOfficeMathOutputMode.MathML;
+            saveOptions.ExportTextBoxAsSvg = textBoxAsSvg;
 
-            Save(doc, "HtmlSaveOptions.ExportToHtmlUsingImage" + saveFormat.ToString().ToLower(), saveFormat, saveOptions);
+            Save(doc, "HtmlSaveOptions.ExportTextBoxAsSvg" + saveFormat.ToString().ToLower(), saveFormat, saveOptions);
         }
 
-        [Test]
-        [TestCase(SaveFormat.Html)]
-        [TestCase(SaveFormat.Mhtml)]
-        [TestCase(SaveFormat.Epub)]
-        public void ExportToHtmlUsingText(SaveFormat saveFormat)
-        {
-            Document doc = new Document();
-
-            HtmlSaveOptions saveOptions = new HtmlSaveOptions();
-            saveOptions.OfficeMathOutputMode = HtmlOfficeMathOutputMode.Text;
-
-            Save(doc, "HtmlSaveOptions.ExportToHtmlUsingImage" + saveFormat.ToString().ToLower(), saveFormat, saveOptions);
-        }
+        #endregion
 
         private static Document Save(Document inputDoc, string outputDocPath, SaveFormat saveFormat, SaveOptions saveOptions)
         {
