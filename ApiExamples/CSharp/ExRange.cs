@@ -10,39 +10,17 @@ using System.Drawing;
 using System.Text.RegularExpressions;
 
 using Aspose.Words;
+using Aspose.Words.Replacing;
 
 using NUnit.Framework;
 
 namespace ApiExamples
 {
-    using Aspose.Words.Replacing;
-
     [TestFixture]
     public class ExRange : ApiExampleBase
     {
-        [Test]
-        public void DeleteSelection()
-        {
-            //ExStart
-            //ExFor:Node.Range
-            //ExFor:Range.Delete
-            //ExSummary:Shows how to delete a section from a Word document.
-            // Open Word document.
-            Document doc = new Document(MyDir + "Range.DeleteSection.doc");
+        #region Replace 
 
-            // The document contains two sections. Each section has a paragraph of text.
-            Console.WriteLine(doc.GetText());
-
-            // Delete the first section from the document.
-            doc.Sections[0].Range.Delete();
-
-            // Check the first section was deleted by looking at the text of the whole document again.
-            Console.WriteLine(doc.GetText());
-            //ExEnd
-
-            Assert.AreEqual("Hello2\x000c", doc.GetText());
-        }
-        
         [Test]
         public void ReplaceSimple()
         {
@@ -51,6 +29,9 @@ namespace ApiExamples
             //ExSummary:Simple find and replace operation.
             // Open the document.
             Document doc = new Document(MyDir + "Range.ReplaceSimple.doc");
+            DocumentBuilder builder = new DocumentBuilder(doc);
+
+            builder.Writeln("Hello _CustomerName_,");
 
             // Check the document contains what we are about to test.
             Console.WriteLine(doc.FirstSection.Body.Paragraphs[0].GetText());
@@ -60,7 +41,7 @@ namespace ApiExamples
             options.FindWholeWordsOnly = false;
 
             // Replace the text in the document.
-            doc.Range.Replace("_CustomerName_", "James Bond", options);
+            doc.Range.Replace("_CustomerName_", "James Bond", options); //instead of obsolete method doc.Range.Replace("_CustomerName_", "James Bond", false, false);
 
             // Save the modified document.
             doc.Save(MyDir + @"\Artifacts\Range.ReplaceSimple.doc");
@@ -90,12 +71,15 @@ namespace ApiExamples
         {
             // Open the document.
             Document doc = new Document(MyDir + "Range.ReplaceWithInsertHtml.doc");
+            DocumentBuilder builder = new DocumentBuilder(doc);
+
+            builder.Writeln("Hello <CustomerName>,");
 
             FindReplaceOptions options = new FindReplaceOptions();
             options.Direction = FindReplaceDirection.Backward;
             options.ReplacingCallback = new ReplaceWithHtmlEvaluator();
 
-            doc.Range.Replace(new Regex(@"<CustomerName>"), "", options);
+            doc.Range.Replace(new Regex(@"<CustomerName>"), "", options); //instead of obsolete method doc.Range.Replace(new Regex(@"<CustomerName>"), new ReplaceWithHtmlEvaluator(), false)
 
             // Save the modified document.
             doc.Save(MyDir + @"\Artifacts\Range.ReplaceWithInsertHtml.doc");
@@ -123,31 +107,21 @@ namespace ApiExamples
         //ExEnd
 
         [Test]
-        public void RangesGetText()
-        {
-            //ExStart
-            //ExFor:Range
-            //ExFor:Range.Text
-            //ExId:RangesGetText
-            //ExSummary:Shows how to get plain, unformatted text of a range.
-            Document doc = new Document(MyDir + "Document.doc");
-            string text = doc.Range.Text;
-            //ExEnd
-        }
-
-        [Test]
         public void ReplaceWithString()
         {
             //ExStart
             //ExFor:Range
-            //ExId:RangesReplaceString
             //ExSummary:Shows how to replace all occurrences of word "sad" to "bad".
             Document doc = new Document(MyDir + "Document.doc");
+            DocumentBuilder builder = new DocumentBuilder(doc);
+
+            builder.Writeln("This one is sad.");
+            builder.Writeln("That one is mad.");
 
             FindReplaceOptions options = new FindReplaceOptions();
             options.MatchCase = false;
             options.FindWholeWordsOnly = true;
-            
+
             doc.Range.Replace("sad", "bad", options);
             //ExEnd
 
@@ -159,12 +133,11 @@ namespace ApiExamples
         {
             //ExStart
             //ExFor:Range.Replace(Regex, String)
-            //ExId:RangesReplaceRegex
             //ExSummary:Shows how to replace all occurrences of words "sad" or "mad" to "bad".
             Document doc = new Document(MyDir + "Document.doc");
-            doc.Range.Replace(new Regex("[s|m]ad"), "bad"); //this method still continues to work
+            doc.Range.Replace(new Regex("[s|m]ad"), "bad"); //this method is obsolete, but still continues to work
             //ExEnd
-            
+
             doc.Save(MyDir + @"\Artifacts\ReplaceWithRegex.doc");
         }
 
@@ -180,17 +153,20 @@ namespace ApiExamples
         //ExStart
         //ExFor:Range
         //ExFor:ReplacingArgs.Match
-        //ExId:RangesReplaceWithReplaceEvaluator
         //ExSummary:Shows how to replace with a custom evaluator.
         public void ReplaceWithEvaluator()
         {
             Document doc = new Document(MyDir + "Range.ReplaceWithEvaluator.doc");
-            
+            DocumentBuilder builder = new DocumentBuilder(doc);
+
+            builder.Writeln("This one is sad.");
+            builder.Writeln("That one is mad.");
+
             FindReplaceOptions options = new FindReplaceOptions();
             options.Direction = FindReplaceDirection.Forward;
             options.ReplacingCallback = new MyReplaceEvaluator();
 
-            doc.Range.Replace(new Regex("[s|m]ad"), "", options); //except doc.Range.Replace(new Regex("[s|m]ad"), new MyReplaceEvaluator(), true); 
+            doc.Range.Replace(new Regex("[s|m]ad"), "", options);
 
             doc.Save(MyDir + @"\Artifacts\Range.ReplaceWithEvaluator.doc");
         }
@@ -213,20 +189,13 @@ namespace ApiExamples
         //ExEnd
 
         [Test]
-        public void RangesDeleteText()
-        {
-            //ExStart
-            //ExId:RangesDeleteText
-            //ExSummary:Shows how to delete all characters of a range.
-            Document doc = new Document(MyDir + "Document.doc");
-            doc.Sections[0].Range.Delete();
-            //ExEnd
-        }
-
-        [Test]
         public void ChangeTextToHyperlinks()
         {
             Document doc = new Document(MyDir + @"Range.ChangeTextToHyperlinks.doc");
+            DocumentBuilder builder = new DocumentBuilder(doc);
+
+            builder.Writeln("http://www.aspose.com");
+            builder.Writeln("http://www.aspose.com/documentation/file-format-components/aspose.words-for-.net-and-java/index.html");
 
             // Create regular expression for URL search
             Regex regexUrl = new Regex(@"(?<Protocol>\w+):\/\/(?<Domain>[\w.]+\/?)\S*(?x)");
@@ -263,7 +232,7 @@ namespace ApiExamples
                 FindReplaceOptions options = new FindReplaceOptions();
                 options.MatchCase = true;
                 options.FindWholeWordsOnly = true;
-                
+
                 // We are using \xbf (inverted question mark) symbol for temporary purposes.
                 // Any symbol will do that is non-special and is guaranteed not to be presented in the document.
                 // The purpose is to split the matched run into two and insert a hyperlink field between them.
@@ -297,6 +266,55 @@ namespace ApiExamples
             }
 
             private readonly DocumentBuilder mBuilder;
+        }
+
+        #endregion
+
+        [Test]
+        public void DeleteSelection()
+        {
+            //ExStart
+            //ExFor:Node.Range
+            //ExFor:Range.Delete
+            //ExSummary:Shows how to delete a section from a Word document.
+            // Open Word document.
+            Document doc = new Document(MyDir + "Range.DeleteSection.doc");
+
+            // The document contains two sections. Each section has a paragraph of text.
+            Console.WriteLine(doc.GetText());
+
+            // Delete the first section from the document.
+            doc.Sections[0].Range.Delete();
+
+            // Check the first section was deleted by looking at the text of the whole document again.
+            Console.WriteLine(doc.GetText());
+            //ExEnd
+
+            Assert.AreEqual("Hello2\x000c", doc.GetText());
+        }
+        
+        [Test]
+        public void RangesGetText()
+        {
+            //ExStart
+            //ExFor:Range
+            //ExFor:Range.Text
+            //ExId:RangesGetText
+            //ExSummary:Shows how to get plain, unformatted text of a range.
+            Document doc = new Document(MyDir + "Document.doc");
+            string text = doc.Range.Text;
+            //ExEnd
+        }
+
+        [Test]
+        public void RangesDeleteText()
+        {
+            //ExStart
+            //ExId:RangesDeleteText
+            //ExSummary:Shows how to delete all characters of a range.
+            Document doc = new Document(MyDir + "Document.doc");
+            doc.Sections[0].Range.Delete();
+            //ExEnd
         }
     }
 }
