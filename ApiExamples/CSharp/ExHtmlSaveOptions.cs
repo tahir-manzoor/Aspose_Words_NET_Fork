@@ -12,6 +12,7 @@ using NUnit.Framework;
 
 namespace ApiExamples
 {
+    //ToDo: Need to add gold assert tests
     [TestFixture]
     internal class ExHtmlSaveOptions : ApiExampleBase
     {
@@ -24,24 +25,71 @@ namespace ApiExamples
         {
             Document doc = new Document(MyDir + "HtmlSaveOptions.ExportPageMargins.docx");
 
-            HtmlSaveOptions htmlSaveOptions = new HtmlSaveOptions
-            {
-                SaveFormat = saveFormat, 
-                ExportPageMargins = true
-            };
+            HtmlSaveOptions saveOptions = new HtmlSaveOptions();
+            saveOptions.SaveFormat = saveFormat;
+            saveOptions.ExportPageMargins = true;
 
+            Save(doc, "HtmlSaveOptions.ExportPageMargins." + saveFormat.ToString().ToLower(), saveFormat, saveOptions);
+        }
+
+        [Test]
+        [TestCase(SaveFormat.Html)]
+        [TestCase(SaveFormat.Mhtml)]
+        [TestCase(SaveFormat.Epub)]
+        public void ExportToHtmlUsingImage(SaveFormat saveFormat)
+        {
+            Document doc = new Document();
+            
+            HtmlSaveOptions saveOptions = new HtmlSaveOptions();
+            saveOptions.OfficeMathOutputMode = HtmlOfficeMathOutputMode.Image;
+
+            Save(doc, "HtmlSaveOptions.ExportToHtmlUsingImage" + saveFormat.ToString().ToLower(), saveFormat, saveOptions);
+        }
+
+        [Test]
+        [TestCase(SaveFormat.Html)]
+        [TestCase(SaveFormat.Mhtml)]
+        [TestCase(SaveFormat.Epub)]
+        public void ExportToHtmlUsingMathMl(SaveFormat saveFormat)
+        {
+            Document doc = new Document();
+
+            HtmlSaveOptions saveOptions = new HtmlSaveOptions();
+            saveOptions.OfficeMathOutputMode = HtmlOfficeMathOutputMode.MathML;
+
+            Save(doc, "HtmlSaveOptions.ExportToHtmlUsingImage" + saveFormat.ToString().ToLower(), saveFormat, saveOptions);
+        }
+
+        [Test]
+        [TestCase(SaveFormat.Html)]
+        [TestCase(SaveFormat.Mhtml)]
+        [TestCase(SaveFormat.Epub)]
+        public void ExportToHtmlUsingText(SaveFormat saveFormat)
+        {
+            Document doc = new Document();
+
+            HtmlSaveOptions saveOptions = new HtmlSaveOptions();
+            saveOptions.OfficeMathOutputMode = HtmlOfficeMathOutputMode.Text;
+
+            Save(doc, "HtmlSaveOptions.ExportToHtmlUsingImage" + saveFormat.ToString().ToLower(), saveFormat, saveOptions);
+        }
+
+        private static Document Save(Document inputDoc, string outputDocPath, SaveFormat saveFormat, SaveOptions saveOptions)
+        {
             switch (saveFormat)
             {
                 case SaveFormat.Html:
-                    doc.Save(MyDir + "ExportPageMargins.html", htmlSaveOptions);
-                    break;
+                    inputDoc.Save(MyDir + outputDocPath, saveOptions);
+                    return inputDoc;
                 case SaveFormat.Mhtml:
-                    doc.Save(MyDir + "ExportPageMargins.Mhtml", htmlSaveOptions);
-                    break;
+                    inputDoc.Save(MyDir + outputDocPath, saveOptions);
+                    return inputDoc;
                 case SaveFormat.Epub:
-                    doc.Save(MyDir + "ExportPageMargins.Epub", htmlSaveOptions); //There is draw images bug with epub. Need write to NSezganov
-                    break;
+                    inputDoc.Save(MyDir + outputDocPath, saveOptions); //There is draw images bug with epub. Need write to NSezganov
+                    return inputDoc;
             }
+
+            return null;
         }
     }
 }
