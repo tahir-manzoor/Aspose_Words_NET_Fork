@@ -47,7 +47,7 @@ namespace ApiExamples
             //"CreateMissingOutlineLevels" determining whether or not to create missing heading levels
             PdfSaveOptions pdfSaveOptions = new PdfSaveOptions();
 
-            pdfSaveOptions.OutlineOptions.HeadingsOutlineLevels = 9;
+            pdfSaveOptions.OutlineOptions.HeadingsOutlineLevels = 9; //Bug: Not outline option in FixedPageSaveOptions class
             pdfSaveOptions.OutlineOptions.CreateMissingOutlineLevels = true;
             pdfSaveOptions.SaveFormat = SaveFormat.Pdf;
 

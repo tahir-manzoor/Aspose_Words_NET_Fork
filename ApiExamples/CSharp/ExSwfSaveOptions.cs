@@ -119,5 +119,18 @@ namespace ApiExamples
             doc.Save(MyDir + @"\Artifacts\SwfSaveOptions.CustomLogo.swf", options);
         }
 
+        [Test]
+        public void MetafileRendering()
+        {
+            Document doc = new Document();
+
+            MetafileRenderingOptions renderingOptions = new MetafileRenderingOptions();
+            renderingOptions.RenderingMode = MetafileRenderingMode.Bitmap;
+
+            FixedPageSaveOptions saveOptions = new SwfSaveOptions();
+            //saveOptions.MetafileRenderingOptions = renderingOptions; //ToDo: need answer from developer
+
+            doc.Save(MyDir + @"\Artifacts\MetafileRendering.swf", saveOptions);
+        }
     }
 }

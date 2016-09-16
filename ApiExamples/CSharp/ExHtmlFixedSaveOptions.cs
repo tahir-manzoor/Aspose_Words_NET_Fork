@@ -30,7 +30,7 @@ namespace ApiExamples
 
             //Create "HtmlFixedSaveOptions" with "Encoding" parameter
             //You can also set "Encoding" using System.Text.Encoding, like "Encoding.ASCII", or "Encoding.GetEncoding()"
-            HtmlFixedSaveOptions htmlFixedSaveOptions = new HtmlFixedSaveOptions
+            FixedPageSaveOptions htmlFixedSaveOptions = new HtmlFixedSaveOptions
             {
                 Encoding = new ASCIIEncoding(),
                 SaveFormat = SaveFormat.HtmlFixed,
@@ -48,7 +48,7 @@ namespace ApiExamples
         {
             Document doc = DocumentHelper.CreateDocumentFillWithDummyText();
 
-            HtmlFixedSaveOptions htmlFixedSaveOptions = new HtmlFixedSaveOptions
+            FixedPageSaveOptions htmlFixedSaveOptions = new HtmlFixedSaveOptions
             {
                 Encoding = Encoding.ASCII,
                 SaveFormat = SaveFormat.HtmlFixed,
@@ -66,7 +66,7 @@ namespace ApiExamples
         {
             Document doc = DocumentHelper.CreateDocumentFillWithDummyText();
 
-            HtmlFixedSaveOptions htmlFixedSaveOptions = new HtmlFixedSaveOptions
+            FixedPageSaveOptions htmlFixedSaveOptions = new HtmlFixedSaveOptions
             {
                 Encoding = new UTF32Encoding(),
                 SaveFormat = SaveFormat.HtmlFixed,
@@ -84,7 +84,7 @@ namespace ApiExamples
         {
             Document doc = DocumentHelper.CreateDocumentFillWithDummyText();
 
-            HtmlFixedSaveOptions htmlFixedSaveOptions = new HtmlFixedSaveOptions
+            FixedPageSaveOptions htmlFixedSaveOptions = new HtmlFixedSaveOptions
             {
                 Encoding = Encoding.GetEncoding("utf-16"),
                 SaveFormat = SaveFormat.HtmlFixed,
@@ -107,7 +107,7 @@ namespace ApiExamples
 
             builder.InsertCheckBox("CheckBox", false, 15);
 
-            HtmlFixedSaveOptions htmlFixedSaveOptions = new HtmlFixedSaveOptions
+            FixedPageSaveOptions htmlFixedSaveOptions = new HtmlFixedSaveOptions
             {
                 SaveFormat = SaveFormat.HtmlFixed,
                 ExportEmbeddedCss = true,
