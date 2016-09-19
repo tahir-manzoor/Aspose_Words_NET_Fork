@@ -69,6 +69,8 @@
     <Compile Include="ExComment.cs" />
     <Compile Include="ExFixedPageSaveOptions.cs" />
     <Compile Include="ExHtmlLoadOptions.cs" />
+    <Compile Include="ExOoxmlSaveOptions.cs" />
+    <Compile Include="ExXpsSaveOptions.cs" />
     <Compile Include="ExUtilityClasses.cs" />
     <Compile Include="ExDigitalSignature.cs" />
     <Compile Include="ExDigitalSignatureCollection.cs" />
@@ -123,13 +125,13 @@
     <Compile Include="ExWarningInfoCollection.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
     <Folder Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
