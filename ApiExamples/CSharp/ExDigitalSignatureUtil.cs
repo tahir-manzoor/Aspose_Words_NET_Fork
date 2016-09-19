@@ -137,14 +137,14 @@ namespace ApiExamples
         }
 
         [Test]
-        [ExpectedException(typeof(ArgumentException))]
         public void NoArgumentsForSing()
         {
-            DigitalSignatureUtil.Sign(String.Empty, String.Empty, null, String.Empty, DateTime.Now, String.Empty);
+            Assert.That(() => DigitalSignatureUtil.Sign(String.Empty, String.Empty, null, String.Empty, DateTime.Now, String.Empty),
+                Throws.TypeOf<ArgumentException>());
+            
         }
 
         [Test]
-        [ExpectedException(typeof(NullReferenceException))]
         public void NoCertificateForSign()
         {
             //ByDocument
@@ -152,7 +152,8 @@ namespace ApiExamples
             string outputDocFileName = MyDir + @"\Artifacts\Document.Signed.doc";
 
             // Digitally sign encrypted with "docPassword" document in the specified path.
-            DigitalSignatureUtil.Sign(doc.OriginalFileName, outputDocFileName, null, "Comment", DateTime.Now, "docPassword");
+            Assert.That(() => DigitalSignatureUtil.Sign(doc.OriginalFileName, outputDocFileName, null, "Comment", DateTime.Now, "docPassword"),
+               Throws.TypeOf<ArgumentException>());
         }
         
     }
