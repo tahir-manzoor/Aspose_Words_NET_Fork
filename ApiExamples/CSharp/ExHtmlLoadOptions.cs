@@ -33,7 +33,7 @@ namespace ApiExamples
         {
             HtmlLoadOptions loadOptions = new HtmlLoadOptions();
 
-            Assert.Equals(100000, loadOptions.WebRequestTimeout);
+            Assert.AreEqual(100000, loadOptions.WebRequestTimeout);
         }
     }
 }

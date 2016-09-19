@@ -153,7 +153,7 @@ namespace ApiExamples
 
             // Digitally sign encrypted with "docPassword" document in the specified path.
             Assert.That(() => DigitalSignatureUtil.Sign(doc.OriginalFileName, outputDocFileName, null, "Comment", DateTime.Now, "docPassword"),
-               Throws.TypeOf<ArgumentException>());
+               Throws.TypeOf<NullReferenceException>());
         }
         
     }

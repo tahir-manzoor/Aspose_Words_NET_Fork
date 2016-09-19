@@ -11,6 +11,7 @@ using NUnit.Framework;
 
 using System;
 using System.IO;
+using Aspose.Words.Saving;
 
 namespace ApiExamples
 {
@@ -59,12 +60,6 @@ namespace ApiExamples
 
             Save(doc, "HtmlSaveOptions.ExportToHtmlUsingImage" + saveFormat.ToString().ToLower(), saveFormat, saveOptions);
         }
-
-            Aspose.Words.Saving.HtmlSaveOptions htmlSaveOptions = new Aspose.Words.Saving.HtmlSaveOptions
-            {
-                SaveFormat = saveFormat, 
-                ExportPageMargins = true
-            };
             
         #endregion
 

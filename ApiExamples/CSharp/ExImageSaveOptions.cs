@@ -39,7 +39,7 @@ namespace ApiExamples
             Document doc = new Document(MyDir + "SaveOptions.MyraidPro.docx");
 
             ImageSaveOptions saveOptions = new ImageSaveOptions(SaveFormat.Gif);
-            saveOptions.PageIndex = 1;
+            saveOptions.PageIndex = 0;
 
             doc.Save(MyDir + @"\Artifacts\SaveOptions.MyraidPro Out.gif", saveOptions);
         }

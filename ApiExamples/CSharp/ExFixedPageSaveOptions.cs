@@ -47,7 +47,7 @@ namespace ApiExamples
 
         //ToDo: Need to add asserts
         [Test]
-        [TestCaseSource("CountEqualsZeroAndHouseGrossIsGreaterTestCases")]
+        [TestCaseSource(nameof(CountEqualsZeroAndHouseGrossIsGreaterTestCases))]
         public void JpegQualityDefaultValue(FixedPageSaveOptions objectSaveOptions)
         {
             FixedPageSaveOptions saveOptions = objectSaveOptions;
@@ -55,7 +55,7 @@ namespace ApiExamples
         }
 
         [Test]
-        [TestCaseSource("MetafileRenderingOptions")]
+        [TestCaseSource(nameof(MetafileRenderingOptions))]
         public void MetafileRendering(FixedPageSaveOptions objectSaveOptions, MetafileRenderingMode metafileRendering)
         {
             Document doc = new Document();
