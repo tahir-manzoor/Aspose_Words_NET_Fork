@@ -120,15 +120,15 @@ namespace ApiExamples
         }
 
         [Test]
-        public void MetafileRendering()
+        [TestCase(MetafileRenderingMode.Bitmap)]
+        [TestCase(MetafileRenderingMode.Vector)]
+        [TestCase(MetafileRenderingMode.VectorWithFallback)]
+        public void MetafileRendering(MetafileRenderingMode metafileRendering)
         {
             Document doc = new Document();
 
-            MetafileRenderingOptions renderingOptions = new MetafileRenderingOptions();
-            renderingOptions.RenderingMode = MetafileRenderingMode.Bitmap;
-
-            FixedPageSaveOptions saveOptions = new SwfSaveOptions();
-            //saveOptions.MetafileRenderingOptions = renderingOptions; //ToDo: need answer from developer
+            SwfSaveOptions saveOptions = new SwfSaveOptions();
+            saveOptions.MetafileRenderingOptions.RenderingMode = metafileRendering;
 
             doc.Save(MyDir + @"\Artifacts\MetafileRendering.swf", saveOptions);
         }

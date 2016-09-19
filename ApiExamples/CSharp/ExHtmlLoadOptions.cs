@@ -15,6 +15,7 @@ namespace ApiExamples
     [TestFixture]
     internal class ExHtmlLoadOptions : ApiExampleBase
     {
+        //ToDo: Add asserts
         [Test]
         [TestCase(true)]
         [TestCase(false)]
@@ -27,6 +28,7 @@ namespace ApiExamples
             Document doc = new Document(MyDir + "", loadOptions);
         }
 
+        [Test]
         public void WebRequestTimeoutDefaultValue()
         {
             HtmlLoadOptions loadOptions = new HtmlLoadOptions();

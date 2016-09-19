@@ -14,6 +14,7 @@ using Aspose.Words.Replacing;
 
 using NUnit.Framework;
 
+//ToDo: Need to delete some tests
 namespace ApiExamples
 {
     [TestFixture]
@@ -269,6 +270,39 @@ namespace ApiExamples
         }
 
         #endregion
+
+        [Test]
+        public void ReplaceNumbersAsHex()
+        {
+            Document doc = new Document();
+            DocumentBuilder builder = new DocumentBuilder(doc);
+
+            builder.Font.Name = "Arial";
+            builder.Write("There are few numbers that should be converted to HEX and highlighted: 123, 456, 789 and 17379.");
+
+            FindReplaceOptions options = new FindReplaceOptions();
+            
+            // Highlight newly inserted content.
+            options.ApplyFont.HighlightColor = Color.DarkOrange;
+            options.ReplacingCallback = new NumberHexer();
+
+            int count = doc.Range.Replace(new Regex("[0-9]+"), "", options);
+        }
+
+        // Customer defined callback.
+        private class NumberHexer : IReplacingCallback
+        {
+            public ReplaceAction Replacing(ReplacingArgs args)
+            {
+                // Parse numbers.
+                int number = Convert.ToInt32(args.Match.Value);
+                
+                // And write it as HEX.
+                args.Replacement = string.Format("0x{0:X}", number);
+
+                return ReplaceAction.Replace;
+            }
+        }
 
         [Test]
         public void DeleteSelection()

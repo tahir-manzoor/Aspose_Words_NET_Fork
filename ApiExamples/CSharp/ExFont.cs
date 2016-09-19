@@ -133,6 +133,8 @@ namespace ApiExamples
             
             FontInfoCollection fontInfos = doc.FontInfos;
             fontInfos.EmbedTrueTypeFonts = embedTrueTypeFonts;
+            fontInfos.EmbedSystemFonts = embedSystemFonts;
+            fontInfos.SaveSubsetFonts = saveSubsetFonts;
 
             doc.Save(MyDir + @"/Artifacts/Document.doc");
         }

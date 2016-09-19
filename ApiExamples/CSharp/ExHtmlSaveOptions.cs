@@ -12,13 +12,12 @@ using NUnit.Framework;
 
 namespace ApiExamples
 {
-    //ToDo: Need to add gold assert tests
     [TestFixture]
     internal class ExHtmlSaveOptions : ApiExampleBase
     {
         #region PageMargins
 
-        //For assert this test you need to open html docs and they shouldn't have negative left margins
+        //For assert this test you need to open html docs and they shouldn't have negative left margins //ToDo: Need to add gold assert tests
         [Test]
         [TestCase(SaveFormat.Html)]
         [TestCase(SaveFormat.Mhtml)]
@@ -36,6 +35,7 @@ namespace ApiExamples
 
         #endregion
 
+        //ToDo: Need to add asserts
         #region HtmlOfficeMathOutputMode
 
         [Test]
@@ -60,6 +60,7 @@ namespace ApiExamples
 
         #endregion
 
+        //ToDo: Add asserts
         #region ExportTextBoxAsSvg
 
         [Test]
