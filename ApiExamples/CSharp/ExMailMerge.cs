@@ -5,11 +5,6 @@
 // "as is", without warranty of any kind, either expressed or implied.
 //////////////////////////////////////////////////////////////////////////
 
-//ExStart
-//ExId:UsingReportingNamespace
-//ExSummary:Include the following statement in your code if you are using mail merge functionality.
-//ExEnd
-
 using System;
 using System.Data;
 using System.Data.OleDb;

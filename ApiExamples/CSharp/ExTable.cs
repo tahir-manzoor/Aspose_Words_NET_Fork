@@ -10,14 +10,13 @@ using System.Drawing;
 
 using Aspose.Words;
 using Aspose.Words.Drawing;
+using Aspose.Words.Replacing;
 using Aspose.Words.Tables;
 
 using NUnit.Framework;
 
 namespace ApiExamples
 {
-    using Aspose.Words.Replacing;
-
     /// <summary>
     /// Examples using tables in documents.
     /// </summary>

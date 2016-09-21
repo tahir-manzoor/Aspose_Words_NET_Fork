@@ -13,15 +13,13 @@ using Aspose.Words;
 using Aspose.Words.Drawing;
 using Aspose.Words.Drawing.Charts;
 using Aspose.Words.Fields;
+using Aspose.Words.Replacing;
 using Aspose.Words.Tables;
-
 
 using NUnit.Framework;
 
 namespace ApiExamples
 {
-    using Aspose.Words.Replacing;
-
     [TestFixture]
     public class ExDocumentBuilder : ApiExampleBase
     {

@@ -17,10 +17,10 @@ using Aspose.Words.Tables;
 
 using NUnit.Framework;
 
+using System.IO;
+
 namespace ApiExamples
 {
-    using System.IO;
-
     [TestFixture]
     public class ExFont : ApiExampleBase
     {

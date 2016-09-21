@@ -9,13 +9,12 @@ using Aspose.Words;
 using Aspose.Words.Drawing;
 using Aspose.Words.Saving;
 using Aspose.Words.Tables;
+using Aspose.Words.Replacing;
 
 using NUnit.Framework;
 
 namespace ApiExamples
 {
-    using Aspose.Words.Replacing;
-
     [TestFixture]
     public class ExHeaderFooter : ApiExampleBase
     {
