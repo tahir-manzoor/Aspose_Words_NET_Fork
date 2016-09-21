@@ -86,54 +86,54 @@ namespace ApiExamples
         }
 
         [Test]
-        [TestCase("Stream")]
-        [TestCase("Document")]
-        public void SingWithPasswordDecrypring(string source)
+        public void SingDocumentWithPasswordDecrypring()
         {
             // Create certificate holder from a file.
             CertificateHolder ch = CertificateHolder.Create(MyDir + "certificate.pfx", "123456");
 
-            if (source == "Document")
+            //ByDocument
+            Document doc = new Document(MyDir + "Document.doc");
+            string outputDocFileName = MyDir + @"\Artifacts\Document.Signed.doc";
+
+            // Digitally sign encrypted with "docPassword" document in the specified path.
+            DigitalSignatureUtil.Sign(doc.OriginalFileName, outputDocFileName, ch, "Comment", DateTime.Now, "docPassword");
+
+            // Open encrypted document from a file.
+            Document signedDoc = new Document(outputDocFileName, new LoadOptions("docPassword"));
+
+            // Check that encrypted document was successfully signed.
+            DigitalSignatureCollection signatures = signedDoc.DigitalSignatures;
+            if (signatures.IsValid && (signatures.Count > 0))
             {
-                //ByDocument
-                Document doc = new Document(MyDir + "Document.doc");
-                string outputDocFileName = MyDir + @"\Artifacts\Document.Signed.doc";
-
-                // Digitally sign encrypted with "docPassword" document in the specified path.
-                DigitalSignatureUtil.Sign(doc.OriginalFileName, outputDocFileName, ch, "Comment", DateTime.Now, "docPassword");
-
-                // Open encrypted document from a file.
-                Document signedDoc = new Document(outputDocFileName, new LoadOptions("docPassword"));
-
-                // Check that encrypted document was successfully signed.
-                DigitalSignatureCollection signatures = signedDoc.DigitalSignatures;
-                if (signatures.IsValid && (signatures.Count > 0))
-                {
-                    Assert.Pass(); //The document was signed successfully
-                }
+                Assert.Pass(); //The document was signed successfully
             }
-            else
+        }
+
+        [Test]
+        public void SingStreamDocumentWithPasswordDecrypring()
+        {
+            // Create certificate holder from a file.
+            CertificateHolder ch = CertificateHolder.Create(MyDir + "certificate.pfx", "123456");
+
+            //By Stream
+            Stream docInStream = new FileStream(MyDir + "Document.doc", FileMode.Open);
+            Stream docOutStream = new FileStream(MyDir + @"\Artifacts\Document.Signed.doc", FileMode.OpenOrCreate);
+
+            // Digitally sign encrypted with "docPassword" document in the specified path.
+            DigitalSignatureUtil.Sign(docInStream, docOutStream, ch, "Comment", DateTime.Now, "docPassword");
+
+            // Open encrypted document from a file.
+            Document signedDoc = new Document(docOutStream, new LoadOptions("docPassword"));
+
+            // Check that encrypted document was successfully signed.
+            DigitalSignatureCollection signatures = signedDoc.DigitalSignatures;
+            if (signatures.IsValid && (signatures.Count > 0))
             {
-                //By Stream
-                Stream docInStream = new FileStream(MyDir + "Document.doc", FileMode.Open);
-                Stream docOutStream = new FileStream(MyDir + @"\Artifacts\Document.Signed.doc", FileMode.OpenOrCreate);
-
-                // Digitally sign encrypted with "docPassword" document in the specified path.
-                DigitalSignatureUtil.Sign(docInStream, docOutStream, ch, "Comment", DateTime.Now, "docPassword");
-
-                // Open encrypted document from a file.
-                Document signedDoc = new Document(docOutStream, new LoadOptions("docPassword"));
-
-                // Check that encrypted document was successfully signed.
-                DigitalSignatureCollection signatures = signedDoc.DigitalSignatures;
-                if (signatures.IsValid && (signatures.Count > 0))
-                {
-                    Assert.Pass(); //The document was signed successfully
-                }
-
-                docInStream.Dispose();
-                docOutStream.Dispose();
+                Assert.Pass(); //The document was signed successfully
             }
+
+            docInStream.Dispose();
+            docOutStream.Dispose();
         }
 
         [Test]
