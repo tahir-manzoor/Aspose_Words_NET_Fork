@@ -107,7 +107,7 @@ namespace ApiExamples
             //ExEnd
         }
 
-        [Ignore("Bug defaul value")]
+        [Ignore("Bug with defaul value")]
         [Test]
         public void DefaulValuesEmbeddedFontsParametrs()
         {

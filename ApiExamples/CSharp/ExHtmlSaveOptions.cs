@@ -43,13 +43,7 @@ namespace ApiExamples
 
         [Test]
         [TestCase(SaveFormat.Html, HtmlOfficeMathOutputMode.Image)]
-        [TestCase(SaveFormat.Mhtml, HtmlOfficeMathOutputMode.Image)]
-        [TestCase(SaveFormat.Epub, HtmlOfficeMathOutputMode.Image)]
-        [TestCase(SaveFormat.Html, HtmlOfficeMathOutputMode.MathML)]
         [TestCase(SaveFormat.Mhtml, HtmlOfficeMathOutputMode.MathML)]
-        [TestCase(SaveFormat.Epub, HtmlOfficeMathOutputMode.MathML)]
-        [TestCase(SaveFormat.Html, HtmlOfficeMathOutputMode.Text)]
-        [TestCase(SaveFormat.Mhtml, HtmlOfficeMathOutputMode.Text)]
         [TestCase(SaveFormat.Epub, HtmlOfficeMathOutputMode.Text)]
         public void ExportToHtmlUsingImage(SaveFormat saveFormat, HtmlOfficeMathOutputMode outputMode)
         {
@@ -110,7 +104,7 @@ namespace ApiExamples
         {
             Document doc = new Document(MyDir + "ExportUrlForLinkedImage.docx");
 
-            Aspose.Words.Saving.HtmlSaveOptions saveOptions = new Aspose.Words.Saving.HtmlSaveOptions();
+            HtmlSaveOptions saveOptions = new HtmlSaveOptions();
             saveOptions.ExportOriginalUrlForLinkedImages = export;
 
             doc.Save(MyDir + @"\Artifacts\ExportUrlForLinkedImage.html", saveOptions);
@@ -135,7 +129,7 @@ namespace ApiExamples
         {
             Document doc = new Document(MyDir + "HtmlSaveOptions.ExportPageMargins.docx");
 
-            Aspose.Words.Saving.HtmlSaveOptions saveOptions = new Aspose.Words.Saving.HtmlSaveOptions();
+            HtmlSaveOptions saveOptions = new HtmlSaveOptions();
             saveOptions.ExportRoundtripInformation = valueHtml;
 
             doc.Save(MyDir + @"\Artifacts\HtmlSaveOptions.RoundtripInformation.html");
@@ -158,13 +152,13 @@ namespace ApiExamples
         public void RoundtripInformationDefaulValue()
         {
             //Assert that default value is true for HTML and false for MHTML and EPUB.
-            Aspose.Words.Saving.HtmlSaveOptions saveOptions = new Aspose.Words.Saving.HtmlSaveOptions(SaveFormat.Html);
+            HtmlSaveOptions saveOptions = new HtmlSaveOptions(SaveFormat.Html);
             Assert.AreEqual(true, saveOptions.ExportRoundtripInformation);
 
-            saveOptions = new Aspose.Words.Saving.HtmlSaveOptions(SaveFormat.Mhtml);
+            saveOptions = new HtmlSaveOptions(SaveFormat.Mhtml);
             Assert.AreEqual(false, saveOptions.ExportRoundtripInformation);
 
-            saveOptions = new Aspose.Words.Saving.HtmlSaveOptions(SaveFormat.Epub);
+            saveOptions = new HtmlSaveOptions(SaveFormat.Epub);
             Assert.AreEqual(false, saveOptions.ExportRoundtripInformation);
         }
 
