@@ -15,7 +15,7 @@ namespace ApiExamples
     [TestFixture]
     internal class ExHtmlLoadOptions : ApiExampleBase
     {
-        //ToDo: Add asserts
+        //ToDo: Add asserts and correct document
         [Test]
         [TestCase(true)]
         [TestCase(false)]
