@@ -45,7 +45,7 @@ namespace ApiExamples
             HtmlFixedSaveOptions htmlFixedSaveOptions = new HtmlFixedSaveOptions { PageIndex = 0, PageCount = doc.PageCount };
             htmlFixedSaveOptions.PageSavingCallback = new CustomPageFileNamePageSavingCallback();
 
-            doc.Save(MyDir + @"\Artifacts\out.html", htmlFixedSaveOptions);
+            doc.Save(MyDir + @"\Artifacts\Rendering.html", htmlFixedSaveOptions);
 
             string[] filePaths = Directory.GetFiles(MyDir, "Page_*.html");
 
@@ -65,7 +65,7 @@ namespace ApiExamples
             HtmlFixedSaveOptions htmlFixedSaveOptions = new HtmlFixedSaveOptions { PageIndex = 0, PageCount = doc.PageCount };
             htmlFixedSaveOptions.PageSavingCallback = new CustomPageStreamPageSavingCallback();
 
-            doc.Save(MyDir + @"\Artifacts\out.html", htmlFixedSaveOptions);
+            doc.Save(MyDir + @"\Artifacts\Rendering.html", htmlFixedSaveOptions);
 
             docStream.Close();
         }
@@ -78,7 +78,7 @@ namespace ApiExamples
             public void PageSaving(PageSavingArgs args)
             {
                 // Specify name of the output file for the current page.
-                args.PageFileName = string.Format(MyDir + "Page_{0}.html", args.PageIndex);
+                args.PageFileName = string.Format(MyDir + @"\Artifacts\Page_{0}.html", args.PageIndex);
             }
         }
 

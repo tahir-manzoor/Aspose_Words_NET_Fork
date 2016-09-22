@@ -30,7 +30,7 @@ namespace ApiExamples
             saveOptions.SaveFormat = saveFormat;
             saveOptions.ExportPageMargins = true;
 
-            Save(doc, "HtmlSaveOptions.ExportPageMargins." + saveFormat.ToString().ToLower(), saveFormat, saveOptions);
+            Save(doc, @"\Artifacts\HtmlSaveOptions.ExportPageMargins." + saveFormat.ToString().ToLower(), saveFormat, saveOptions);
         }
 
         #endregion
