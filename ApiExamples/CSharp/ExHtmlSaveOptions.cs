@@ -38,7 +38,7 @@ namespace ApiExamples
 
         #endregion
 
-        //ToDo: Need to add asserts
+        //ToDo: Need to add document with officemath 
         #region HtmlOfficeMathOutputMode
 
         [Test]
@@ -47,12 +47,28 @@ namespace ApiExamples
         [TestCase(SaveFormat.Epub, HtmlOfficeMathOutputMode.Text)]
         public void ExportToHtmlUsingImage(SaveFormat saveFormat, HtmlOfficeMathOutputMode outputMode)
         {
-            Document doc = new Document();
+            Document doc = new Document(MyDir + "Document.doc");
             
             HtmlSaveOptions saveOptions = new HtmlSaveOptions();
             saveOptions.OfficeMathOutputMode = outputMode;
 
-            Save(doc, "HtmlSaveOptions.ExportToHtmlUsingImage" + saveFormat.ToString().ToLower(), saveFormat, saveOptions);
+            Save(doc, @"\Artifacts\HtmlSaveOptions.ExportToHtmlUsingImage." + saveFormat.ToString().ToLower(), saveFormat, saveOptions);
+
+            switch (saveFormat)
+            {
+                case SaveFormat.Html:
+                    DocumentHelper.FindTextInFile(MyDir + @"\Artifacts\HtmlSaveOptions.ExportToHtmlUsingImage." + saveFormat.ToString().ToLower(), "<img src=\"HtmlSaveOptions.002.png\" width=\"227\" height=\"132\" alt=\"\" style=\"margin-top:74.51pt; margin-left:-23pt; -aw-left-pos:-22.5pt; -aw-rel-hpos:column; -aw-rel-vpos:page; -aw-top-pos:169.5pt; -aw-wrap-type:none; position:absolute\" />");
+                    return;
+
+                case SaveFormat.Mhtml:
+                    DocumentHelper.FindTextInFile(MyDir + @"\Artifacts\HtmlSaveOptions.ExportToHtmlUsingImage." + saveFormat.ToString().ToLower(), "<img src=\"HtmlSaveOptions.002.png\" width=\"227\" height=\"132\" alt=\"\" style=\"margin-top:74.51pt; margin-left:-23pt; -aw-left-pos:-22.5pt; -aw-rel-hpos:column; -aw-rel-vpos:page; -aw-top-pos:169.5pt; -aw-wrap-type:none; position:absolute\" />");
+                    return;
+
+                case SaveFormat.Epub:
+                    DocumentHelper.FindTextInFile(MyDir + @"\Artifacts\HtmlSaveOptions.ExportToHtmlUsingImage." + saveFormat.ToString().ToLower(), "<img src=\"HtmlSaveOptions.002.png\" width=\"227\" height=\"132\" alt=\"\" style=\"margin-top:74.51pt; margin-left:-23pt; -aw-left-pos:-22.5pt; -aw-rel-hpos:column; -aw-rel-vpos:page; -aw-top-pos:169.5pt; -aw-wrap-type:none; position:absolute\" />");
+                    return;
+            }
+            
         }
             
         #endregion
