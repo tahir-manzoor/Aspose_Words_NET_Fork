@@ -14,7 +14,6 @@ using Aspose.Words.Replacing;
 
 using NUnit.Framework;
 
-//ToDo: Need to delete some tests
 namespace ApiExamples
 {
     [TestFixture]
@@ -51,68 +50,9 @@ namespace ApiExamples
             Assert.AreEqual("Hello James Bond,\r\x000c", doc.GetText());
         }
 
-        /// <summary>
-        /// This calls the below method to resolve skipping of [Test] in VB.NET.
-        /// </summary>
-        [Test]
-        public void ReplaceWithInsertHtmlCaller()
-        {
-            this.ReplaceWithInsertHtml();
-        }
-
-        //ExStart
-        //ExFor:Range.Replace(Regex, string, FindReplaceOptions)
-        //ExFor:ReplacingArgs.Replacement
-        //ExFor:IReplacingCallback
-        //ExFor:IReplacingCallback.Replacing
-        //ExFor:ReplacingArgs
-        //ExFor:DocumentBuilder.InsertHtml(string)
-        //ExSummary:Replaces text specified with regular expression with HTML.
-        public void ReplaceWithInsertHtml()
-        {
-            // Open the document.
-            Document doc = new Document(MyDir + "Range.ReplaceWithInsertHtml.doc");
-            DocumentBuilder builder = new DocumentBuilder(doc);
-
-            builder.Writeln("Hello <CustomerName>,");
-
-            FindReplaceOptions options = new FindReplaceOptions();
-            options.Direction = FindReplaceDirection.Backward;
-            options.ReplacingCallback = new ReplaceWithHtmlEvaluator();
-
-            doc.Range.Replace(new Regex(@"<CustomerName>"), "", options); //instead of obsolete method doc.Range.Replace(new Regex(@"<CustomerName>"), new ReplaceWithHtmlEvaluator(), false)
-
-            // Save the modified document.
-            doc.Save(MyDir + @"\Artifacts\Range.ReplaceWithInsertHtml.doc");
-
-            Assert.AreEqual("Hello James Bond,\r\x000c", doc.GetText());  //ExSkip
-        }
-
-        private class ReplaceWithHtmlEvaluator : IReplacingCallback
-        {
-            /// <summary>
-            /// NOTE: This is a simplistic method that will only work well when the match
-            /// starts at the beginning of a run.
-            /// </summary>
-            ReplaceAction IReplacingCallback.Replacing(ReplacingArgs e)
-            {
-                DocumentBuilder builder = new DocumentBuilder((Document)e.MatchNode.Document);
-                builder.MoveTo(e.MatchNode);
-                // Replace '<CustomerName>' text with a red bold name.
-                builder.InsertHtml("<b><font color='red'>James Bond</font></b>");
-
-                e.Replacement = "";
-                return ReplaceAction.Replace;
-            }
-        }
-        //ExEnd
-
         [Test]
         public void ReplaceWithString()
         {
-            //ExStart
-            //ExFor:Range
-            //ExSummary:Shows how to replace all occurrences of word "sad" to "bad".
             Document doc = new Document(MyDir + "Document.doc");
             DocumentBuilder builder = new DocumentBuilder(doc);
 
@@ -124,8 +64,7 @@ namespace ApiExamples
             options.FindWholeWordsOnly = true;
 
             doc.Range.Replace("sad", "bad", options);
-            //ExEnd
-
+            
             doc.Save(MyDir + @"\Artifacts\ReplaceWithString.doc");
         }
 
@@ -142,56 +81,18 @@ namespace ApiExamples
             doc.Save(MyDir + @"\Artifacts\ReplaceWithRegex.doc");
         }
 
-        /// <summary>
-        /// This calls the below method to resolve skipping of [Test] in VB.NET.
-        /// </summary>
-        [Test]
-        public void ReplaceWithEvaluatorCaller()
-        {
-            this.ReplaceWithEvaluator();
-        }
-
-        //ExStart
-        //ExFor:Range
-        //ExFor:ReplacingArgs.Match
-        //ExSummary:Shows how to replace with a custom evaluator.
-        public void ReplaceWithEvaluator()
-        {
-            Document doc = new Document(MyDir + "Range.ReplaceWithEvaluator.doc");
-            DocumentBuilder builder = new DocumentBuilder(doc);
-
-            builder.Writeln("This one is sad.");
-            builder.Writeln("That one is mad.");
-
-            FindReplaceOptions options = new FindReplaceOptions();
-            options.Direction = FindReplaceDirection.Forward;
-            options.ReplacingCallback = new MyReplaceEvaluator();
-
-            doc.Range.Replace(new Regex("[s|m]ad"), "", options);
-
-            doc.Save(MyDir + @"\Artifacts\Range.ReplaceWithEvaluator.doc");
-        }
-
-        private class MyReplaceEvaluator : IReplacingCallback
-        {
-            /// <summary>
-            /// This is called during a replace operation each time a match is found.
-            /// This method appends a number to the match string and returns it as a replacement string.
-            /// </summary>
-            ReplaceAction IReplacingCallback.Replacing(ReplacingArgs e)
-            {
-                e.Replacement = e.Match.ToString() + this.mMatchNumber.ToString();
-                this.mMatchNumber++;
-                return ReplaceAction.Replace;
-            }
-
-            private int mMatchNumber;
-        }
-        //ExEnd
-
         [Test]
         public void ChangeTextToHyperlinks()
         {
+            //ExStart
+            //ExFor:Range
+            //ExFor:ReplacingArgs.Match
+            //ExFor:Range.Replace(Regex, string, FindReplaceOptions)
+            //ExFor:ReplacingArgs.Replacement
+            //ExFor:IReplacingCallback
+            //ExFor:IReplacingCallback.Replacing
+            //ExFor:ReplacingArgs
+            //ExSummary: Shows how to replace text to hyperlinks
             Document doc = new Document(MyDir + @"Range.ChangeTextToHyperlinks.doc");
             DocumentBuilder builder = new DocumentBuilder(doc);
 
@@ -206,7 +107,7 @@ namespace ApiExamples
             options.ReplacingCallback = new ChangeTextToHyperlinksEvaluator(doc);
 
             // Run replacement, using regular expression and evaluator.
-            doc.Range.Replace(regexUrl, "", options);
+            doc.Range.Replace(regexUrl, "", options); //instead of obsolete method doc.Range.Replace(System.Text.RegularExpressions.Regex, Aspose.Words.Replacing.IReplacingCallback, bool)
 
             // Save updated document.
             doc.Save(MyDir + @"\Artifacts\Range.ChangeTextToHyperlinks.docx");
@@ -268,6 +169,7 @@ namespace ApiExamples
 
             private readonly DocumentBuilder mBuilder;
         }
+        //ExEnd
 
         #endregion
 
