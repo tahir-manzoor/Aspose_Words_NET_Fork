@@ -18,7 +18,7 @@ namespace ApiExamples
     [TestFixture]
     public class ExReportingEngine : ApiExampleBase
     {
-        private readonly string _image = MyDir + "Test_636_852.gif";
+        private readonly string _image = MyDir + @"\Images\Test_636_852.gif";
 
         [Test]
         public void StretchImagefitHeight()

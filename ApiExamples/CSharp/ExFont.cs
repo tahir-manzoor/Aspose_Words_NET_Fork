@@ -616,13 +616,13 @@ namespace ApiExamples
         [Test]
         public void FontSubstitutionWarningsClosestMatch()
         {
-            Document doc = new Document(MyDir + "DisapearingBulletPoints.doc");
+            Document doc = new Document(MyDir + "Font.DisapearingBulletPoints.doc");
 
             // Create a new class implementing IWarningCallback and assign it to the PdfSaveOptions class.
             ExRendering.HandleDocumentWarnings callback = new ExRendering.HandleDocumentWarnings();
             doc.WarningCallback = callback;
 
-            doc.Save(MyDir + @"\Artifacts\DisapearingBulletPoints.pdf");
+            doc.Save(MyDir + @"\Artifacts\Font.DisapearingBulletPoints.pdf");
 
             Assert.True(callback.mFontWarnings[0].Description.Equals("Font 'SymbolPS' has not been found. Using 'Wingdings' font instead. Reason: closest match according to font info from the document."));
         }

@@ -261,14 +261,14 @@ namespace ApiExamples
         [Test]
         public void BarCodeWord2Pdf()
         {
-            Document doc = new Document(MyDir + "BarCode.docx");
+            Document doc = new Document(MyDir + "Field.BarCode.docx");
 
             // Set custom barcode generator
             doc.FieldOptions.BarcodeGenerator = new CustomBarcodeGenerator();
 
-            doc.Save(MyDir + @"\Artifacts\BarCode.pdf");
+            doc.Save(MyDir + @"\Artifacts\Field.BarCode.pdf");
 
-            BarCodeReader barCode = BarCodeReaderPdf(MyDir + @"\Artifacts\BarCode.pdf");
+            BarCodeReader barCode = BarCodeReaderPdf(MyDir + @"\Artifacts\Field.BarCode.pdf");
             Assert.AreEqual("QR", barCode.GetCodeType().ToString());
         }
 
@@ -325,7 +325,7 @@ namespace ApiExamples
                 {
                     FieldIncludePicture includePicture = (FieldIncludePicture)field;
 
-                    includePicture.SourceFullName = MyDir + "dotnet-logo.png";
+                    includePicture.SourceFullName = MyDir + @"\Images\dotnet-logo.png";
                     includePicture.Update(true);
                 }
             }

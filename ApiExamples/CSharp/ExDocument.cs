@@ -477,7 +477,7 @@ namespace ApiExamples
             Document doc = new Document(MyDir + "Rendering.doc");
 
             // This is the directory we want the exported images to be saved to.
-            string imagesDir = Path.Combine(MyDir, "Images");
+            string imagesDir = Path.Combine(MyDir, "SaveHtmlWithOptions");
 
             // The folder specified needs to exist and should be empty.
             if (Directory.Exists(imagesDir))
@@ -496,6 +496,8 @@ namespace ApiExamples
             // Verify the images were saved to the correct location.
             Assert.IsTrue(File.Exists(MyDir + @"\Artifacts\Document.SaveWithOptions.html"));
             Assert.AreEqual(9, Directory.GetFiles(imagesDir).Length);
+
+            Directory.Delete(imagesDir, true);
         }
 
         /// <summary>
@@ -883,7 +885,7 @@ namespace ApiExamples
             options.DigitalSignatureDetails = new PdfDigitalSignatureDetails(ch, "Test Signing", "Aspose Office", DateTime.Now);
 
             // Save the document as PDF with the digital signature set.
-            doc.Save(MyDir + "Document.Signed Out.pdf", options);
+            doc.Save(MyDir + @"\Artifacts\Document.Signed.pdf", options);
             //ExEnd
         }
 
@@ -1549,6 +1551,7 @@ namespace ApiExamples
             //ExEnd
         }
 
+        //ToDo: add assert
         //For assert this test you need to open "HyphenationOptions OUT.docx" and check that hyphen are added in the end of the first line
         [Test]
         public void HyphenationOptions()
@@ -1570,7 +1573,7 @@ namespace ApiExamples
             Assert.AreEqual(720, doc.HyphenationOptions.HyphenationZone);
             Assert.AreEqual(true, doc.HyphenationOptions.HyphenateCaps);
 
-            doc.Save(MyDir + "HyphenationOptions.docx");
+            doc.Save(MyDir + @"\Artifacts\HyphenationOptions.docx");
         }
 
         [Test]

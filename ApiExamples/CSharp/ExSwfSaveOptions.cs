@@ -107,7 +107,7 @@ namespace ApiExamples
             SwfSaveOptions options = new SwfSaveOptions();
 
             // Read the image into byte array.
-            byte[] logoBytes = File.ReadAllBytes(MyDir + "LogoSmall.png");
+            byte[] logoBytes = File.ReadAllBytes(MyDir + @"\Images\LogoSmall.png");
 
             // Specify the logo image to use.
             options.LogoImageBytes = logoBytes;

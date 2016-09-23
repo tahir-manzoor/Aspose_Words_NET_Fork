@@ -33,7 +33,7 @@ namespace ApiExamples
             DocumentBuilder builder = new DocumentBuilder();
 
             builder.Write("Image from local file: ");
-            builder.InsertImage(MyDir + "Aspose.Words.gif");
+            builder.InsertImage(MyDir + @"\Images\Aspose.Words.gif");
             builder.Writeln();
 
             builder.Write("Image from an internet url, automatically downloaded for you: ");
@@ -53,7 +53,7 @@ namespace ApiExamples
             // This creates a builder and also an empty document inside the builder.
             DocumentBuilder builder = new DocumentBuilder();
 
-            Stream stream = File.OpenRead(MyDir + "Aspose.Words.gif");
+            Stream stream = File.OpenRead(MyDir + @"\Images\Aspose.Words.gif");
             try
             {
                 builder.Write("Image from stream: ");
@@ -78,7 +78,7 @@ namespace ApiExamples
             DocumentBuilder builder = new DocumentBuilder();
 
             // Insert a raster image.
-            Image rasterImage = Image.FromFile(MyDir + "Aspose.Words.gif");
+            Image rasterImage = Image.FromFile(MyDir + @"\Images\Aspose.Words.gif");
             try
             {
                 builder.Write("Raster image: ");
@@ -91,7 +91,7 @@ namespace ApiExamples
             }
 
             // Aspose.Words allows to insert a metafile too.
-            Image metafile = Image.FromFile(MyDir + "Hammer.wmf");
+            Image metafile = Image.FromFile(MyDir + @"\Images\Hammer.wmf");
             try
             {
                 builder.Write("Metafile: ");
@@ -130,7 +130,7 @@ namespace ApiExamples
             DocumentBuilder builder = new DocumentBuilder();
 
             // By default, the image is inline.
-            Shape shape = builder.InsertImage(MyDir + "Aspose.Words.gif");
+            Shape shape = builder.InsertImage(MyDir + @"\Images\Aspose.Words.gif");
 
             // Make the image float, put it behind text and center on the page.
             shape.WrapType = WrapType.None;
@@ -159,7 +159,7 @@ namespace ApiExamples
             DocumentBuilder builder = new DocumentBuilder();
 
             // By default, the image is inline.
-            Shape shape = builder.InsertImage(MyDir + "Hammer.wmf");
+            Shape shape = builder.InsertImage(MyDir + @"\Images\Hammer.wmf");
 
             // Make the image float, put it behind text and center on the page.
             shape.WrapType = WrapType.None;
@@ -188,7 +188,7 @@ namespace ApiExamples
             // This creates a builder and also an empty document inside the builder.
             DocumentBuilder builder = new DocumentBuilder();
 
-            Shape shape = builder.InsertImage(MyDir + "Hammer.wmf");
+            Shape shape = builder.InsertImage(MyDir + @"\Images\Hammer.wmf");
             shape.HRef = "http://www.aspose.com/Community/Forums/75/ShowForum.aspx";
             shape.ScreenTip = "Aspose.Words Support Forums";
 
@@ -206,7 +206,7 @@ namespace ApiExamples
             Document doc = new Document();
 
             Shape shape = new Shape(doc, ShapeType.Image);
-            shape.ImageData.SetImage(MyDir + "Hammer.wmf");
+            shape.ImageData.SetImage(MyDir + @"\Images\Hammer.wmf");
             shape.Width = 100;
             shape.Height = 100;
 
@@ -228,7 +228,7 @@ namespace ApiExamples
             //ExSummary:Shows how to insert a linked image into a document. 
             DocumentBuilder builder = new DocumentBuilder();
 
-            string imageFileName = MyDir + "Hammer.wmf";
+            string imageFileName = MyDir + @"\Images\Hammer.wmf";
 
             builder.Write("Image linked, not stored in the document: ");
 
@@ -373,7 +373,7 @@ namespace ApiExamples
             DocumentBuilder builder = new DocumentBuilder();
 
             // By default, the image is inserted at 100% scale.
-            Shape shape = builder.InsertImage(MyDir + "Aspose.Words.gif");
+            Shape shape = builder.InsertImage(MyDir + @"\Images\Aspose.Words.gif");
 
             // It is easy to change the shape size. In this case, make it 50% relative to the current shape size.
             shape.Width = shape.Width * 0.5;

@@ -271,7 +271,7 @@ namespace ApiExamples
             // The best place for the watermark image is in the header or footer so it is shown on every page.
             builder.MoveToHeaderFooter(HeaderFooterType.HeaderPrimary);
 
-            Image image = Image.FromFile(MyDir + "Watermark.png");
+            Image image = Image.FromFile(MyDir + @"\Images\Watermark.png");
 
             // Insert a floating picture.
             Shape shape = builder.InsertImage(image);
@@ -1460,7 +1460,7 @@ namespace ApiExamples
             Document doc = new Document();
             DocumentBuilder builder = new DocumentBuilder(doc);
 
-            builder.InsertImage(MyDir + "Watermark.png");
+            builder.InsertImage(MyDir + @"\Images\Watermark.png");
             //ExEnd
         }
 
@@ -1474,7 +1474,7 @@ namespace ApiExamples
             Document doc = new Document();
             DocumentBuilder builder = new DocumentBuilder(doc);
 
-            builder.InsertImage(MyDir + "Watermark.png",
+            builder.InsertImage(MyDir + @"\Images\Watermark.png",
                 RelativeHorizontalPosition.Margin,
                 100,
                 RelativeVerticalPosition.Margin,
@@ -1515,7 +1515,7 @@ namespace ApiExamples
             DocumentBuilder builder = new DocumentBuilder(doc);
 
             // Pass a negative value to the width and height values to specify using the size of the source image.
-            builder.InsertImage(MyDir + "LogoSmall.png",
+            builder.InsertImage(MyDir + @"\Images\LogoSmall.png",
                 RelativeHorizontalPosition.Margin,
                 200,
                 RelativeVerticalPosition.Margin,
@@ -1980,7 +1980,7 @@ namespace ApiExamples
             Document doc = new Document();
             DocumentBuilder builder = new DocumentBuilder(doc);
             
-            Image representingImage = Image.FromFile(MyDir + "Aspose.Words.gif");
+            Image representingImage = Image.FromFile(MyDir + @"\Images\Aspose.Words.gif");
             
             Shape oleObject = builder.InsertOleObject(MyDir + "Document.Spreadsheet.xlsx", false, false, representingImage);
             Shape oleObjectProgId = builder.InsertOleObject("http://www.aspose.com", "htmlfile", true, true, null);

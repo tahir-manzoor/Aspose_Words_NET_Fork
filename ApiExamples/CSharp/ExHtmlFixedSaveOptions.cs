@@ -7,6 +7,7 @@
 
 using System.Text;
 using System;
+using System.Windows.Forms;
 
 using Aspose.Words;
 using Aspose.Words.Saving;
@@ -15,6 +16,7 @@ using NUnit.Framework;
 
 namespace ApiExamples
 {
+    //ToDo: Need to add asserts, maybe golds
     [TestFixture]
     internal class ExHtmlFixedSaveOptions : ApiExampleBase
     {
@@ -59,7 +61,7 @@ namespace ApiExamples
                 ExportEmbeddedSvg = true
             };
 
-            doc.Save(MyDir + "EncodingUsingSystemTextEncoding.html", htmlFixedSaveOptions);
+            doc.Save(MyDir + @"\Artifacts\EncodingUsingSystemTextEncoding.html", htmlFixedSaveOptions);
         }
 
         [Test]
@@ -77,7 +79,7 @@ namespace ApiExamples
                 ExportEmbeddedSvg = true
             };
 
-            doc.Save(MyDir + "EncodingUsingNewEncoding.html", htmlFixedSaveOptions);
+            doc.Save(MyDir + @"\Artifacts\EncodingUsingNewEncoding.html", htmlFixedSaveOptions);
         }
 
         [Test]
@@ -95,7 +97,7 @@ namespace ApiExamples
                 ExportEmbeddedSvg = true
             };
 
-            doc.Save(MyDir + "EncodingUsingGetEncoding.html", htmlFixedSaveOptions);
+            doc.Save(MyDir + @"\Artifacts\EncodingUsingGetEncoding.html", htmlFixedSaveOptions);
         }
 
         [Test]
@@ -121,11 +123,11 @@ namespace ApiExamples
             //For assert test result you need to open documents and check that checkbox are clickable in "ExportFormFiels.html" file and are not clickable in "WithoutExportFormFiels.html" file
             if (exportFormFields == true)
             {
-                doc.Save(MyDir + "ExportFormFiels.html", htmlFixedSaveOptions);
+                doc.Save(MyDir + @"\Artifacts\ExportFormFiels.html", htmlFixedSaveOptions);
             }
             else
             {
-                doc.Save(MyDir + "WithoutExportFormFiels.html", htmlFixedSaveOptions);
+                doc.Save(MyDir + @"\Artifacts\WithoutExportFormFiels.html", htmlFixedSaveOptions);
             }
         }
 

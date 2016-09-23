@@ -162,7 +162,7 @@ namespace ApiExamples
                     Shape image = new Shape(doc, ShapeType.Image);
 
                     // Load the image into the new shape.
-                    image.ImageData.SetImage(MyDir + "Hammer.wmf");
+                    image.ImageData.SetImage(MyDir + @"\Images\Hammer.wmf");
 
                     // Make new shape's position to match the old shape.
                     image.Left = shape.Left;
@@ -314,18 +314,18 @@ namespace ApiExamples
             Assert.AreEqual((float)39.25, renderer.OpaqueBoundsInPoints.Height);
         }
 
-        //For assert result of the test you need to open "Document.OfficeMath Out.svg" and check that OfficeMath node is there
+        //For assert result of the test you need to open "Shape.OfficeMath.svg" and check that OfficeMath node is there
         [Test]
         public void SaveShapeObjectAsImage()
         {
             //ExStart
             //ExFor:OfficeMath.GetMathRenderer.Save
             //ExSummary:Shows how to convert specific object into image
-            Document doc = new Document(MyDir + "Document.OfficeMath.docx");
+            Document doc = new Document(MyDir + "Shape.OfficeMath.docx");
 
             //Get OfficeMath node from the document and render this as image (you can also do the same with the Shape node)
             OfficeMath math = (OfficeMath)doc.GetChild(NodeType.OfficeMath, 0, true);
-            math.GetMathRenderer().Save(MyDir + "Document.OfficeMath Out.svg", new ImageSaveOptions(SaveFormat.Svg));
+            math.GetMathRenderer().Save(MyDir + @"\Artifacts\Shape.OfficeMath.svg", new ImageSaveOptions(SaveFormat.Svg));
             //ExEnd
         }
 
@@ -360,7 +360,7 @@ namespace ApiExamples
             Document doc = new Document();
             DocumentBuilder builder = new DocumentBuilder(doc);
 
-            Shape image = builder.InsertImage(MyDir + @"dotnet-logo.png");
+            Shape image = builder.InsertImage(MyDir + @"\Images\dotnet-logo.png");
 
             // Loop through all single shapes inside document.
             foreach (Shape shape in doc.GetChildNodes(NodeType.Shape, true))
@@ -383,7 +383,7 @@ namespace ApiExamples
             
             doc.CompatibilityOptions.OptimizeFor(msWordVersion);
             
-            Shape image = builder.InsertImage(MyDir + @"dotnet-logo.png");
+            Shape image = builder.InsertImage(MyDir + @"\Images\dotnet-logo.png");
 
             // Loop through all single shapes inside document.
             foreach (Shape shape in doc.GetChildNodes(NodeType.Shape, true))

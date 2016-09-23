@@ -15,7 +15,7 @@ namespace ApiExamples
     [TestFixture]
     internal class ExHtmlLoadOptions : ApiExampleBase
     {
-        //ToDo: Add asserts and correct document
+        //ToDo: Add asserts and correct document (need to use "Shape.VmlAndDml.docx")
         [Test]
         [TestCase(true)]
         [TestCase(false)]
