@@ -16,8 +16,6 @@ using NUnit.Framework;
 
 namespace ApiExamples
 {
-    using Aspose.Words.Replacing;
-
     [TestFixture]
     public class ExInsertDocument : ApiExampleBase
     {
