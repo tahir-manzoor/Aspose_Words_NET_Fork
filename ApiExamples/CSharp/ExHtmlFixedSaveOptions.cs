@@ -16,7 +16,7 @@ using NUnit.Framework;
 
 namespace ApiExamples
 {
-    //ToDo: Need to add asserts, maybe golds
+    //ToDo: Need to add golds
     [TestFixture]
     internal class ExHtmlFixedSaveOptions : ApiExampleBase
     {

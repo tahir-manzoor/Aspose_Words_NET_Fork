@@ -12,8 +12,6 @@ using NUnit.Framework;
 
 namespace ApiExamples
 {
-    using System.Data;
-
     [TestFixture]
     internal class ExImageSaveOptions : ApiExampleBase
     {
@@ -30,18 +28,21 @@ namespace ApiExamples
             //ExEnd
         }
 
+        //ToDo: Need to check gold test
         [Test]
         public void SaveIntoGif()
         {
-            //ToDo: Need to check gold test
-            //Test case 1: Assert that saving into gif format correct
-            //Test case 2: Assert that pageindex that we try to save are correct (pageindex shouldn't be the first)
+            //ExStart
+            //ExFor:ImageSaveOptions.UseGdiEmfRenderer
+            //ExSummary:Shows how to save specific document page as gif.
             Document doc = new Document(MyDir + "SaveOptions.MyraidPro.docx");
 
             ImageSaveOptions saveOptions = new ImageSaveOptions(SaveFormat.Gif);
+            //Define which page will save
             saveOptions.PageIndex = 0;
 
             doc.Save(MyDir + @"\Artifacts\SaveOptions.MyraidPro Out.gif", saveOptions);
+            //ExEnd
         }
     }
 }

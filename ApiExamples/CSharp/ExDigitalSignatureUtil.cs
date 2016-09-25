@@ -86,14 +86,34 @@ namespace ApiExamples
         }
 
         [Test]
+        public void IncorrectPasswordForDecrypring()
+        {
+            CertificateHolder ch = CertificateHolder.Create(MyDir + "certificate.pfx", "123456");
+
+            //ByDocument
+            Document doc = new Document(MyDir + "Document.Encrypted.docx", new LoadOptions("docPassword"));
+            string outputDocFileName = MyDir + @"\Artifacts\Document.Encrypted.docx";
+
+            // Digitally sign encrypted with "docPassword" document in the specified path.
+            Assert.That(
+                () =>
+                    DigitalSignatureUtil.Sign(doc.OriginalFileName, outputDocFileName, ch, "Comment", DateTime.Now, "docPassword1"),
+                Throws.TypeOf<IncorrectPasswordException>(), "The document password is incorrect.");
+        }
+
+        [Test]
         public void SingDocumentWithPasswordDecrypring()
         {
+            //ExStart
+            //ExFor:DigitalSignatureUtil.Sign(String, String, CertificateHolder, String, DateTime)
+            //ExFor:DigitalSignatureUtil.Sign(Stream, Stream, CertificateHolder, String, DateTime)
+            //ExSummary:Shows how to sign encrypted documents
             // Create certificate holder from a file.
             CertificateHolder ch = CertificateHolder.Create(MyDir + "certificate.pfx", "123456");
 
             //ByDocument
-            Document doc = new Document(MyDir + "Document.doc");
-            string outputDocFileName = MyDir + @"\Artifacts\Document.Signed.doc";
+            Document doc = new Document(MyDir + "Document.Encrypted.docx", new LoadOptions("docPassword"));
+            string outputDocFileName = MyDir + @"\Artifacts\Document.Encrypted.docx";
 
             // Digitally sign encrypted with "docPassword" document in the specified path.
             DigitalSignatureUtil.Sign(doc.OriginalFileName, outputDocFileName, ch, "Comment", DateTime.Now, "docPassword");
@@ -116,8 +136,8 @@ namespace ApiExamples
             CertificateHolder ch = CertificateHolder.Create(MyDir + "certificate.pfx", "123456");
 
             //By Stream
-            Stream docInStream = new FileStream(MyDir + "Document.doc", FileMode.Open);
-            Stream docOutStream = new FileStream(MyDir + @"\Artifacts\Document.Signed.doc", FileMode.OpenOrCreate);
+            Stream docInStream = new FileStream(MyDir + "Document.Encrypted.docx", FileMode.Open);
+            Stream docOutStream = new FileStream(MyDir + @"\Artifacts\Document.Encrypted.docx", FileMode.OpenOrCreate);
 
             // Digitally sign encrypted with "docPassword" document in the specified path.
             DigitalSignatureUtil.Sign(docInStream, docOutStream, ch, "Comment", DateTime.Now, "docPassword");

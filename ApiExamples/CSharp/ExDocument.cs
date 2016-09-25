@@ -1551,7 +1551,7 @@ namespace ApiExamples
             //ExEnd
         }
 
-        //ToDo: add assert
+        //ToDo: add gold assert
         //For assert this test you need to open "HyphenationOptions OUT.docx" and check that hyphen are added in the end of the first line
         [Test]
         public void HyphenationOptions()

@@ -6,8 +6,6 @@
 //////////////////////////////////////////////////////////////////////////
 
 using Aspose.Words;
-using Aspose.Words.Saving;
-
 using NUnit.Framework;
 
 namespace ApiExamples
@@ -15,24 +13,31 @@ namespace ApiExamples
     [TestFixture]
     internal class ExHtmlLoadOptions : ApiExampleBase
     {
-        //ToDo: Add asserts and correct document (need to use "Shape.VmlAndDml.docx")
+        //ToDo: Add gold asserts
         [Test]
         [TestCase(true)]
         [TestCase(false)]
         public void SupportVml(bool supportVml)
         {
+            //ExStart
+            //ExFor:HtmlLoadOptions.SupportVml
+            //ExSummary:Demonstrates how to parse html document with conditional comments like "&lt;!--[if gte vml 1]&gt;" and "&lt;![if !vml]&gt;"
             HtmlLoadOptions loadOptions = new HtmlLoadOptions();
+            
+            //If SupportVml = true, then we parse "&lt;!--[if gte vml 1]&gt;", else parse "&lt;![if !vml]&gt;"
             loadOptions.SupportVml = supportVml;
+            //Wait for a response, when loading external resources
             loadOptions.WebRequestTimeout = 1000;
-
-            Document doc = new Document(MyDir + "", loadOptions);
+            
+            Document doc = new Document(MyDir + "Shape.VmlAndDml.htm", loadOptions);
+            doc.Save(MyDir + @"\Artifacts\Shape.VmlAndDml.docx");
+            //ExEnd
         }
 
         [Test]
         public void WebRequestTimeoutDefaultValue()
         {
             HtmlLoadOptions loadOptions = new HtmlLoadOptions();
-
             Assert.AreEqual(100000, loadOptions.WebRequestTimeout);
         }
     }
