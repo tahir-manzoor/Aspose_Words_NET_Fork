@@ -81,97 +81,68 @@ namespace ApiExamples
             doc.Save(MyDir + @"\Artifacts\ReplaceWithRegex.doc");
         }
 
+        /// <summary>
+        /// This calls the below method to resolve skipping of [Test] in VB.NET.
+        /// </summary>
         [Test]
-        public void ChangeTextToHyperlinks()
+        public void ReplaceWithInsertHtmlCaller()
         {
-            //ExStart
-            //ExFor:Range
-            //ExFor:ReplacingArgs.Match
-            //ExFor:Range.Replace(Regex, string, FindReplaceOptions)
-            //ExFor:ReplacingArgs.Replacement
-            //ExFor:IReplacingCallback
-            //ExFor:IReplacingCallback.Replacing
-            //ExFor:ReplacingArgs
-            //ExSummary: Shows how to replace text to hyperlinks
+            this.ReplaceWithInsertHtml();
+        }
+
+        //ExStart
+        //ExFor:Range.Replace(Regex, string, FindReplaceOptions)
+        //ExFor:ReplacingArgs.Replacement
+        //ExFor:IReplacingCallback
+        //ExFor:IReplacingCallback.Replacing
+        //ExFor:ReplacingArgs
+        //ExFor:DocumentBuilder.InsertHtml(string)
+        //ExSummary:Replaces text specified with regular expression with HTML.
+        public void ReplaceWithInsertHtml()
+        {
+            // Open the document.
             Document doc = new Document();
             DocumentBuilder builder = new DocumentBuilder(doc);
 
-            builder.Writeln("http://www.aspose.com");
-            builder.Writeln("http://www.aspose.com/documentation/file-format-components/aspose.words-for-.net-and-java/index.html");
-
-            // Create regular expression for URL search
-            Regex regexUrl = new Regex(@"(?<Protocol>\w+):\/\/(?<Domain>[\w.]+\/?)\S*(?x)");
+            builder.Writeln("Hello <CustomerName>,");
 
             FindReplaceOptions options = new FindReplaceOptions();
-            options.Direction = FindReplaceDirection.Backward;
-            options.ReplacingCallback = new ChangeTextToHyperlinksEvaluator(doc);
+            options.ReplacingCallback = new ReplaceWithHtmlEvaluator(options);
 
-            // Run replacement, using regular expression and evaluator.
-            doc.Range.Replace(regexUrl, String.Empty, options); //instead of obsolete method doc.Range.Replace(System.Text.RegularExpressions.Regex, Aspose.Words.Replacing.IReplacingCallback, bool)
+            doc.Range.Replace(new Regex(@" <CustomerName>,"), String.Empty, options); //instead of obsolete method doc.Range.Replace(new Regex(@"<CustomerName>"), new ReplaceWithHtmlEvaluator(), false)
 
-            // Save updated document.
-            doc.Save(MyDir + @"\Artifacts\Range.ChangeTextToHyperlinks.docx");
+            // Save the modified document.
+            doc.Save(MyDir + @"\Artifacts\Range.ReplaceWithInsertHtml.doc");
+
+            Assert.AreEqual("James Bond, Hello\r\x000c", doc.GetText());  //ExSkip
         }
 
-        private class ChangeTextToHyperlinksEvaluator : IReplacingCallback
+        private class ReplaceWithHtmlEvaluator : IReplacingCallback
         {
-            internal ChangeTextToHyperlinksEvaluator(Document doc)
+            internal ReplaceWithHtmlEvaluator(FindReplaceOptions options)
             {
-                this.mBuilder = new DocumentBuilder(doc);
+                mOptions = options;
             }
 
+            /// <summary>
+            /// NOTE: This is a simplistic method that will only work well when the match
+            /// starts at the beginning of a run.
+            /// </summary>
             ReplaceAction IReplacingCallback.Replacing(ReplacingArgs e)
             {
-                // This is the run node that contains the found text. Note that the run might contain other 
-                // text apart from the URL. All the complexity below is just to handle that. I don't think there
-                // is a simpler way at the moment.
-                Run run = (Run)e.MatchNode;
+                DocumentBuilder builder = new DocumentBuilder((Document)e.MatchNode.Document);
+                builder.MoveTo(e.MatchNode);
 
-                Paragraph para = run.ParentParagraph;
+                // Replace '<CustomerName>' text with a red bold name.
+                builder.InsertHtml("<b><font color='red'>James Bond, </font></b>");
+                e.Replacement = "";
 
-                string url = e.Match.Value;
-
-                FindReplaceOptions options = new FindReplaceOptions();
-                options.MatchCase = true;
-                options.FindWholeWordsOnly = true;
-
-                // We are using \xbf (inverted question mark) symbol for temporary purposes.
-                // Any symbol will do that is non-special and is guaranteed not to be presented in the document.
-                // The purpose is to split the matched run into two and insert a hyperlink field between them.
-                para.Range.Replace(url, "\xbf", options);
-
-                Run subRun = (Run)run.Clone(false);
-                int pos = run.Text.IndexOf("\xbf");
-                subRun.Text = subRun.Text.Substring(0, pos);
-                run.Text = run.Text.Substring(pos + 1, run.Text.Length - pos - 1);
-
-                para.ChildNodes.Insert(para.ChildNodes.IndexOf(run), subRun);
-
-                this.mBuilder.MoveTo(run);
-
-                // Specify font formatting for the hyperlink.
-                this.mBuilder.Font.Color = Color.Blue;
-                this.mBuilder.Font.Underline = Underline.Single;
-
-                // Insert the hyperlink.
-                this.mBuilder.InsertHyperlink(url, url, false);
-
-                // Clear hyperlink formatting.
-                this.mBuilder.Font.ClearFormatting();
-
-                // Let's remove run if it is empty.
-                if (run.Text.Equals(""))
-                    run.Remove();
-
-                // No replace action is necessary - we have already done what we intended to do.
-                return ReplaceAction.Skip;
+                return ReplaceAction.Replace;
             }
 
-            private readonly DocumentBuilder mBuilder;
+            private readonly FindReplaceOptions mOptions;
         }
         //ExEnd
-
-        #endregion
 
         [Test]
         public void ReplaceNumbersAsHex()
@@ -205,6 +176,8 @@ namespace ApiExamples
                 return ReplaceAction.Replace;
             }
         }
+
+        #endregion
 
         [Test]
         public void DeleteSelection()
