@@ -28,7 +28,7 @@ namespace ApiExamples
             //ExFor:Range.Replace(String, String, FindReplaceOptions)
             //ExSummary:Simple find and replace operation.
             // Open the document.
-            Document doc = new Document(MyDir + "Range.ReplaceSimple.doc");
+            Document doc = new Document();
             DocumentBuilder builder = new DocumentBuilder(doc);
 
             builder.Writeln("Hello _CustomerName_,");
@@ -39,7 +39,7 @@ namespace ApiExamples
             FindReplaceOptions options = new FindReplaceOptions();
             options.MatchCase = false;
             options.FindWholeWordsOnly = false;
-
+            
             // Replace the text in the document.
             doc.Range.Replace("_CustomerName_", "James Bond", options); //instead of obsolete method doc.Range.Replace("_CustomerName_", "James Bond", false, false);
 
@@ -53,7 +53,7 @@ namespace ApiExamples
         [Test]
         public void ReplaceWithString()
         {
-            Document doc = new Document(MyDir + "Document.doc");
+            Document doc = new Document();
             DocumentBuilder builder = new DocumentBuilder(doc);
 
             builder.Writeln("This one is sad.");
@@ -93,7 +93,7 @@ namespace ApiExamples
             //ExFor:IReplacingCallback.Replacing
             //ExFor:ReplacingArgs
             //ExSummary: Shows how to replace text to hyperlinks
-            Document doc = new Document(MyDir + @"Range.ChangeTextToHyperlinks.doc");
+            Document doc = new Document();
             DocumentBuilder builder = new DocumentBuilder(doc);
 
             builder.Writeln("http://www.aspose.com");
@@ -107,7 +107,7 @@ namespace ApiExamples
             options.ReplacingCallback = new ChangeTextToHyperlinksEvaluator(doc);
 
             // Run replacement, using regular expression and evaluator.
-            doc.Range.Replace(regexUrl, "", options); //instead of obsolete method doc.Range.Replace(System.Text.RegularExpressions.Regex, Aspose.Words.Replacing.IReplacingCallback, bool)
+            doc.Range.Replace(regexUrl, String.Empty, options); //instead of obsolete method doc.Range.Replace(System.Text.RegularExpressions.Regex, Aspose.Words.Replacing.IReplacingCallback, bool)
 
             // Save updated document.
             doc.Save(MyDir + @"\Artifacts\Range.ChangeTextToHyperlinks.docx");

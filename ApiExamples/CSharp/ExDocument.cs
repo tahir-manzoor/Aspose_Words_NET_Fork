@@ -838,7 +838,7 @@ namespace ApiExamples
             //ExId:ValidateIndividualSignatures
             //ExSummary:Shows how to validate each signature in a document and display basic information about the signature.
             // Load the document which contains signature.
-            Document doc = new Document(MyDir + "Document.Signed.docx");
+            Document doc = new Document(MyDir + "Document.DigitalSignature.docx");
 
             foreach (DigitalSignature signature in doc.DigitalSignatures)
             {

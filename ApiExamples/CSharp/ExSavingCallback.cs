@@ -47,11 +47,11 @@ namespace ApiExamples
 
             doc.Save(MyDir + @"\Artifacts\Rendering.html", htmlFixedSaveOptions);
 
-            string[] filePaths = Directory.GetFiles(MyDir, "Page_*.html");
+            string[] filePaths = Directory.GetFiles(MyDir + @"\Artifacts\" , "Page_*.html");
 
             for (int i = 0; i < doc.PageCount; i++)
             {
-                string file = string.Format(MyDir + "Page_{0}.html", i);
+                string file = string.Format(MyDir + @"\Artifacts\Page_{0}.html", i);
                 Assert.AreEqual(file, filePaths[i]);
             }
         }

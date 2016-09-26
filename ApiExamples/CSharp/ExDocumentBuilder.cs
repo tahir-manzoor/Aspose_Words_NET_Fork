@@ -331,6 +331,7 @@ namespace ApiExamples
             //ExEnd
         }
 
+        //ToDo: Add gold asserts
         //For assert this test you need to open "MathML.docx" and "MathML.pdf" and check, that mathml code are render as "a 1 + b 1"
         [Test]
         public void InsertMathMl()
@@ -342,8 +343,8 @@ namespace ApiExamples
 
             builder.InsertHtml(MathMl);
 
-            doc.Save(MyDir + "MathML.docx");
-            doc.Save(MyDir + "MathML.pdf");
+            doc.Save(MyDir + @"\Artifacts\MathML.docx");
+            doc.Save(MyDir + @"\Artifacts\MathML.pdf");
         }
 
         [Test]

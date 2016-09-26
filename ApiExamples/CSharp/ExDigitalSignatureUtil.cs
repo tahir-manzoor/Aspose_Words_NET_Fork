@@ -25,7 +25,7 @@ namespace ApiExamples
             //ExFor:DigitalSignatureUtil.RemoveAllSignatures(String, String)
             //ExSummary:Shows how to remove every signature from a document.
             //By stream:
-            Stream docStreamIn = new FileStream(MyDir + "Document.doc", FileMode.Open);
+            Stream docStreamIn = new FileStream(MyDir + "Document.DigitalSignature.docx", FileMode.Open);
             Stream docStreamOut = new FileStream(MyDir + @"\Artifacts\Document.NoSignatures.FromStream.doc", FileMode.Create);
 
             DigitalSignatureUtil.RemoveAllSignatures(docStreamIn, docStreamOut);
@@ -34,7 +34,7 @@ namespace ApiExamples
             docStreamOut.Close();
 
             //By string:
-            Document doc = new Document(MyDir + "Document.doc");
+            Document doc = new Document(MyDir + "Document.DigitalSignature.docx");
             string outFileName = MyDir + @"\Artifacts\Document.NoSignatures.FromString.doc";
 
             DigitalSignatureUtil.RemoveAllSignatures(doc.OriginalFileName, outFileName);
@@ -48,14 +48,14 @@ namespace ApiExamples
             //ExFor:DigitalSignatureUtil.LoadSignatures(Stream)
             //ExFor:DigitalSignatureUtil.LoadSignatures(String)
             //ExSummary:Shows how to load signatures from a document by stream and by string.
-            Stream docStream = new FileStream(MyDir + "Document.doc", FileMode.Open);
+            Stream docStream = new FileStream(MyDir + "Document.DigitalSignature.docx", FileMode.Open);
 
             // By stream:
             DigitalSignatureCollection digitalSignatures = DigitalSignatureUtil.LoadSignatures(docStream);
             docStream.Close();
 
             // By string:
-            digitalSignatures = DigitalSignatureUtil.LoadSignatures(MyDir + "Document.doc");
+            digitalSignatures = DigitalSignatureUtil.LoadSignatures(MyDir + "Document.DigitalSignature.docx");
             //ExEnd
         }
 
@@ -69,14 +69,14 @@ namespace ApiExamples
             CertificateHolder ch = CertificateHolder.Create(MyDir + "certificate.pfx", "123456");
 
             //By String
-            Document doc = new Document(MyDir + "Document.doc");
-            string outputDocFileName = MyDir + @"\Artifacts\Document.Signed.doc";
+            Document doc = new Document(MyDir + "Document.DigitalSignature.docx");
+            string outputDocFileName = MyDir + @"\Artifacts\Document.DigitalSignature.docx";
 
             DigitalSignatureUtil.Sign(doc.OriginalFileName, outputDocFileName, ch, "My comment", DateTime.Now);
             
             //By Stream
-            Stream docInStream = new FileStream(MyDir + "Document.doc", FileMode.Open);
-            Stream docOutStream = new FileStream(MyDir + @"\Artifacts\Document.Signed.doc", FileMode.OpenOrCreate);
+            Stream docInStream = new FileStream(MyDir + "Document.DigitalSignature.docx", FileMode.Open);
+            Stream docOutStream = new FileStream(MyDir + @"\Artifacts\Document.DigitalSignature.docx", FileMode.OpenOrCreate);
 
             DigitalSignatureUtil.Sign(docInStream, docOutStream, ch, "My comment", DateTime.Now);
             //ExEnd
@@ -149,11 +149,11 @@ namespace ApiExamples
             DigitalSignatureCollection signatures = signedDoc.DigitalSignatures;
             if (signatures.IsValid && (signatures.Count > 0))
             {
+                docInStream.Dispose();
+                docOutStream.Dispose();
+
                 Assert.Pass(); //The document was signed successfully
             }
-
-            docInStream.Dispose();
-            docOutStream.Dispose();
         }
 
         [Test]
@@ -168,8 +168,8 @@ namespace ApiExamples
         public void NoCertificateForSign()
         {
             //ByDocument
-            Document doc = new Document(MyDir + "Document.doc");
-            string outputDocFileName = MyDir + @"\Artifacts\Document.Signed.doc";
+            Document doc = new Document(MyDir + "Document.DigitalSignature.docx");
+            string outputDocFileName = MyDir + @"\Artifacts\Document.DigitalSignature.docx";
 
             // Digitally sign encrypted with "docPassword" document in the specified path.
             Assert.That(() => DigitalSignatureUtil.Sign(doc.OriginalFileName, outputDocFileName, null, "Comment", DateTime.Now, "docPassword"),
