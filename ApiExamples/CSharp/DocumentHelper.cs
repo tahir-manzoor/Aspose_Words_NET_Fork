@@ -99,6 +99,19 @@ namespace ApiExamples
         }
 
         /// <summary>
+        /// Create new document template for reporting engine
+        /// </summary>
+        internal static Document CreateTemplateDocumentForReportingEngine(string templateText)
+        {
+            Document doc = new Document();
+            DocumentBuilder builder = new DocumentBuilder(doc);
+
+            builder.Write(templateText);
+
+            return doc;
+        }
+
+        /// <summary>
         /// Create new document with textbox shape and some query
         /// </summary>
         internal static Document CreateTemplateDocumentWithDrawObjects(string templateText, ShapeType shapeType)

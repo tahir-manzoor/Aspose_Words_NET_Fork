@@ -21,6 +21,34 @@ namespace ApiExamples
         private readonly string _image = MyDir + "Test_636_852.gif";
 
         [Test]
+        public void SimpleCase()
+        {
+            Document doc = DocumentHelper.CreateTemplateDocumentForReportingEngine("<<[s.Name]>> says: <<[s.Message]>>");
+
+            Sender sender = new Sender("LINQ Reporting Engine", "Hello World");
+
+            BuildReport(doc, sender, "s", ReportBuildOptions.None);
+
+            MemoryStream dstStream = new MemoryStream();
+            doc.Save(dstStream, SaveFormat.Docx);
+
+            Assert.AreEqual("LINQ Reporting Engine says: Hello World\f", doc.GetText());
+        }
+
+        public class Sender
+        {
+            public Sender(string name, string message)
+            {
+                this.Name = name;
+                this.Message = message;
+            }
+
+            public string Name { get; set; }
+
+            public string Message { get; set; }
+        }
+
+        [Test]
         public void StretchImagefitHeight()
         {
             Document doc = DocumentHelper.CreateTemplateDocumentWithDrawObjects("<<image [src.Image] -fitHeight>>", ShapeType.TextBox);
@@ -144,6 +172,12 @@ namespace ApiExamples
         }
 
         private static void BuildReport(Document document, object[] dataSource, string[] dataSourceName)
+        {
+            ReportingEngine engine = new ReportingEngine();
+            engine.BuildReport(document, dataSource, dataSourceName);
+        }
+
+        private static void BuildReport(Document document, object dataSource, string dataSourceName)
         {
             ReportingEngine engine = new ReportingEngine();
             engine.BuildReport(document, dataSource, dataSourceName);
