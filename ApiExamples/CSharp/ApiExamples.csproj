@@ -121,6 +121,9 @@
     <Compile Include="ExTabStopCollection.cs" />
     <Compile Include="ExVariableCollection.cs" />
     <Compile Include="ExWarningInfoCollection.cs" />
+    <Compile Include="TestClasses\TestClass3.cs" />
+    <Compile Include="TestClasses\TestClass2.cs" />
+    <Compile Include="TestClasses\TestClass1.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />

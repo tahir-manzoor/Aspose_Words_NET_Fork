@@ -8,6 +8,7 @@
 using System;
 using System.IO;
 using System.Data;
+using ApiExamples.TestClasses;
 using Aspose.Words;
 using Aspose.Words.Drawing;
 using Aspose.Words.Reporting;
@@ -25,7 +26,7 @@ namespace ApiExamples
         {
             Document doc = DocumentHelper.CreateTemplateDocumentForReportingEngine("<<[s.Name]>> says: <<[s.Message]>>");
 
-            Sender sender = new Sender("LINQ Reporting Engine", "Hello World");
+            TestClass1 sender = new TestClass1("LINQ Reporting Engine", "Hello World");
 
             BuildReport(doc, sender, "s", ReportBuildOptions.None);
 
@@ -35,17 +36,37 @@ namespace ApiExamples
             Assert.AreEqual("LINQ Reporting Engine says: Hello World\f", doc.GetText());
         }
 
-        public class Sender
+        [Test]
+        public void StringFormat()
         {
-            public Sender(string name, string message)
-            {
-                this.Name = name;
-                this.Message = message;
-            }
+            Document doc =
+                DocumentHelper.CreateTemplateDocumentForReportingEngine(
+                    "<<[s.Name]:lower>> says: <<[s.Message]:upper>>, <<[s.Message]:caps>>, <<[s.Message]:firstCap>>");
 
-            public string Name { get; set; }
+            TestClass1 sender = new TestClass1("LINQ Reporting Engine", "hello world");
+            BuildReport(doc, sender, "s");
 
-            public string Message { get; set; }
+            MemoryStream dstStream = new MemoryStream();
+            doc.Save(dstStream, SaveFormat.Docx);
+
+            Assert.AreEqual("linq reporting engine says: HELLO WORLD, Hello World, Hello world\f", doc.GetText());
+        }
+
+        [Test]
+        public void NumberFormat()
+        {
+            Document doc =
+                DocumentHelper.CreateTemplateDocumentForReportingEngine(
+                    "<<[s.FirstNumber]:alphabetic>> says: <<[s.SecondNumber]:roman>>, <<[s.ThirdNumber]:ordinal>>, <<[s.FirstNumber]:ordinalText>>" +
+                    ", <<[s.SecondNumber]:cardinal>>, <<[s.ThirdNumber]:hex>>, <<[s.ThirdNumber]:arabicDash>>");
+
+            TestClass3 sender = new TestClass3(1, 2, 200);
+            BuildReport(doc, sender, "s");
+
+            MemoryStream dstStream = new MemoryStream();
+            doc.Save(dstStream, SaveFormat.Docx);
+
+            Assert.AreEqual("A says: II, 200th, First, Two, C8, - 200 -\f", doc.GetText());
         }
 
         [Test]
@@ -53,7 +74,7 @@ namespace ApiExamples
         {
             Document doc = DocumentHelper.CreateTemplateDocumentWithDrawObjects("<<image [src.Image] -fitHeight>>", ShapeType.TextBox);
 
-            ImageStream imageStream = new ImageStream(new FileStream(this._image, FileMode.Open, FileAccess.Read));
+            TestClass2 imageStream = new TestClass2(new FileStream(this._image, FileMode.Open, FileAccess.Read));
 
             BuildReport(doc, imageStream, "src", ReportBuildOptions.None);
 
@@ -82,7 +103,7 @@ namespace ApiExamples
         {
             Document doc = DocumentHelper.CreateTemplateDocumentWithDrawObjects("<<image [src.Image] -fitWidth>>", ShapeType.TextBox);
 
-            ImageStream imageStream = new ImageStream(new FileStream(this._image, FileMode.Open, FileAccess.Read));
+            TestClass2 imageStream = new TestClass2(new FileStream(this._image, FileMode.Open, FileAccess.Read));
 
             BuildReport(doc, imageStream, "src", ReportBuildOptions.None);
 
@@ -111,7 +132,7 @@ namespace ApiExamples
         {
             Document doc = DocumentHelper.CreateTemplateDocumentWithDrawObjects("<<image [src.Image] -fitSize>>", ShapeType.TextBox);
 
-            ImageStream imageStream = new ImageStream(new FileStream(this._image, FileMode.Open, FileAccess.Read));
+            TestClass2 imageStream = new TestClass2(new FileStream(this._image, FileMode.Open, FileAccess.Read));
 
             BuildReport(doc, imageStream, "src", ReportBuildOptions.None);
 
@@ -183,14 +204,4 @@ namespace ApiExamples
             engine.BuildReport(document, dataSource, dataSourceName);
         }
     }
-}
-
-public class ImageStream
-{
-    public ImageStream(Stream stream)
-    {
-        this.Image = stream;
-    }
-
-    public Stream Image { get; set; }
 }
