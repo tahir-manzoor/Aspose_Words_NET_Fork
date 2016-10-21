@@ -6,13 +6,15 @@
 //////////////////////////////////////////////////////////////////////////
 
 using System;
-using System.IO;
 using System.Data;
-using ApiExamples.TestClasses;
+using System.IO;
+using System.Linq;
+using ApiExamples.TestData;
 using Aspose.Words;
 using Aspose.Words.Drawing;
 using Aspose.Words.Reporting;
 using NUnit.Framework;
+using DataSet = ApiExamples.TestData.DataSet;
 
 namespace ApiExamples
 {
@@ -67,6 +69,17 @@ namespace ApiExamples
             doc.Save(dstStream, SaveFormat.Docx);
 
             Assert.AreEqual("A : ii, 200th, FIRST, Two, C8, - 200 -, сентябрь\f", doc.GetText());
+        }
+
+        [Test]
+        public void DataTableTest()
+        {
+            Document doc = new Document(MyDir + "TestDataTable.docx");
+
+            DataSet ds = TestTables.AddClientsTestData();
+            BuildReport(doc, ds, "ds");
+
+            doc.Save(MyDir + "TestDataTable Out.docx");
         }
 
         [Test]
@@ -202,6 +215,12 @@ namespace ApiExamples
         {
             ReportingEngine engine = new ReportingEngine();
             engine.BuildReport(document, dataSource, dataSourceName);
+        }
+
+        private static void BuildReport(Document document, object dataSource)
+        {
+            ReportingEngine engine = new ReportingEngine();
+            engine.BuildReport(document, dataSource);
         }
     }
 }

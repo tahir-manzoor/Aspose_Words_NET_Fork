@@ -1,6 +1,6 @@
 ﻿using System.IO;
 
-namespace ApiExamples.TestClasses
+namespace ApiExamples.TestData
 {
     public class TestClass2
     {
