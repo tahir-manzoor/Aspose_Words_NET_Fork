@@ -57,16 +57,16 @@ namespace ApiExamples
         {
             Document doc =
                 DocumentHelper.CreateTemplateDocumentForReportingEngine(
-                    "<<[s.FirstNumber]:alphabetic>> says: <<[s.SecondNumber]:roman>>, <<[s.ThirdNumber]:ordinal>>, <<[s.FirstNumber]:ordinalText>>" +
-                    ", <<[s.SecondNumber]:cardinal>>, <<[s.ThirdNumber]:hex>>, <<[s.ThirdNumber]:arabicDash>>");
+                    "<<[s.FirstNumber]:alphabetic>> : <<[s.SecondNumber]:roman:lower>>, <<[s.ThirdNumber]:ordinal>>, <<[s.FirstNumber]:ordinalText:upper>>" +
+                    ", <<[s.SecondNumber]:cardinal>>, <<[s.ThirdNumber]:hex>>, <<[s.ThirdNumber]:arabicDash>>, <<[s.Date]:\"MMMM\":lower>>");
 
-            TestClass3 sender = new TestClass3(1, 2, 200);
+            TestClass3 sender = new TestClass3(1, 2.2, 200, DateTime.Parse("10.09.2016 10:00:00"));
             BuildReport(doc, sender, "s");
 
             MemoryStream dstStream = new MemoryStream();
             doc.Save(dstStream, SaveFormat.Docx);
 
-            Assert.AreEqual("A says: II, 200th, First, Two, C8, - 200 -\f", doc.GetText());
+            Assert.AreEqual("A : ii, 200th, FIRST, Two, C8, - 200 -, сентябрь\f", doc.GetText());
         }
 
         [Test]
