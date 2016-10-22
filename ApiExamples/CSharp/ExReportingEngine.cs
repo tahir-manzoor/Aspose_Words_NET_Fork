@@ -83,6 +83,32 @@ namespace ApiExamples
         }
 
         [Test]
+        public void NestedDataTableTest()
+        {
+            Document doc = new Document(MyDir + "TestNestedDataTable.docx");
+
+            DataSet ds = TestTables.AddClientsTestData();
+            BuildReport(doc, ds, "ds");
+
+            doc.Save(MyDir + "TestNestedDataTable Out.docx");
+        }
+
+        [Test]
+        public void ChartTest()
+        {
+            Document doc = new Document(MyDir + "TestChart.docx");
+
+            DataSet ds = TestTables.AddClientsTestData();
+            var sumManager1 = ds.Contracts.Where(c => c.ManagerId == "1").Sum(c => c.Price);
+            var sumManager2 = ds.Contracts.Where(c => c.ManagerId == "2").Sum(c => c.Price);
+            var sumManager3 = ds.Contracts.Where(c => c.ManagerId == "3").Sum(c => c.Price);
+
+            BuildReport(doc, ds.Managers, "managers");
+
+            doc.Save(MyDir + "TestChart Out.docx");
+        }
+
+        [Test]
         public void StretchImagefitHeight()
         {
             Document doc = DocumentHelper.CreateTemplateDocumentWithDrawObjects("<<image [src.Image] -fitHeight>>", ShapeType.TextBox);

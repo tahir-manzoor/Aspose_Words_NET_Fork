@@ -267,6 +267,7 @@ namespace ApiExamples.TestData {
             this.relationManagers_Contracts = new global::System.Data.DataRelation("Managers_Contracts", new global::System.Data.DataColumn[] {
                         this.tableManagers.IdColumn}, new global::System.Data.DataColumn[] {
                         this.tableContracts.ManagerIdColumn}, false);
+            this.relationManagers_Contracts.Nested = true;
             this.Relations.Add(this.relationManagers_Contracts);
             this.relationClients_Contracts = new global::System.Data.DataRelation("Clients_Contracts", new global::System.Data.DataColumn[] {
                         this.tableClients.IdColumn}, new global::System.Data.DataColumn[] {
