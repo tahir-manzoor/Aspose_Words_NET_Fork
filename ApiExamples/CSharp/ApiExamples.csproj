@@ -121,13 +121,13 @@
     <Compile Include="ExTabStopCollection.cs" />
     <Compile Include="ExVariableCollection.cs" />
     <Compile Include="ExWarningInfoCollection.cs" />
-    <Compile Include="TestData\DataSet.cs">
-      <DependentUpon>DataSet.xsd</DependentUpon>
+    <Compile Include="TestData\TestTables.cs">
+      <DependentUpon>TestTables.xsd</DependentUpon>
     </Compile>
-    <Compile Include="TestData\DataSet.Designer.cs">
+    <Compile Include="TestData\TestTables.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>DataSet.xsd</DependentUpon>
+      <DependentUpon>TestTables.xsd</DependentUpon>
     </Compile>
     <Compile Include="TestData\TestClass3.cs" />
     <Compile Include="TestData\TestClass2.cs" />
@@ -141,16 +141,16 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <None Include="TestData\DataSet.xsc">
-      <DependentUpon>DataSet.xsd</DependentUpon>
+    <None Include="TestData\TestTables.xsc">
+      <DependentUpon>TestTables.xsd</DependentUpon>
     </None>
-    <None Include="TestData\DataSet.xsd">
+    <None Include="TestData\TestTables.xsd">
       <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>DataSet.Designer.cs</LastGenOutput>
+      <LastGenOutput>TestTables.Designer.cs</LastGenOutput>
     </None>
-    <None Include="TestData\DataSet.xss">
-      <DependentUpon>DataSet.xsd</DependentUpon>
+    <None Include="TestData\TestTables.xss">
+      <DependentUpon>TestTables.xsd</DependentUpon>
     </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
