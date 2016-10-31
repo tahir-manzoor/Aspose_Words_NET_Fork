@@ -22,6 +22,7 @@ namespace ApiExamples
     public class ExReportingEngine : ApiExampleBase
     {
         private readonly string _image = MyDir + "Test_636_852.gif";
+        private readonly string _doc = MyDir + "ReportingEngine.TestDataTable.docx";
 
         [Test]
         public void SimpleCase()
@@ -74,38 +75,134 @@ namespace ApiExamples
         [Test]
         public void DataTableTest()
         {
-            Document doc = new Document(MyDir + "TestDataTable.docx");
+            Document doc = new Document(MyDir + "ReportingEngine.TestDataTable.docx");
 
             DataSet ds = TestTables.AddClientsTestData();
             BuildReport(doc, ds, "ds");
 
-            doc.Save(MyDir + "TestDataTable Out.docx");
+            doc.Save(MyDir + "ReportingEngine.TestDataTable Out.docx");
         }
 
         [Test]
         public void NestedDataTableTest()
         {
-            Document doc = new Document(MyDir + "TestNestedDataTable.docx");
+            Document doc = new Document(MyDir + "ReportingEngine.TestNestedDataTable.docx");
 
             DataSet ds = TestTables.AddClientsTestData();
             BuildReport(doc, ds, "ds");
 
-            doc.Save(MyDir + "TestNestedDataTable Out.docx");
+            doc.Save(MyDir + "ReportingEngine.TestNestedDataTable Out.docx");
         }
 
         [Test]
         public void ChartTest()
         {
-            Document doc = new Document(MyDir + "TestChart.docx");
+            Document doc = new Document(MyDir + "ReportingEngine.TestChart.docx");
 
             DataSet ds = TestTables.AddClientsTestData();
+
             var sumManager1 = ds.Contracts.Where(c => c.ManagerId == "1").Sum(c => c.Price);
             var sumManager2 = ds.Contracts.Where(c => c.ManagerId == "2").Sum(c => c.Price);
             var sumManager3 = ds.Contracts.Where(c => c.ManagerId == "3").Sum(c => c.Price);
 
             BuildReport(doc, ds.Managers, "managers");
 
-            doc.Save(MyDir + "TestChart Out.docx");
+            doc.Save(MyDir + "ReportingEngine.TestChart Out.docx");
+        }
+
+        [Test]
+        public void IndexOf()
+        {
+            Document doc = new Document(MyDir + "ReportingEngine.TestIndexOf.docx");
+
+            DataSet ds = TestTables.AddClientsTestData();
+            
+            BuildReport(doc, ds, "ds");
+
+            MemoryStream dstStream = new MemoryStream();
+            doc.Save(dstStream, SaveFormat.Docx);
+
+            Assert.AreEqual("The names are: Name 1, Name 2, Name 3\f", doc.GetText());
+        }
+
+        [Test]
+        public void IfElse()
+        {
+            Document doc = new Document(MyDir + "ReportingEngine.IfElse.docx");
+
+            DataSet ds = TestTables.AddClientsTestData();
+
+            BuildReport(doc, ds.Managers, "m");
+
+            MemoryStream dstStream = new MemoryStream();
+            doc.Save(dstStream, SaveFormat.Docx);
+
+            Assert.AreEqual("You have chosen 3 item(s).\f", doc.GetText());
+        }
+
+        [Test]
+        public void IfElseWithoutData()
+        {
+            Document doc = new Document(MyDir + "ReportingEngine.IfElse.docx");
+
+            DataSet ds = new DataSet();
+
+            BuildReport(doc, ds.Managers, "m");
+
+            MemoryStream dstStream = new MemoryStream();
+            doc.Save(dstStream, SaveFormat.Docx);
+
+            Assert.AreEqual("You have chosen no items.\f", doc.GetText());
+        }
+
+        [Test]
+        public void ContextualObjectMemberAccess()
+        {
+            Document doc = new Document(MyDir + "ReportingEngine.ContextualObjectMemberAccess.docx");
+
+            DataSet ds = TestTables.AddClientsTestData();
+
+            BuildReport(doc, ds, "ds");
+
+            doc.Save(MyDir + "ReportingEngine.ContextualObjectMemberAccess Out.docx");
+        }
+
+        //Add byte, Document, Uri
+        [Test]
+        public void InsertDocumentDinamically()
+        {
+            Document doc = DocumentHelper.CreateTemplateDocumentForReportingEngine("<<doc [src.DocumentByByte]>>");
+
+            //string url = "http://www.aspose.com/demos/.net-components/aspose.words/csharp/general/Common/Documents/DinnerInvitationDemo.doc";
+            byte[] bytes = File.ReadAllBytes(MyDir + "ReportingEngine.IfElse.docx");
+
+            //TestClass4 docStream = new TestClass4(new FileStream(this._doc, FileMode.Open, FileAccess.Read));
+            //TestClass4 docByDoc = new TestClass4(new Document(MyDir + "ReportingEngine.IfElse.docx"));
+            //TestClass4 docByUri = new TestClass4(url);
+            TestClass4 docByByte = new TestClass4(bytes);
+
+            BuildReport(doc, docByByte, "src", ReportBuildOptions.None);
+
+            doc.Save(MyDir + "ReportingEngine.InsertDocumentDinamically Out.docx");
+        }
+
+        //Add byte, Document, Uri
+        [Test]
+        public void InsertImageDinamically()
+        {
+            Document doc = DocumentHelper.CreateTemplateDocumentForReportingEngine("<<image [src.Image]>>");
+
+            //string url = "http://www.aspose.com/demos/.net-components/aspose.words/csharp/general/Common/Documents/DinnerInvitationDemo.doc";
+            byte[] bytes = File.ReadAllBytes(MyDir + "ReportingEngine.IfElse.docx");
+
+            //TestClass2 docStream = new TestClass2(new FileStream(this._doc, FileMode.Open, FileAccess.Read));
+            //TestClass2 docByDoc = new TestClass2(new Document(MyDir + "ReportingEngine.IfElse.docx"));
+            //TestClass2 docByUri = new TestClass2(url);
+            TestClass2 docByByte = new TestClass2(bytes);
+
+            BuildReport(doc, docByByte, "src", ReportBuildOptions.None);
+
+            doc.Save(MyDir + "ReportingEngine.InsertDocumentDinamically Out.docx");
         }
 
         [Test]
