@@ -9,6 +9,7 @@ using System;
 using System.Data;
 using System.IO;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using ApiExamples.TestData;
 using Aspose.Words;
 using Aspose.Words.Drawing;
@@ -155,6 +156,7 @@ namespace ApiExamples
             Assert.AreEqual("You have chosen no items.\f", doc.GetText());
         }
 
+        //ToDo:Need to assert with doc without contaxual object member access
         [Test]
         public void ContextualObjectMemberAccess()
         {
@@ -203,6 +205,38 @@ namespace ApiExamples
             BuildReport(doc, docByByte, "src", ReportBuildOptions.None);
 
             doc.Save(MyDir + "ReportingEngine.InsertDocumentDinamically Out.docx");
+        }
+
+        [Test]
+        public void WithoutKnownType()
+        {
+            Document doc = new Document();
+            DocumentBuilder builder = new DocumentBuilder(doc);
+
+            builder.Writeln("<<[new DateTime()]:”dd.MM.yyyy”>>");
+           
+            ReportingEngine engine = new ReportingEngine();
+            Assert.That(() => engine.BuildReport(doc, ""), Throws.TypeOf<InvalidOperationException>());
+        }
+
+        [Test]
+        public void WorkWithKnownTypes()
+        {
+            Document doc = new Document();
+            DocumentBuilder builder = new DocumentBuilder(doc);
+
+            builder.Writeln("<<[DateTime.Now]:”dd.MM.yyyy”>>");
+            builder.Writeln("<<[DateTime.Now]:”dd”>>");
+            builder.Writeln("<<[DateTime.Now]:”MM”>>");
+            builder.Writeln("<<[DateTime.Now]:”yyyy”>>");
+
+            builder.Writeln("<<[DateTime.Now.Month]>>");
+
+            ReportingEngine engine = new ReportingEngine();
+            engine.KnownTypes.Add(typeof(DateTime));
+            engine.BuildReport(doc, "");
+            
+            doc.Save(MyDir + "ReportingEngine.KnownTypes Out.docx");
         }
 
         [Test]
