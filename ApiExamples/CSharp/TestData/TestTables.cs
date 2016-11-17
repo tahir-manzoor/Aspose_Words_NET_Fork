@@ -2,6 +2,10 @@
 
 namespace ApiExamples.TestData
 {
+}
+
+namespace ApiExamples.TestData
+{
     internal static class TestTables
     {
         internal static DataSet AddClientsTestData()
@@ -28,10 +32,19 @@ namespace ApiExamples.TestData
 
             for (int i = 1; i <= 3; i++)
             {
-                ds.Managers.Rows.Add(i, "Name " + i);
+                ds.Managers.Rows.Add(i, "Name " + i, rnd.Next(20, 50));
             }
 
             return ds;
         }
+    }
+}
+
+namespace ApiExamples.TestData
+{
+
+
+    partial class DataSet
+    {
     }
 }

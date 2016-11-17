@@ -168,6 +168,18 @@ namespace ApiExamples
             Assert.AreEqual("You have chosen no items.\f", doc.GetText());
         }
 
+        [Test]
+        public void ExtensionMethods()
+        {
+            Document doc = new Document(MyDir + "ReportingEngine.ExtensionMethods.docx");
+
+            DataSet ds = new DataSet();
+
+            BuildReport(doc, ds.Managers, "managers");
+
+            doc.Save(MyDir + "ReportingEngine.ExtensionMethods Out.docx");
+        }
+        
         //ToDo:Need to assert with doc without contaxual object member access
         [Test]
         public void ContextualObjectMemberAccess()
