@@ -102,13 +102,25 @@ namespace ApiExamples
 
             DataSet ds = TestTables.AddClientsTestData();
 
-            var sumManager1 = ds.Contracts.Where(c => c.ManagerId == "1").Sum(c => c.Price);
-            var sumManager2 = ds.Contracts.Where(c => c.ManagerId == "2").Sum(c => c.Price);
-            var sumManager3 = ds.Contracts.Where(c => c.ManagerId == "3").Sum(c => c.Price);
+            //var sumManager1 = ds.Contracts.Where(c => c.ManagerId == "1").Sum(c => c.Price);
+            //var sumManager2 = ds.Contracts.Where(c => c.ManagerId == "2").Sum(c => c.Price);
+            //var sumManager3 = ds.Contracts.Where(c => c.ManagerId == "3").Sum(c => c.Price);
+            var sumManager3 = ds.Contracts.Count();
 
             BuildReport(doc, ds.Managers, "managers");
 
             doc.Save(MyDir + "ReportingEngine.TestChart Out.docx");
+        }
+
+        [Test]
+        public void BubbleChartTest()
+        {
+            Document doc = new Document(MyDir + "ReportingEngine.TestBubbleChart.docx");
+            DataSet ds = TestTables.AddClientsTestData();
+
+            BuildReport(doc, ds.Managers, "managers");
+            
+            doc.Save(MyDir + "ReportingEngine.TestBubbleChart Out.docx");
         }
 
         [Test]
