@@ -2,10 +2,6 @@
 
 namespace ApiExamples.TestData
 {
-}
-
-namespace ApiExamples.TestData
-{
     internal static class TestTables
     {
         internal static DataSet AddClientsTestData()
@@ -37,14 +33,5 @@ namespace ApiExamples.TestData
 
             return ds;
         }
-    }
-}
-
-namespace ApiExamples.TestData
-{
-
-
-    partial class DataSet
-    {
     }
 }

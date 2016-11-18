@@ -168,14 +168,15 @@ namespace ApiExamples
             Assert.AreEqual("You have chosen no items.\f", doc.GetText());
         }
 
+        //ToDo: Add disctinct testdata
         [Test]
         public void ExtensionMethods()
         {
             Document doc = new Document(MyDir + "ReportingEngine.ExtensionMethods.docx");
 
-            DataSet ds = new DataSet();
-
-            BuildReport(doc, ds.Managers, "managers");
+            DataSet ds = TestTables.AddClientsTestData();
+            
+            BuildReport(doc, ds, "ds");
 
             doc.Save(MyDir + "ReportingEngine.ExtensionMethods Out.docx");
         }
@@ -187,7 +188,8 @@ namespace ApiExamples
             Document doc = new Document(MyDir + "ReportingEngine.ContextualObjectMemberAccess.docx");
 
             DataSet ds = TestTables.AddClientsTestData();
-
+            var a = ds.Managers.Single();
+            
             BuildReport(doc, ds, "ds");
 
             doc.Save(MyDir + "ReportingEngine.ContextualObjectMemberAccess Out.docx");

@@ -12,16 +12,16 @@
   <xs:element name="DataSet" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="DataSet" msprop:Generator_UserDSName="DataSet">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:element name="Managers" msprop:Generator_TableClassName="ManagersDataTable" msprop:Generator_TableVarName="tableManagers" msprop:Generator_RowChangedName="ManagersRowChanged" msprop:Generator_TablePropName="Managers" msprop:Generator_RowDeletingName="ManagersRowDeleting" msprop:Generator_RowChangingName="ManagersRowChanging" msprop:Generator_RowEvHandlerName="ManagersRowChangeEventHandler" msprop:Generator_RowDeletedName="ManagersRowDeleted" msprop:Generator_RowClassName="ManagersRow" msprop:Generator_UserTableName="Managers" msprop:Generator_RowEvArgName="ManagersRowChangeEvent">
+        <xs:element name="Managers" msprop:Generator_TableClassName="ManagersDataTable" msprop:Generator_TableVarName="tableManagers" msprop:Generator_TablePropName="Managers" msprop:Generator_RowDeletingName="ManagersRowDeleting" msprop:Generator_RowChangingName="ManagersRowChanging" msprop:Generator_RowEvHandlerName="ManagersRowChangeEventHandler" msprop:Generator_RowDeletedName="ManagersRowDeleted" msprop:Generator_UserTableName="Managers" msprop:Generator_RowChangedName="ManagersRowChanged" msprop:Generator_RowEvArgName="ManagersRowChangeEvent" msprop:Generator_RowClassName="ManagersRow">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="Id" msprop:Generator_ColumnVarNameInTable="columnId" msprop:Generator_ColumnPropNameInRow="Id" msprop:Generator_ColumnPropNameInTable="IdColumn" msprop:Generator_UserColumnName="Id" type="xs:string" />
               <xs:element name="Name" msprop:Generator_ColumnVarNameInTable="columnName" msprop:Generator_ColumnPropNameInRow="Name" msprop:Generator_ColumnPropNameInTable="NameColumn" msprop:Generator_UserColumnName="Name" type="xs:string" minOccurs="0" />
-              <xs:element name="Age" msprop:Generator_ColumnVarNameInTable="columnAge" msprop:Generator_ColumnPropNameInRow="Age" msprop:Generator_ColumnPropNameInTable="AgeColumn" msprop:Generator_UserColumnName="Age" type="xs:string" minOccurs="0" />
-              <xs:element name="Contracts" msprop:Generator_TableClassName="ContractsDataTable" msprop:Generator_TableVarName="tableContracts" msprop:Generator_RowChangedName="ContractsRowChanged" msprop:Generator_TablePropName="Contracts" msprop:Generator_RowDeletingName="ContractsRowDeleting" msprop:Generator_RowChangingName="ContractsRowChanging" msprop:Generator_RowEvHandlerName="ContractsRowChangeEventHandler" msprop:Generator_RowDeletedName="ContractsRowDeleted" msprop:Generator_RowClassName="ContractsRow" msprop:Generator_UserTableName="Contracts" msprop:Generator_RowEvArgName="ContractsRowChangeEvent" minOccurs="0" maxOccurs="unbounded">
+              <xs:element name="Age" msprop:Generator_ColumnVarNameInTable="columnAge" msprop:Generator_ColumnPropNameInRow="Age" msprop:Generator_ColumnPropNameInTable="AgeColumn" msprop:Generator_UserColumnName="Age" type="xs:int" minOccurs="0" />
+              <xs:element name="Contracts" msprop:Generator_TableClassName="ContractsDataTable" msprop:Generator_TableVarName="tableContracts" msprop:Generator_TablePropName="Contracts" msprop:Generator_RowDeletingName="ContractsRowDeleting" msprop:Generator_RowChangingName="ContractsRowChanging" msprop:Generator_RowEvHandlerName="ContractsRowChangeEventHandler" msprop:Generator_RowDeletedName="ContractsRowDeleted" msprop:Generator_UserTableName="Contracts" msprop:Generator_RowChangedName="ContractsRowChanged" msprop:Generator_RowEvArgName="ContractsRowChangeEvent" msprop:Generator_RowClassName="ContractsRow" minOccurs="0" maxOccurs="unbounded">
                 <xs:annotation>
                   <xs:appinfo>
-                    <msdata:Relationship name="Managers_Contracts" msdata:parent="Managers" msdata:child="Contracts" msdata:parentkey="Id" msdata:childkey="ManagerId" msprop:Generator_UserChildTable="Contracts" msprop:Generator_ChildPropName="GetContractsRows" msprop:Generator_UserRelationName="Managers_Contracts" msprop:Generator_RelationVarName="relationManagers_Contracts" msprop:Generator_UserParentTable="Managers" msprop:Generator_ParentPropName="ManagersRow" />
+                    <msdata:Relationship name="Managers_Contracts" msdata:parent="Managers" msdata:child="Contracts" msdata:parentkey="Id" msdata:childkey="ManagerId" msprop:Generator_UserChildTable="Contracts" msprop:Generator_ChildPropName="GetContractsRows" msprop:Generator_UserRelationName="Managers_Contracts" msprop:Generator_ParentPropName="ManagersRow" msprop:Generator_RelationVarName="relationManagers_Contracts" msprop:Generator_UserParentTable="Managers" />
                   </xs:appinfo>
                 </xs:annotation>
                 <xs:complexType>
@@ -36,7 +36,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="Clients" msprop:Generator_TableClassName="ClientsDataTable" msprop:Generator_TableVarName="tableClients" msprop:Generator_RowChangedName="ClientsRowChanged" msprop:Generator_TablePropName="Clients" msprop:Generator_RowDeletingName="ClientsRowDeleting" msprop:Generator_RowChangingName="ClientsRowChanging" msprop:Generator_RowEvHandlerName="ClientsRowChangeEventHandler" msprop:Generator_RowDeletedName="ClientsRowDeleted" msprop:Generator_RowClassName="ClientsRow" msprop:Generator_UserTableName="Clients" msprop:Generator_RowEvArgName="ClientsRowChangeEvent">
+        <xs:element name="Clients" msprop:Generator_TableClassName="ClientsDataTable" msprop:Generator_TableVarName="tableClients" msprop:Generator_TablePropName="Clients" msprop:Generator_RowDeletingName="ClientsRowDeleting" msprop:Generator_RowChangingName="ClientsRowChanging" msprop:Generator_RowEvHandlerName="ClientsRowChangeEventHandler" msprop:Generator_RowDeletedName="ClientsRowDeleted" msprop:Generator_UserTableName="Clients" msprop:Generator_RowChangedName="ClientsRowChanged" msprop:Generator_RowEvArgName="ClientsRowChangeEvent" msprop:Generator_RowClassName="ClientsRow">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="Id" msprop:Generator_ColumnVarNameInTable="columnId" msprop:Generator_ColumnPropNameInRow="Id" msprop:Generator_ColumnPropNameInTable="IdColumn" msprop:Generator_UserColumnName="Id" type="xs:string" />
@@ -61,7 +61,7 @@
   </xs:element>
   <xs:annotation>
     <xs:appinfo>
-      <msdata:Relationship name="Clients_Contracts" msdata:parent="Clients" msdata:child="Contracts" msdata:parentkey="Id" msdata:childkey="ClientId" msprop:Generator_UserChildTable="Contracts" msprop:Generator_ChildPropName="GetContractsRows" msprop:Generator_UserRelationName="Clients_Contracts" msprop:Generator_RelationVarName="relationClients_Contracts" msprop:Generator_UserParentTable="Clients" msprop:Generator_ParentPropName="ClientsRow" />
+      <msdata:Relationship name="Clients_Contracts" msdata:parent="Clients" msdata:child="Contracts" msdata:parentkey="Id" msdata:childkey="ClientId" msprop:Generator_UserChildTable="Contracts" msprop:Generator_ChildPropName="GetContractsRows" msprop:Generator_UserRelationName="Clients_Contracts" msprop:Generator_ParentPropName="ClientsRow" msprop:Generator_RelationVarName="relationClients_Contracts" msprop:Generator_UserParentTable="Clients" />
     </xs:appinfo>
   </xs:annotation>
 </xs:schema>

@@ -464,7 +464,7 @@ namespace ApiExamples.TestData {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public ManagersRow AddManagersRow(string Id, string Name, string Age) {
+            public ManagersRow AddManagersRow(string Id, string Name, int Age) {
                 ManagersRow rowManagersRow = ((ManagersRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         Id,
@@ -511,7 +511,7 @@ namespace ApiExamples.TestData {
                 base.Columns.Add(this.columnId);
                 this.columnName = new global::System.Data.DataColumn("Name", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnName);
-                this.columnAge = new global::System.Data.DataColumn("Age", typeof(string), null, global::System.Data.MappingType.Element);
+                this.columnAge = new global::System.Data.DataColumn("Age", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnAge);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("ManagersKey1", new global::System.Data.DataColumn[] {
                                 this.columnId}, true));
@@ -1264,10 +1264,10 @@ namespace ApiExamples.TestData {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public string Age {
+            public int Age {
                 get {
                     try {
-                        return ((string)(this[this.tableManagers.AgeColumn]));
+                        return ((int)(this[this.tableManagers.AgeColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
                         throw new global::System.Data.StrongTypingException("The value for column \'Age\' in table \'Managers\' is DBNull.", e);
