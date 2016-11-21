@@ -20,7 +20,7 @@ namespace ApiExamples.TestData
             {
                 for (int y = j; y <= j + 2; y++)
                 {
-                    ds.Contracts.Rows.Add(y, y, i, rnd.Next(2000, 100000));
+                    ds.Contracts.Rows.Add(y, y, i, 1000);
                 }
 
                 j = j + 3;

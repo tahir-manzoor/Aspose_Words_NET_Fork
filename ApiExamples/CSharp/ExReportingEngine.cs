@@ -6,15 +6,14 @@
 //////////////////////////////////////////////////////////////////////////
 
 using System;
-using System.Data;
 using System.IO;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using ApiExamples.TestData;
 using Aspose.Words;
 using Aspose.Words.Drawing;
 using Aspose.Words.Reporting;
 using NUnit.Framework;
+using MsWord = Microsoft.Office.Interop.Word;
 using DataSet = ApiExamples.TestData.DataSet;
 
 namespace ApiExamples
@@ -23,8 +22,7 @@ namespace ApiExamples
     public class ExReportingEngine : ApiExampleBase
     {
         private readonly string _image = MyDir + "Test_636_852.gif";
-        private readonly string _doc = MyDir + "ReportingEngine.TestDataTable.docx";
-
+        
         [Test]
         public void SimpleCase()
         {
@@ -77,11 +75,40 @@ namespace ApiExamples
         public void DataTableTest()
         {
             Document doc = new Document(MyDir + "ReportingEngine.TestDataTable.docx");
-
+            
             DataSet ds = TestTables.AddClientsTestData();
             BuildReport(doc, ds, "ds");
 
             doc.Save(MyDir + "ReportingEngine.TestDataTable Out.docx");
+
+            Assert.IsTrue(CompareDocs(MyDir + "ReportingEngine.TestDataTable Out.docx", MyDir + "ReportingEngine.TestDataTable Gold.docx"));
+        }
+
+        private static bool CompareDocs(string fileName1, string fileName2)
+        {
+            MsWord.Application wordApp = new MsWord.Application();
+
+            object missing = System.Reflection.Missing.Value;
+            
+            MsWord.Document doc1 = wordApp.Documents.Open(fileName1, missing, true, missing, missing, missing, missing, missing, missing,
+                missing, missing, missing, missing, missing, missing, missing);
+
+            MsWord.Document doc2 = wordApp.Documents.Open(fileName2, missing, true, missing, missing, missing, missing, missing, missing,
+                missing, missing, missing, missing, missing, missing, missing);
+
+            MsWord.Document resultDoc = wordApp.CompareDocuments(doc1, doc2);
+
+            bool anyChanges = resultDoc.Revisions.Count <= 0;
+
+            //// Close first document 
+            doc1.Close(missing, missing, missing);
+
+            //// Close second document 
+            doc2.Close(missing, missing, missing);
+
+            wordApp.Quit();
+
+            return anyChanges;
         }
 
         [Test]
