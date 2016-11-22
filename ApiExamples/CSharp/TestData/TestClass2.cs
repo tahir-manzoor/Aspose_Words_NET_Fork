@@ -7,30 +7,30 @@ namespace ApiExamples.TestData
     {
         public TestClass2(Stream stream)
         {
-            this.Image = stream;
+            this.Stream = stream;
         }
 
         public TestClass2(Image imageObject)
         {
-            this.ImageObject = imageObject;
+            this.Image = imageObject;
         }
 
         public TestClass2(byte[] imageBytes)
         {
-            this.ImageBytes = imageBytes;
+            this.Bytes = imageBytes;
         }
 
         public TestClass2(string uriToImage)
         {
-            this.UriToImage = uriToImage;
+            this.Uri = uriToImage;
         }
 
-        public Stream Image { get; set; }
+        public Stream Stream { get; set; }
 
-        public Image ImageObject { get; set; }
+        public Image Image { get; set; }
 
-        public byte[] ImageBytes { get; set; }
+        public byte[] Bytes { get; set; }
 
-        public string UriToImage { get; set; }
+        public string Uri { get; set; }
     }
 }

@@ -6,6 +6,8 @@
 //////////////////////////////////////////////////////////////////////////
 
 using System;
+using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using ApiExamples.TestData;
@@ -197,19 +199,14 @@ namespace ApiExamples
             Assert.IsTrue(DocumentHelper.CompareDocs(MyDir + @"\Artifacts\ReportingEngine.ContextualObjectMemberAccess Out.docx", MyDir + @"\Golds\ReportingEngine.ContextualObjectMemberAccess Gold.docx"));
         }
 
-        //Add byte, Document, Uri
         [Test]
         public void InsertDocumentDinamically()
         {
             string url = "http://www.aspose.com/demos/.net-components/aspose.words/csharp/general/Common/Documents/DinnerInvitationDemo.doc";
             byte[] docBytes = File.ReadAllBytes(MyDir + "ReportingEngine.TestDataTable.docx");
 
-            Document stream = DocumentHelper.CreateTemplateDocumentForReportingEngine("<<doc [src.DocumentByStream]>>");
-            Document doc = DocumentHelper.CreateTemplateDocumentForReportingEngine("<<doc [src.Document]>>");
-            Document uri = DocumentHelper.CreateTemplateDocumentForReportingEngine("<<doc [src.DocumentByUri]>>");
-            Document bytes = DocumentHelper.CreateTemplateDocumentForReportingEngine("<<doc [src.DocumentByByte]>>");
-
             //By stream
+            Document stream = DocumentHelper.CreateTemplateDocumentForReportingEngine("<<doc [src.DocumentByStream]>>");
             TestClass4 docStream = new TestClass4(new FileStream(this._doc, FileMode.Open, FileAccess.Read));
 
             BuildReport(stream, docStream, "src", ReportBuildOptions.None);
@@ -218,6 +215,7 @@ namespace ApiExamples
             Assert.IsTrue(DocumentHelper.CompareDocs(MyDir + @"\Artifacts\ReportingEngine.InsertDocumentDinamically Out.docx", MyDir + @"\Golds\ReportingEngine.InsertDocumentDinamically(stream,doc,bytes) Gold.docx"), "Fail inserting document by stream");
 
             //By doc
+            Document doc = DocumentHelper.CreateTemplateDocumentForReportingEngine("<<doc [src.Document]>>");
             TestClass4 docByDoc = new TestClass4(new Document(MyDir + "ReportingEngine.TestDataTable.docx"));
 
             BuildReport(doc, docByDoc, "src", ReportBuildOptions.None);
@@ -226,6 +224,7 @@ namespace ApiExamples
             Assert.IsTrue(DocumentHelper.CompareDocs(MyDir + @"\Artifacts\ReportingEngine.InsertDocumentDinamically Out.docx", MyDir + @"\Golds\ReportingEngine.InsertDocumentDinamically(stream,doc,bytes) Gold.docx"), "Fail inserting document by document");
 
             //By uri
+            Document uri = DocumentHelper.CreateTemplateDocumentForReportingEngine("<<doc [src.DocumentByUri]>>");
             TestClass4 docByUri = new TestClass4(url);
 
             BuildReport(uri, docByUri, "src", ReportBuildOptions.None);
@@ -234,6 +233,7 @@ namespace ApiExamples
             Assert.IsTrue(DocumentHelper.CompareDocs(MyDir + @"\Artifacts\ReportingEngine.InsertDocumentDinamically Out.docx", MyDir + @"\Golds\ReportingEngine.InsertDocumentDinamically(uri) Gold.docx"), "Fail inserting document by uri");
 
             //By byte
+            Document bytes = DocumentHelper.CreateTemplateDocumentForReportingEngine("<<doc [src.DocumentByByte]>>");
             TestClass4 docByByte = new TestClass4(docBytes);
 
             BuildReport(bytes, docByByte, "src", ReportBuildOptions.None);
@@ -242,23 +242,47 @@ namespace ApiExamples
             Assert.IsTrue(DocumentHelper.CompareDocs(MyDir + @"\Artifacts\ReportingEngine.InsertDocumentDinamically Out.docx", MyDir + @"\Golds\ReportingEngine.InsertDocumentDinamically(stream,doc,bytes) Gold.docx"), "Fail inserting document by bytes");
         }
 
-        //Add byte, Document, Uri
         [Test]
         public void InsertImageDinamically()
         {
-            Document doc = DocumentHelper.CreateTemplateDocumentForReportingEngine("<<image [src.Image]>>");
+            string url = "http://joomla-aspose.dynabic.com/templates/aspose/App_Themes/V3/images/customers/americanexpress.png";
+            byte[] imgBytes = File.ReadAllBytes(this._image);
 
-            //string url = "http://www.aspose.com/demos/.net-components/aspose.words/csharp/general/Common/Documents/DinnerInvitationDemo.doc";
-            byte[] bytes = File.ReadAllBytes(MyDir + "ReportingEngine.IfElse.docx");
+            //By stream
+            Document stream = DocumentHelper.CreateTemplateDocumentWithDrawObjects("<<image [src.Stream]>>", ShapeType.TextBox);
+            TestClass2 docByStream = new TestClass2(new FileStream(this._image, FileMode.Open, FileAccess.Read));
 
-            //TestClass2 docStream = new TestClass2(new FileStream(this._doc, FileMode.Open, FileAccess.Read));
-            //TestClass2 docByDoc = new TestClass2(new Document(MyDir + "ReportingEngine.IfElse.docx"));
-            //TestClass2 docByUri = new TestClass2(url);
-            TestClass2 docByByte = new TestClass2(bytes);
+            BuildReport(stream, docByStream, "src", ReportBuildOptions.None);
+            stream.Save(MyDir + @"\Artifacts\ReportingEngine.InsertImageDinamically Out.docx");
 
-            BuildReport(doc, docByByte, "src", ReportBuildOptions.None);
+            Assert.IsTrue(DocumentHelper.CompareDocs(MyDir + @"\Artifacts\ReportingEngine.InsertImageDinamically Out.docx", MyDir + @"\Golds\ReportingEngine.InsertImageDinamically(stream,doc,bytes) Gold.docx"), "Fail inserting document by bytes");
 
-            doc.Save(MyDir + "ReportingEngine.InsertDocumentDinamically Out.docx");
+            //By image
+            Document image = DocumentHelper.CreateTemplateDocumentWithDrawObjects("<<image [src.Image]>>", ShapeType.TextBox);
+            TestClass2 docByImg = new TestClass2(Image.FromFile(this._image, true));
+
+            BuildReport(image, docByImg, "src", ReportBuildOptions.None);
+            image.Save(MyDir + @"\Artifacts\ReportingEngine.InsertImageDinamically Out.docx");
+
+            Assert.IsTrue(DocumentHelper.CompareDocs(MyDir + @"\Artifacts\ReportingEngine.InsertImageDinamically Out.docx", MyDir + @"\Golds\ReportingEngine.InsertImageDinamically(stream,doc,bytes) Gold.docx"), "Fail inserting document by bytes");
+
+            //By Uri
+            Document uri = DocumentHelper.CreateTemplateDocumentWithDrawObjects("<<image [src.Uri]>>", ShapeType.TextBox);
+            TestClass2 docByUri = new TestClass2(url);
+
+            BuildReport(uri, docByUri, "src", ReportBuildOptions.None);
+            uri.Save(MyDir + @"\Artifacts\ReportingEngine.InsertImageDinamically Out.docx");
+
+            Assert.IsTrue(DocumentHelper.CompareDocs(MyDir + @"\Artifacts\ReportingEngine.InsertImageDinamically Out.docx", MyDir + @"\Golds\ReportingEngine.InsertImageDinamically(uri) Gold.docx"), "Fail inserting document by bytes");
+
+            //By bytes
+            Document bytes = DocumentHelper.CreateTemplateDocumentWithDrawObjects("<<image [src.Bytes]>>", ShapeType.TextBox);
+            TestClass2 docByBytes = new TestClass2(imgBytes);
+
+            BuildReport(bytes, docByBytes, "src", ReportBuildOptions.None);
+            bytes.Save(MyDir + @"\Artifacts\ReportingEngine.InsertImageDinamically Out.docx");
+
+            Assert.IsTrue(DocumentHelper.CompareDocs(MyDir + @"\Artifacts\ReportingEngine.InsertImageDinamically Out.docx", MyDir + @"\Golds\ReportingEngine.InsertImageDinamically(stream,doc,bytes) Gold.docx"), "Fail inserting document by bytes");
         }
 
         [Test]
@@ -298,7 +322,7 @@ namespace ApiExamples
         [Test]
         public void StretchImagefitHeight()
         {
-            Document doc = DocumentHelper.CreateTemplateDocumentWithDrawObjects("<<image [src.Image] -fitHeight>>", ShapeType.TextBox);
+            Document doc = DocumentHelper.CreateTemplateDocumentWithDrawObjects("<<image [src.Stream] -fitHeight>>", ShapeType.TextBox);
 
             TestClass2 imageStream = new TestClass2(new FileStream(this._image, FileMode.Open, FileAccess.Read));
 
