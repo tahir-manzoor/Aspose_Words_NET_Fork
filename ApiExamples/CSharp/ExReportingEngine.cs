@@ -13,7 +13,6 @@ using Aspose.Words;
 using Aspose.Words.Drawing;
 using Aspose.Words.Reporting;
 using NUnit.Framework;
-using MsWord = Microsoft.Office.Interop.Word;
 using DataSet = ApiExamples.TestData.DataSet;
 
 namespace ApiExamples
@@ -84,31 +83,18 @@ namespace ApiExamples
             Assert.IsTrue(CompareDocs(MyDir + "ReportingEngine.TestDataTable Out.docx", MyDir + "ReportingEngine.TestDataTable Gold.docx"));
         }
 
-        private static bool CompareDocs(string fileName1, string fileName2)
+        private static bool CompareDocs(string filePathDoc1, string filePathDoc2)
         {
-            MsWord.Application wordApp = new MsWord.Application();
+            Document doc1 = new Document(filePathDoc1);
+            Document doc2 = new Document(filePathDoc2);
 
-            object missing = System.Reflection.Missing.Value;
-            
-            MsWord.Document doc1 = wordApp.Documents.Open(fileName1, missing, true, missing, missing, missing, missing, missing, missing,
-                missing, missing, missing, missing, missing, missing, missing);
+            // You can compare two documents here
+            if (doc1.GetText() == doc2.GetText())
+            {
+                return true;
+            }
 
-            MsWord.Document doc2 = wordApp.Documents.Open(fileName2, missing, true, missing, missing, missing, missing, missing, missing,
-                missing, missing, missing, missing, missing, missing, missing);
-
-            MsWord.Document resultDoc = wordApp.CompareDocuments(doc1, doc2);
-
-            bool anyChanges = resultDoc.Revisions.Count <= 0;
-
-            //// Close first document 
-            doc1.Close(missing, missing, missing);
-
-            //// Close second document 
-            doc2.Close(missing, missing, missing);
-
-            wordApp.Quit();
-
-            return anyChanges;
+            return false;
         }
 
         [Test]
