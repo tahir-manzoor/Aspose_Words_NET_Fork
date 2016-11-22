@@ -196,6 +196,20 @@ namespace ApiExamples
             builder.Writeln("Heading 1.1.1.1.1.1.1.1.1");
         }
 
+        internal static bool CompareDocs(string filePathDoc1, string filePathDoc2)
+        {
+            Document doc1 = new Document(filePathDoc1);
+            Document doc2 = new Document(filePathDoc2);
+
+            // You can compare two documents here
+            if (doc1.GetText() == doc2.GetText())
+            {
+                return true;
+            }
+
+            return false;
+        }
+
         /// <summary>
         /// Insert run into the current document
         /// </summary>

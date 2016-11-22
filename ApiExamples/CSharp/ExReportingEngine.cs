@@ -21,7 +21,8 @@ namespace ApiExamples
     public class ExReportingEngine : ApiExampleBase
     {
         private readonly string _image = MyDir + "Test_636_852.gif";
-        
+        private readonly string _doc = MyDir + "ReportingEngine.TestDataTable.docx";
+
         [Test]
         public void SimpleCase()
         {
@@ -78,25 +79,11 @@ namespace ApiExamples
             DataSet ds = TestTables.AddClientsTestData();
             BuildReport(doc, ds, "ds");
 
-            doc.Save(MyDir + "ReportingEngine.TestDataTable Out.docx");
+            doc.Save(MyDir + @"\Artifacts\ReportingEngine.TestDataTable Out.docx");
 
-            Assert.IsTrue(CompareDocs(MyDir + "ReportingEngine.TestDataTable Out.docx", MyDir + "ReportingEngine.TestDataTable Gold.docx"));
+            Assert.IsTrue(DocumentHelper.CompareDocs(MyDir + @"\Artifacts\ReportingEngine.TestDataTable Out.docx", MyDir + @"\Golds\ReportingEngine.TestDataTable Gold.docx"));
         }
-
-        private static bool CompareDocs(string filePathDoc1, string filePathDoc2)
-        {
-            Document doc1 = new Document(filePathDoc1);
-            Document doc2 = new Document(filePathDoc2);
-
-            // You can compare two documents here
-            if (doc1.GetText() == doc2.GetText())
-            {
-                return true;
-            }
-
-            return false;
-        }
-
+        
         [Test]
         public void NestedDataTableTest()
         {
@@ -105,7 +92,9 @@ namespace ApiExamples
             DataSet ds = TestTables.AddClientsTestData();
             BuildReport(doc, ds, "ds");
 
-            doc.Save(MyDir + "ReportingEngine.TestNestedDataTable Out.docx");
+            doc.Save(MyDir + @"\Artifacts\ReportingEngine.TestNestedDataTable Out.docx");
+
+            Assert.IsTrue(DocumentHelper.CompareDocs(MyDir + @"\Artifacts\ReportingEngine.TestNestedDataTable Out.docx", MyDir + @"\Golds\ReportingEngine.TestNestedDataTable Gold.docx"));
         }
 
         [Test]
@@ -115,14 +104,11 @@ namespace ApiExamples
 
             DataSet ds = TestTables.AddClientsTestData();
 
-            //var sumManager1 = ds.Contracts.Where(c => c.ManagerId == "1").Sum(c => c.Price);
-            //var sumManager2 = ds.Contracts.Where(c => c.ManagerId == "2").Sum(c => c.Price);
-            //var sumManager3 = ds.Contracts.Where(c => c.ManagerId == "3").Sum(c => c.Price);
-            var sumManager3 = ds.Contracts.Count();
-
             BuildReport(doc, ds.Managers, "managers");
 
-            doc.Save(MyDir + "ReportingEngine.TestChart Out.docx");
+            doc.Save(MyDir + @"\Artifacts\ReportingEngine.TestChart Out.docx");
+
+            Assert.IsTrue(DocumentHelper.CompareDocs(MyDir + @"\Artifacts\ReportingEngine.TestChart Out.docx", MyDir + @"\Golds\ReportingEngine.TestChart Gold.docx"));
         }
 
         [Test]
@@ -133,7 +119,9 @@ namespace ApiExamples
 
             BuildReport(doc, ds.Managers, "managers");
             
-            doc.Save(MyDir + "ReportingEngine.TestBubbleChart Out.docx");
+            doc.Save(MyDir + @"\Artifacts\ReportingEngine.TestBubbleChart Out.docx");
+
+            Assert.IsTrue(DocumentHelper.CompareDocs(MyDir + @"\Artifacts\ReportingEngine.TestBubbleChart Out.docx", MyDir + @"\Golds\ReportingEngine.TestBubbleChart Gold.docx"));
         }
 
         [Test]
@@ -181,7 +169,6 @@ namespace ApiExamples
             Assert.AreEqual("You have chosen no items.\f", doc.GetText());
         }
 
-        //ToDo: Add disctinct testdata
         [Test]
         public void ExtensionMethods()
         {
@@ -191,40 +178,68 @@ namespace ApiExamples
             
             BuildReport(doc, ds, "ds");
 
-            doc.Save(MyDir + "ReportingEngine.ExtensionMethods Out.docx");
+            doc.Save(MyDir + @"\Artifacts\ReportingEngine.ExtensionMethods Out.docx");
+
+            Assert.IsTrue(DocumentHelper.CompareDocs(MyDir + @"\Artifacts\ReportingEngine.ExtensionMethods Out.docx", MyDir + @"\Golds\ReportingEngine.ExtensionMethods Gold.docx"));
         }
         
-        //ToDo:Need to assert with doc without contaxual object member access
         [Test]
         public void ContextualObjectMemberAccess()
         {
             Document doc = new Document(MyDir + "ReportingEngine.ContextualObjectMemberAccess.docx");
 
             DataSet ds = TestTables.AddClientsTestData();
-            var a = ds.Managers.Single();
             
             BuildReport(doc, ds, "ds");
 
-            doc.Save(MyDir + "ReportingEngine.ContextualObjectMemberAccess Out.docx");
+            doc.Save(MyDir + @"\Artifacts\ReportingEngine.ContextualObjectMemberAccess Out.docx");
+
+            Assert.IsTrue(DocumentHelper.CompareDocs(MyDir + @"\Artifacts\ReportingEngine.ContextualObjectMemberAccess Out.docx", MyDir + @"\Golds\ReportingEngine.ContextualObjectMemberAccess Gold.docx"));
         }
 
         //Add byte, Document, Uri
         [Test]
         public void InsertDocumentDinamically()
         {
-            Document doc = DocumentHelper.CreateTemplateDocumentForReportingEngine("<<doc [src.DocumentByByte]>>");
+            string url = "http://www.aspose.com/demos/.net-components/aspose.words/csharp/general/Common/Documents/DinnerInvitationDemo.doc";
+            byte[] docBytes = File.ReadAllBytes(MyDir + "ReportingEngine.TestDataTable.docx");
 
-            //string url = "http://www.aspose.com/demos/.net-components/aspose.words/csharp/general/Common/Documents/DinnerInvitationDemo.doc";
-            byte[] bytes = File.ReadAllBytes(MyDir + "ReportingEngine.IfElse.docx");
+            Document stream = DocumentHelper.CreateTemplateDocumentForReportingEngine("<<doc [src.DocumentByStream]>>");
+            Document doc = DocumentHelper.CreateTemplateDocumentForReportingEngine("<<doc [src.Document]>>");
+            Document uri = DocumentHelper.CreateTemplateDocumentForReportingEngine("<<doc [src.DocumentByUri]>>");
+            Document bytes = DocumentHelper.CreateTemplateDocumentForReportingEngine("<<doc [src.DocumentByByte]>>");
 
-            //TestClass4 docStream = new TestClass4(new FileStream(this._doc, FileMode.Open, FileAccess.Read));
-            //TestClass4 docByDoc = new TestClass4(new Document(MyDir + "ReportingEngine.IfElse.docx"));
-            //TestClass4 docByUri = new TestClass4(url);
-            TestClass4 docByByte = new TestClass4(bytes);
+            //By stream
+            TestClass4 docStream = new TestClass4(new FileStream(this._doc, FileMode.Open, FileAccess.Read));
 
-            BuildReport(doc, docByByte, "src", ReportBuildOptions.None);
+            BuildReport(stream, docStream, "src", ReportBuildOptions.None);
+            stream.Save(MyDir + @"\Artifacts\ReportingEngine.InsertDocumentDinamically Out.docx");
 
-            doc.Save(MyDir + "ReportingEngine.InsertDocumentDinamically Out.docx");
+            Assert.IsTrue(DocumentHelper.CompareDocs(MyDir + @"\Artifacts\ReportingEngine.InsertDocumentDinamically Out.docx", MyDir + @"\Golds\ReportingEngine.InsertDocumentDinamically(stream,doc,bytes) Gold.docx"), "Fail inserting document by stream");
+
+            //By doc
+            TestClass4 docByDoc = new TestClass4(new Document(MyDir + "ReportingEngine.TestDataTable.docx"));
+
+            BuildReport(doc, docByDoc, "src", ReportBuildOptions.None);
+            doc.Save(MyDir + @"\Artifacts\ReportingEngine.InsertDocumentDinamically Out.docx");
+
+            Assert.IsTrue(DocumentHelper.CompareDocs(MyDir + @"\Artifacts\ReportingEngine.InsertDocumentDinamically Out.docx", MyDir + @"\Golds\ReportingEngine.InsertDocumentDinamically(stream,doc,bytes) Gold.docx"), "Fail inserting document by document");
+
+            //By uri
+            TestClass4 docByUri = new TestClass4(url);
+
+            BuildReport(uri, docByUri, "src", ReportBuildOptions.None);
+            uri.Save(MyDir + @"\Artifacts\ReportingEngine.InsertDocumentDinamically Out.docx");
+
+            Assert.IsTrue(DocumentHelper.CompareDocs(MyDir + @"\Artifacts\ReportingEngine.InsertDocumentDinamically Out.docx", MyDir + @"\Golds\ReportingEngine.InsertDocumentDinamically(uri) Gold.docx"), "Fail inserting document by uri");
+
+            //By byte
+            TestClass4 docByByte = new TestClass4(docBytes);
+
+            BuildReport(bytes, docByByte, "src", ReportBuildOptions.None);
+            bytes.Save(MyDir + @"\Artifacts\ReportingEngine.InsertDocumentDinamically Out.docx");
+
+            Assert.IsTrue(DocumentHelper.CompareDocs(MyDir + @"\Artifacts\ReportingEngine.InsertDocumentDinamically Out.docx", MyDir + @"\Golds\ReportingEngine.InsertDocumentDinamically(stream,doc,bytes) Gold.docx"), "Fail inserting document by bytes");
         }
 
         //Add byte, Document, Uri
@@ -275,7 +290,9 @@ namespace ApiExamples
             engine.KnownTypes.Add(typeof(DateTime));
             engine.BuildReport(doc, "");
             
-            doc.Save(MyDir + "ReportingEngine.KnownTypes Out.docx");
+            doc.Save(MyDir + @"\Artifacts\ReportingEngine.KnownTypes Out.docx");
+
+            Assert.IsTrue(DocumentHelper.CompareDocs(MyDir + @"\Artifacts\ReportingEngine.KnownTypes Out.docx", MyDir + @"\Golds\ReportingEngine.KnownTypes Gold.docx"));
         }
 
         [Test]
