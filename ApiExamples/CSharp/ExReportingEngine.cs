@@ -28,7 +28,7 @@ namespace ApiExamples
         [Test]
         public void SimpleCase()
         {
-            Document doc = DocumentHelper.CreateTemplateDocumentForReportingEngine("<<[s.Name]>> says: <<[s.Message]>>");
+            Document doc = DocumentHelper.CreateSimpleDocument("<<[s.Name]>> says: <<[s.Message]>>");
 
             TestClass1 sender = new TestClass1("LINQ Reporting Engine", "Hello World");
 
@@ -44,7 +44,7 @@ namespace ApiExamples
         public void StringFormat()
         {
             Document doc =
-                DocumentHelper.CreateTemplateDocumentForReportingEngine(
+                DocumentHelper.CreateSimpleDocument(
                     "<<[s.Name]:lower>> says: <<[s.Message]:upper>>, <<[s.Message]:caps>>, <<[s.Message]:firstCap>>");
 
             TestClass1 sender = new TestClass1("LINQ Reporting Engine", "hello world");
@@ -60,7 +60,7 @@ namespace ApiExamples
         public void NumberFormat()
         {
             Document doc =
-                DocumentHelper.CreateTemplateDocumentForReportingEngine(
+                DocumentHelper.CreateSimpleDocument(
                     "<<[s.FirstNumber]:alphabetic>> : <<[s.SecondNumber]:roman:lower>>, <<[s.ThirdNumber]:ordinal>>, <<[s.FirstNumber]:ordinalText:upper>>" +
                     ", <<[s.SecondNumber]:cardinal>>, <<[s.ThirdNumber]:hex>>, <<[s.ThirdNumber]:arabicDash>>, <<[s.Date]:\"MMMM\":lower>>");
 
@@ -206,7 +206,7 @@ namespace ApiExamples
             byte[] docBytes = File.ReadAllBytes(MyDir + "ReportingEngine.TestDataTable.docx");
 
             //By stream
-            Document stream = DocumentHelper.CreateTemplateDocumentForReportingEngine("<<doc [src.DocumentByStream]>>");
+            Document stream = DocumentHelper.CreateSimpleDocument("<<doc [src.DocumentByStream]>>");
             TestClass4 docStream = new TestClass4(new FileStream(this._doc, FileMode.Open, FileAccess.Read));
 
             BuildReport(stream, docStream, "src", ReportBuildOptions.None);
@@ -215,7 +215,7 @@ namespace ApiExamples
             Assert.IsTrue(DocumentHelper.CompareDocs(MyDir + @"\Artifacts\ReportingEngine.InsertDocumentDinamically Out.docx", MyDir + @"\Golds\ReportingEngine.InsertDocumentDinamically(stream,doc,bytes) Gold.docx"), "Fail inserting document by stream");
 
             //By doc
-            Document doc = DocumentHelper.CreateTemplateDocumentForReportingEngine("<<doc [src.Document]>>");
+            Document doc = DocumentHelper.CreateSimpleDocument("<<doc [src.Document]>>");
             TestClass4 docByDoc = new TestClass4(new Document(MyDir + "ReportingEngine.TestDataTable.docx"));
 
             BuildReport(doc, docByDoc, "src", ReportBuildOptions.None);
@@ -224,7 +224,7 @@ namespace ApiExamples
             Assert.IsTrue(DocumentHelper.CompareDocs(MyDir + @"\Artifacts\ReportingEngine.InsertDocumentDinamically Out.docx", MyDir + @"\Golds\ReportingEngine.InsertDocumentDinamically(stream,doc,bytes) Gold.docx"), "Fail inserting document by document");
 
             //By uri
-            Document uri = DocumentHelper.CreateTemplateDocumentForReportingEngine("<<doc [src.DocumentByUri]>>");
+            Document uri = DocumentHelper.CreateSimpleDocument("<<doc [src.DocumentByUri]>>");
             TestClass4 docByUri = new TestClass4(url);
 
             BuildReport(uri, docByUri, "src", ReportBuildOptions.None);
@@ -233,7 +233,7 @@ namespace ApiExamples
             Assert.IsTrue(DocumentHelper.CompareDocs(MyDir + @"\Artifacts\ReportingEngine.InsertDocumentDinamically Out.docx", MyDir + @"\Golds\ReportingEngine.InsertDocumentDinamically(uri) Gold.docx"), "Fail inserting document by uri");
 
             //By byte
-            Document bytes = DocumentHelper.CreateTemplateDocumentForReportingEngine("<<doc [src.DocumentByByte]>>");
+            Document bytes = DocumentHelper.CreateSimpleDocument("<<doc [src.DocumentByByte]>>");
             TestClass4 docByByte = new TestClass4(docBytes);
 
             BuildReport(bytes, docByByte, "src", ReportBuildOptions.None);

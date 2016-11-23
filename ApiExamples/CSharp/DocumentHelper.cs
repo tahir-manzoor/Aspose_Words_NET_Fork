@@ -101,7 +101,7 @@ namespace ApiExamples
         /// <summary>
         /// Create new document template for reporting engine
         /// </summary>
-        internal static Document CreateTemplateDocumentForReportingEngine(string templateText)
+        internal static Document CreateSimpleDocument(string templateText)
         {
             Document doc = new Document();
             DocumentBuilder builder = new DocumentBuilder(doc);
@@ -196,12 +196,17 @@ namespace ApiExamples
             builder.Writeln("Heading 1.1.1.1.1.1.1.1.1");
         }
 
+        /// <summary>
+        /// Compare word documents
+        /// </summary>
+        /// <param name="filePathDoc1">Frist document path</param>
+        /// <param name="filePathDoc2">Second document path</param>
+        /// <returns>Result of compare document</returns>
         internal static bool CompareDocs(string filePathDoc1, string filePathDoc2)
         {
             Document doc1 = new Document(filePathDoc1);
             Document doc2 = new Document(filePathDoc2);
 
-            // You can compare two documents here
             if (doc1.GetText() == doc2.GetText())
             {
                 return true;
@@ -213,15 +218,9 @@ namespace ApiExamples
         /// <summary>
         /// Insert run into the current document
         /// </summary>
-        /// <param name="doc">
-        /// Current document
-        /// </param>
-        /// <param name="text">
-        /// Custom text
-        /// </param>
-        /// <param name="paraIndex">
-        /// Paragraph index
-        /// </param>
+        /// <param name="doc">Current document</param>
+        /// <param name="text">Custom text</param>
+        /// <param name="paraIndex">Paragraph index</param>
         internal static Run InsertNewRun(Document doc, string text, int paraIndex)
         {
             Paragraph para = GetParagraph(doc, paraIndex);
@@ -236,12 +235,8 @@ namespace ApiExamples
         /// <summary>
         /// Insert text into the current document
         /// </summary>
-        /// <param name="builder">
-        /// Current document builder
-        /// </param>
-        /// <param name="textStrings">
-        /// Custom text
-        /// </param>
+        /// <param name="builder">Current document builder</param>
+        /// <param name="textStrings">Custom text</param>
         internal static void InsertBuilderText(DocumentBuilder builder, string[] textStrings)
         {
             foreach (string textString in textStrings)
@@ -253,12 +248,8 @@ namespace ApiExamples
         /// <summary>
         /// Get paragraph text of the current document
         /// </summary>
-        /// <param name="doc">
-        /// Current document
-        /// </param>
-        /// <param name="paraIndex">
-        /// Paragraph number from collection
-        /// </param>
+        /// <param name="doc">Current document</param>
+        /// <param name="paraIndex">Paragraph number from collection</param>
         internal static string GetParagraphText(Document doc, int paraIndex)
         {
             return doc.FirstSection.Body.Paragraphs[paraIndex].GetText();
@@ -267,12 +258,8 @@ namespace ApiExamples
         /// <summary>
         /// Get paragraph of the current document
         /// </summary>
-        /// <param name="doc">
-        /// Current document
-        /// </param>
-        /// <param name="paraIndex">
-        /// Paragraph number from collection
-        /// </param>
+        /// <param name="doc">Current document</param>
+        /// <param name="paraIndex">Paragraph number from collection</param>
         internal static Paragraph GetParagraph(Document doc, int paraIndex)
         {
             return doc.FirstSection.Body.Paragraphs[paraIndex];
