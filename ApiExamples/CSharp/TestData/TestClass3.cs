@@ -5,40 +5,20 @@ namespace ApiExamples.TestData
 {
     public class TestClass3
     {
-        public TestClass3(int firstNumber, double secondNumber, int thirdNumber, bool logical, DateTime date)
+        public TestClass3(int value1, double value2, int value3, DateTime date)
         {
-            this.FirstNumber = firstNumber;
-            this.SecondNumber = secondNumber;
-            this.ThirdNumber = thirdNumber;
-            this.Logical = logical;
-            this.Date = date;
+            Value1 = value1;
+            Value2 = value2;
+            Value3 = value3;
+            Date = date;
         }
 
-        public int FirstNumber { get; set; }
+        public int Value1 { get; set; }
 
-        public double SecondNumber { get; set; }
+        public double Value2 { get; set; }
 
-        public int ThirdNumber { get; set; }
-
-        public bool Logical { get; set; }
+        public int Value3 { get; set; }
 
         public DateTime Date { get; set; }
-
-        public int Sum(int firstNumber, int secondNumber)
-        {
-            int result = firstNumber + secondNumber;
-
-            return result;
-        }
-
-        public bool Pass(bool res)
-        {
-            return res;
-        }
-
-        public int? Test(int? res)
-        {
-            return res;
-        }
     }
 }

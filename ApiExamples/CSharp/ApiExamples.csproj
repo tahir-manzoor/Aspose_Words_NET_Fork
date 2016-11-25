@@ -121,6 +121,7 @@
     <Compile Include="ExTabStopCollection.cs" />
     <Compile Include="ExVariableCollection.cs" />
     <Compile Include="ExWarningInfoCollection.cs" />
+    <Compile Include="TestData\TestClass5.cs" />
     <Compile Include="TestData\TestClass4.cs" />
     <Compile Include="TestData\TestTables.cs">
       <DependentUpon>TestTables.xsd</DependentUpon>
