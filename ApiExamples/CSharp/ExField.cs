@@ -357,6 +357,28 @@ namespace ApiExamples
         }
 
         [Test]
+        public void UnlinkAllFieldsInDocument()
+        {
+            Document doc = new Document(MyDir + "Test.docx");
+            doc.UnlinkFields();
+        }
+
+        [Test]
+        public void UnlinkAllFieldsInRange()
+        {
+            Document doc = new Document(MyDir + "Test.docx");
+            doc.Range.UnlinkFields();
+        }
+
+        [Test]
+        public void UnlinkSingleField()
+        {
+            Document doc = new Document(MyDir + "Test.docx");
+            FieldCollection fields = doc.Range.Fields;
+            fields[0].Unlink();
+        }
+
+        [Test]
         public void UpdatePageNumbersInToc()
         {
             Document doc = new Document(MyDir + "Field.UpdateTocPages.docx");
