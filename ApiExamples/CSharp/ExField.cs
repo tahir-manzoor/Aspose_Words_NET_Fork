@@ -359,23 +359,36 @@ namespace ApiExamples
         [Test]
         public void UnlinkAllFieldsInDocument()
         {
-            Document doc = new Document(MyDir + "Test.docx");
+            Document doc = new Document(MyDir + "UnlinkFields.docx");
+
             doc.UnlinkFields();
+
+            string paraWithFields = DocumentHelper.GetParagraphText(doc, 1);
+            Assert.AreEqual(paraWithFields, "Fields.Docx   Элементы указателя не найдены.     1.\r");
         }
 
         [Test]
         public void UnlinkAllFieldsInRange()
         {
-            Document doc = new Document(MyDir + "Test.docx");
-            doc.Range.UnlinkFields();
+            Document doc = new Document(MyDir + "UnlinkFields.docx");
+
+            Section newSection = (Section)doc.Sections[0].Clone(true);
+            doc.Sections.Add(newSection);
+
+            doc.Sections[1].Range.UnlinkFields();
+
+            string secWithFields = DocumentHelper.GetSectionText(doc, 1);
+            Assert.AreEqual(secWithFields, "Fields.Docx   Элементы указателя не найдены.     3.\rОшибка! Не указана последовательность.    Fields.Docx   Элементы указателя не найдены.     4.\r\r\r\r\r\f");
         }
 
         [Test]
         public void UnlinkSingleField()
         {
-            Document doc = new Document(MyDir + "Test.docx");
-            FieldCollection fields = doc.Range.Fields;
-            fields[0].Unlink();
+            Document doc = new Document(MyDir + "UnlinkFields.docx");
+            doc.Range.Fields[1].Unlink();
+
+            string paraWithFields = DocumentHelper.GetParagraphText(doc, 1);
+            Assert.AreEqual(paraWithFields, "\u0013 FILENAME  \\* Caps  \\* MERGEFORMAT \u0014Fields.Docx\u0015   Элементы указателя не найдены.     \u0013 LISTNUM  LegalDefault \u0015\r");
         }
 
         [Test]

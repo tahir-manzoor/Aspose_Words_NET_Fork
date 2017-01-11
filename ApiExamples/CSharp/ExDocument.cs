@@ -1725,5 +1725,19 @@ namespace ApiExamples
             Assert.AreEqual("Times New Roman", doc.Theme.MinorFonts.EastAsian);
             Assert.AreEqual("Arial", doc.Theme.MinorFonts.Latin);
         }
+
+        [Test]
+        public void OoxmlComplianceVersion()
+        {
+            Document doc = new Document(MyDir + "Document.doc");
+
+            OoxmlCompliance compliance = doc.Compliance;
+            Assert.AreEqual(compliance, OoxmlCompliance.Ecma376_2006);
+
+            doc = new Document(MyDir + "BarCode.docx");
+            compliance = doc.Compliance;
+
+            Assert.AreEqual(compliance, OoxmlCompliance.Iso29500_2008_Transitional);
+        }
     }
 }
