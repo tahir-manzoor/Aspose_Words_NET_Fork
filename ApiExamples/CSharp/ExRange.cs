@@ -8,7 +8,6 @@
 using System;
 using System.Drawing;
 using System.Text.RegularExpressions;
-
 using Aspose.Words;
 using Aspose.Words.Replacing;
 using NUnit.Framework;
@@ -90,7 +89,7 @@ namespace ApiExamples
             // Save the modified document.
             doc.Save(MyDir + @"\Artifacts\Range.ReplaceWithInsertHtml.doc");
 
-            Assert.AreEqual("Hello James Bond,\r\x000c", doc.GetText());  //ExSkip
+            Assert.AreEqual("Hello James Bond,\r\x000c", doc.GetText()); //ExSkip
         }
 
         private class ReplaceWithHtmlEvaluator : IReplacingCallback

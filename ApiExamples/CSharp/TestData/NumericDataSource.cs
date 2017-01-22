@@ -1,11 +1,10 @@
 ﻿using System;
-using Aspose.Pdf;
 
 namespace ApiExamples.TestData
 {
-    public class TestClass3
+    public class NumericDataSource
     {
-        public TestClass3(int value1, double value2, int value3, DateTime date)
+        public NumericDataSource(int value1, double value2, int value3, DateTime date)
         {
             Value1 = value1;
             Value2 = value2;

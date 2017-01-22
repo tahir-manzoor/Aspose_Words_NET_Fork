@@ -8,13 +8,11 @@
 using System;
 using System.Collections;
 using System.Drawing;
-
 using Aspose.Words;
 using Aspose.Words.Drawing;
 using Aspose.Words.Fields;
 using Aspose.Words.Fonts;
 using Aspose.Words.Tables;
-
 using NUnit.Framework;
 
 namespace ApiExamples
@@ -185,7 +183,7 @@ namespace ApiExamples
             run = new Run(doc, "Expanded by 1pt");
             run.Font.Spacing = 1;
             para.AppendChild(run);
-            
+
             // Add a run of text with with space between characters reduced by 1pt.
             run = new Run(doc, "Condensed by 1pt");
             run.Font.Spacing = -1;
@@ -242,7 +240,7 @@ namespace ApiExamples
             run.Font.Outline = true;
             //ExEnd
         }
-        
+
         [Test]
         public void Hidden()
         {
@@ -317,7 +315,7 @@ namespace ApiExamples
             //ExFor:Font.Shading
             //ExSummary:Shows how to apply shading for a run of text.
             DocumentBuilder builder = new DocumentBuilder();
-            
+
             Shading shd = builder.Font.Shading;
             shd.Texture = TextureIndex.TextureDiagonalCross;
             shd.BackgroundPatternColor = Color.Blue;
@@ -341,7 +339,7 @@ namespace ApiExamples
             //ExFor:Font.LocaleIdBi
             //ExSummary:Shows how to insert and format right-to-left text.
             DocumentBuilder builder = new DocumentBuilder();
-            
+
             // Signal to Microsoft Word that this run of text contains right-to-left text.
             builder.Font.Bidi = true;
 
@@ -514,7 +512,6 @@ namespace ApiExamples
 
             // Verify the font count is correct.
             Assert.AreEqual(2, fontNames.Count);
-
         }
 
         [Test]
@@ -573,7 +570,7 @@ namespace ApiExamples
             doc.FontSettings = fontSettings;
 
             doc.Save(MyDir + @"\Artifacts\Rendering.MissingFontNotification.pdf");
-            
+
             Assert.True(callback.mFontWarnings[0].Description.Equals("Font substitutes: 'Arial' replaced with 'Arvo'."));
             Assert.True(callback.mFontWarnings[1].Description.Equals("Font 'Times New Roman' has not been found. Using 'Arvo' font instead. Reason: default font setting."));
         }
@@ -613,7 +610,7 @@ namespace ApiExamples
             run.Font.Color = Color.Empty;
 
             // When we set black color for background, autocolor for font must be white
-            run.Font.Shading.BackgroundPatternColor = Color.Black; 
+            run.Font.Shading.BackgroundPatternColor = Color.Black;
             Assert.AreEqual(Color.White, run.Font.AutoColor);
 
             // When we set white color for background, autocolor for font must be black
@@ -692,7 +689,7 @@ namespace ApiExamples
             public override VisitorAction VisitFieldEnd(FieldEnd fieldEnd)
             {
                 if (this.isHidden(fieldEnd))
-                    fieldEnd.Remove();            
+                    fieldEnd.Remove();
 
                 return VisitorAction.Continue;
             }
@@ -714,7 +711,7 @@ namespace ApiExamples
             public override VisitorAction VisitRun(Run run)
             {
                 if (this.isHidden(run))
-                    run.Remove();            
+                    run.Remove();
 
                 return VisitorAction.Continue;
             }
@@ -871,7 +868,6 @@ namespace ApiExamples
                 // By default nodes are not hidden so return false.
                 return false;
             }
-
         }
         //ExEnd
     }

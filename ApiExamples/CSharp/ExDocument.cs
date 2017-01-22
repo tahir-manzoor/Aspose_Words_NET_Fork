@@ -22,7 +22,6 @@ using System.Net;
 using System.Text;
 using System.Threading;
 using System.Web;
-
 using Aspose.Words;
 using Aspose.Words.Drawing;
 using Aspose.Words.Fields;
@@ -32,7 +31,6 @@ using Aspose.Words.Saving;
 using Aspose.Words.Settings;
 using Aspose.Words.Tables;
 using Aspose.Words.Themes;
-
 using NUnit.Framework;
 
 namespace ApiExamples
@@ -424,8 +422,7 @@ namespace ApiExamples
 
             // Create a new instance of HtmlSaveOptions. This object allows us to set options that control
             // how the output document is saved.
-            HtmlSaveOptions saveOptions =
-                new HtmlSaveOptions();
+            HtmlSaveOptions saveOptions = new HtmlSaveOptions();
 
             // Specify the desired encoding.
             saveOptions.Encoding = Encoding.UTF8;
@@ -762,7 +759,7 @@ namespace ApiExamples
             for (int i = 1; i <= recordCount; i++)
             {
                 Document srcDoc = new Document();
-                
+
                 // Open the document to join.
                 Assert.That(() => srcDoc == new Document(@"C:\DetailsList.doc"), Throws.TypeOf<FileNotFoundException>());
 
@@ -1425,10 +1422,9 @@ namespace ApiExamples
         {
             Document doc1 = new Document(MyDir + "Document.Compare.1.doc");
             Document docWithRevision = new Document(MyDir + "Document.Compare.Revisions.doc");
-            
+
             if (docWithRevision.Revisions.Count > 0)
-                Assert.That(() => docWithRevision.Compare(doc1, "authorName", DateTime.Now),
-                Throws.TypeOf<InvalidOperationException>());
+                Assert.That(() => docWithRevision.Compare(doc1, "authorName", DateTime.Now), Throws.TypeOf<InvalidOperationException>());
         }
 
         [Test]
@@ -1575,7 +1571,7 @@ namespace ApiExamples
         public void HyphenationOptionsDefaultValues()
         {
             Document doc = new Document();
-            
+
             MemoryStream dstStream = new MemoryStream();
             doc.Save(dstStream, SaveFormat.Docx);
 
@@ -1674,7 +1670,7 @@ namespace ApiExamples
 
             // Insert textbox into the document.
             doc.FirstSection.Body.FirstParagraph.AppendChild(shape);
-            
+
             MemoryStream dstStream = new MemoryStream();
             doc.Save(dstStream, SaveFormat.Docx);
 

@@ -8,7 +8,6 @@
 using System;
 using System.Drawing;
 using System.IO;
-
 using Aspose.Words;
 using Aspose.Words.Drawing;
 using Aspose.Words.Drawing.Ole;
@@ -30,7 +29,7 @@ namespace ApiExamples
         public void DeleteAllShapes()
         {
             Document doc = new Document(MyDir + "Shape.DeleteAllShapes.doc");
-            
+
             //ExStart
             //ExFor:Shape
             //ExSummary:Shows how to delete all shapes from a document.
@@ -59,14 +58,14 @@ namespace ApiExamples
 
             foreach (Shape shape in doc.GetChildNodes(NodeType.Shape, true))
             {
-                if(shape.IsInline)
+                if (shape.IsInline)
                     Console.WriteLine("Shape is inline.");
                 else
                     Console.WriteLine("Shape is floating.");
             }
 
             //ExEnd
-            
+
             // Verify that the first shape in the document is not inline.
             Assert.False(((Shape)doc.GetChild(NodeType.Shape, 0, true)).IsInline);
         }
@@ -83,7 +82,7 @@ namespace ApiExamples
 
             // The lines will cross the whole page.
             float pageWidth = (float)doc.FirstSection.PageSetup.PageWidth;
-            float pageHeight= (float)doc.FirstSection.PageSetup.PageHeight;
+            float pageHeight = (float)doc.FirstSection.PageSetup.PageHeight;
 
             // This line goes from top left to bottom right by default. 
             Shape lineA = new Shape(doc, ShapeType.Line);
@@ -246,7 +245,7 @@ namespace ApiExamples
             //ExFor:Forms2OleControlCollection.ChildNodes
             //ExSummary: Shows how to get ActiveX control and properties from the document
             Document doc = new Document(MyDir + "Shape.ActiveXObject.docx");
-            
+
             //Get ActiveX control from the document 
             Shape shape = (Shape)doc.GetChild(NodeType.Shape, 0, true);
             OleControl oleControl = shape.OleFormat.OleControl;
@@ -271,7 +270,7 @@ namespace ApiExamples
             //ExFor:OleFormat.SuggestedFileName
             //ExSummary:Shows how to get suggested file name from the object
             Document doc = new Document(MyDir + "Shape.SuggestedFileName.rtf");
-            
+
             //Gets the file name suggested for the current embedded object if you want to save it into a file
             Shape oleShape = (Shape)doc.FirstSection.Body.GetChild(NodeType.Shape, 0, true);
             string suggestedFileName = oleShape.OleFormat.SuggestedFileName;
@@ -380,9 +379,9 @@ namespace ApiExamples
         {
             Document doc = new Document();
             DocumentBuilder builder = new DocumentBuilder(doc);
-            
+
             doc.CompatibilityOptions.OptimizeFor(msWordVersion);
-            
+
             Shape image = builder.InsertImage(MyDir + @"dotnet-logo.png");
 
             // Loop through all single shapes inside document.

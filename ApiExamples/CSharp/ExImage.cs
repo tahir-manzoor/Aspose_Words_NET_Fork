@@ -8,10 +8,8 @@
 using System.Collections;
 using System.Drawing;
 using System.IO;
-
 using Aspose.Words;
 using Aspose.Words.Drawing;
-
 using NUnit.Framework;
 
 namespace ApiExamples
@@ -239,9 +237,8 @@ namespace ApiExamples
             builder.InsertNode(linkedOnly);
             builder.Writeln();
 
-
             builder.Write("Image linked and stored in the document: ");
-            
+
             Shape linkedAndStored = new Shape(builder.Document, ShapeType.Image);
             linkedAndStored.WrapType = WrapType.Inline;
             linkedAndStored.ImageData.SourceFullName = imageFileName;
@@ -250,9 +247,8 @@ namespace ApiExamples
             builder.InsertNode(linkedAndStored);
             builder.Writeln();
 
-
             builder.Write("Image stored in the document, but not linked: ");
-            
+
             Shape stored = new Shape(builder.Document, ShapeType.Image);
             stored.WrapType = WrapType.Inline;
             stored.ImageData.SetImage(imageFileName);
@@ -269,7 +265,7 @@ namespace ApiExamples
         {
             Document doc = new Document(MyDir + "Image.SampleImages.doc");
             Assert.AreEqual(6, doc.GetChildNodes(NodeType.Shape, true).Count);
-            
+
             //ExStart
             //ExFor:Shape.HasImage
             //ExFor:Node.Remove
@@ -302,7 +298,7 @@ namespace ApiExamples
         {
             Document doc = new Document(MyDir + "Image.SampleImages.doc");
             Assert.AreEqual(6, doc.GetChildNodes(NodeType.Shape, true).Count);
-            
+
             //ExStart
             //ExFor:Node.NextPreOrder
             //ExSummary:Shows how to delete all images from a document using pre-order tree traversal.
@@ -345,13 +341,12 @@ namespace ApiExamples
             Document doc = new Document(MyDir + "Image.SampleImages.doc");
 
             NodeCollection shapes = doc.GetChildNodes(NodeType.Shape, true);
-            int imageIndex = 0;			
+            int imageIndex = 0;
             foreach (Shape shape in shapes)
             {
                 if (shape.HasImage)
                 {
-                    string imageFileName = string.Format(
-                        @"\Artifacts\Image.ExportImages.{0} Out{1}", imageIndex, FileFormatUtil.ImageTypeToExtension(shape.ImageData.ImageType));
+                    string imageFileName = string.Format(@"\Artifacts\Image.ExportImages.{0} Out{1}", imageIndex, FileFormatUtil.ImageTypeToExtension(shape.ImageData.ImageType));
                     shape.ImageData.Save(MyDir + imageFileName);
                     imageIndex++;
                 }

@@ -1,11 +1,8 @@
-﻿using System;
-using Aspose.Pdf;
-
-namespace ApiExamples.TestData
+﻿namespace ApiExamples.TestData
 {
-    public class TestClass5
+    public class NumericDataSourceWithMethod
     {
-        public TestClass5(int? value1, double value2, int value3, int? value4, bool logical)
+        public NumericDataSourceWithMethod(int? value1, double value2, int value3, int? value4, bool logical)
         {
             Value1 = value1;
             Value2 = value2;

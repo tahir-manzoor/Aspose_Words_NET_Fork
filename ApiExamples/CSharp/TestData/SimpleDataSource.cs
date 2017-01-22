@@ -1,8 +1,8 @@
 ﻿namespace ApiExamples.TestData
 {
-    public class TestClass1
+    public class SimpleDataSource
     {
-        public TestClass1(string name, string message)
+        public SimpleDataSource(string name, string message)
         {
             this.Name = name;
             this.Message = message;

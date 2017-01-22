@@ -3,24 +3,24 @@ using Aspose.Words;
 
 namespace ApiExamples.TestData
 {
-    public class TestClass4
+    public class DocumentDataSource
     {
-        public TestClass4(Document doc)
+        public DocumentDataSource(Document doc)
         {
             this.Document = doc;
         }
 
-        public TestClass4(Stream stream)
+        public DocumentDataSource(Stream stream)
         {
             this.DocumentByStream = stream;
         }
 
-        public TestClass4(byte[] byteDoc)
+        public DocumentDataSource(byte[] byteDoc)
         {
             this.DocumentByByte = byteDoc;
         }
 
-        public TestClass4(string uriToDoc)
+        public DocumentDataSource(string uriToDoc)
         {
             this.DocumentByUri = uriToDoc;
         }
@@ -28,10 +28,9 @@ namespace ApiExamples.TestData
         public Document Document { get; set; }
 
         public Stream DocumentByStream { get; set; }
-        
+
         public byte[] DocumentByByte { get; set; }
 
         public string DocumentByUri { get; set; }
-
     }
 }

@@ -3,24 +3,24 @@ using System.IO;
 
 namespace ApiExamples.TestData
 {
-    public class TestClass2
+    public class ImageDataSource
     {
-        public TestClass2(Stream stream)
+        public ImageDataSource(Stream stream)
         {
             this.Stream = stream;
         }
 
-        public TestClass2(Image imageObject)
+        public ImageDataSource(Image imageObject)
         {
             this.Image = imageObject;
         }
 
-        public TestClass2(byte[] imageBytes)
+        public ImageDataSource(byte[] imageBytes)
         {
             this.Bytes = imageBytes;
         }
 
-        public TestClass2(string uriToImage)
+        public ImageDataSource(string uriToImage)
         {
             this.Uri = uriToImage;
         }

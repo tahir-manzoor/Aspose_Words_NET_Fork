@@ -28,7 +28,7 @@ namespace ApiExamples
         {
             Document doc = DocumentHelper.CreateSimpleDocument("<<[s.Name]>> says: <<[s.Message]>>");
 
-            TestClass1 sender = new TestClass1("LINQ Reporting Engine", "Hello World");
+            SimpleDataSource sender = new SimpleDataSource("LINQ Reporting Engine", "Hello World");
             BuildReport(doc, sender, "s", ReportBuildOptions.None);
 
             MemoryStream dstStream = new MemoryStream();
@@ -40,11 +40,9 @@ namespace ApiExamples
         [Test]
         public void StringFormat()
         {
-            Document doc =
-                DocumentHelper.CreateSimpleDocument(
-                    "<<[s.Name]:lower>> says: <<[s.Message]:upper>>, <<[s.Message]:caps>>, <<[s.Message]:firstCap>>");
+            Document doc = DocumentHelper.CreateSimpleDocument("<<[s.Name]:lower>> says: <<[s.Message]:upper>>, <<[s.Message]:caps>>, <<[s.Message]:firstCap>>");
 
-            TestClass1 sender = new TestClass1("LINQ Reporting Engine", "hello world");
+            SimpleDataSource sender = new SimpleDataSource("LINQ Reporting Engine", "hello world");
             BuildReport(doc, sender, "s");
 
             MemoryStream dstStream = new MemoryStream();
@@ -56,39 +54,36 @@ namespace ApiExamples
         [Test]
         public void NumberFormat()
         {
-            Document doc =
-                DocumentHelper.CreateSimpleDocument(
-                    "<<[s.FirstNumber]:alphabetic>> : <<[s.SecondNumber]:roman:lower>>, <<[s.ThirdNumber]:ordinal>>, <<[s.FirstNumber]:ordinalText:upper>>" +
-                    ", <<[s.SecondNumber]:cardinal>>, <<[s.ThirdNumber]:hex>>, <<[s.ThirdNumber]:arabicDash>>, <<[s.Date]:\"MMMM\":lower>>");
+            Document doc = DocumentHelper.CreateSimpleDocument("<<[s.Value1]:alphabetic>> : <<[s.Value2]:roman:lower>>, <<[s.Value3]:ordinal>>, <<[s.Value1]:ordinalText:upper>>" + ", <<[s.Value2]:cardinal>>, <<[s.Value3]:hex>>, <<[s.Value3]:arabicDash>>, <<[s.Date]:\"MMMM\":lower>>");
 
-            TestClass3 sender = new TestClass3(1, 2.2, 200, DateTime.Parse("10.09.2016 10:00:00"));
+            NumericDataSource sender = new NumericDataSource(1, 2.2, 200, DateTime.Parse("10.09.2016 10:00:00"));
             BuildReport(doc, sender, "s");
 
             MemoryStream dstStream = new MemoryStream();
             doc.Save(dstStream, SaveFormat.Docx);
 
-            Assert.AreEqual("A : ii, 200th, FIRST, Two, C8, - 200 -, сентябрь\f", doc.GetText());
+            Assert.AreEqual("A : ii, 200th, FIRST, Two, C8, - 200 -, september\f", doc.GetText());
         }
 
         [Test]
         public void DataTableTest()
         {
             Document doc = new Document(MyDir + "ReportingEngine.TestDataTable.docx");
-            
-            DataSet ds = TestTables.AddClientsTestData();
+
+            DataSet ds = DataTables.AddClientsTestData();
             BuildReport(doc, ds, "ds");
 
             doc.Save(MyDir + @"\Artifacts\ReportingEngine.TestDataTable Out.docx");
 
             Assert.IsTrue(DocumentHelper.CompareDocs(MyDir + @"\Artifacts\ReportingEngine.TestDataTable Out.docx", MyDir + @"\Golds\ReportingEngine.TestDataTable Gold.docx"));
         }
-        
+
         [Test]
         public void NestedDataTableTest()
         {
             Document doc = new Document(MyDir + "ReportingEngine.TestNestedDataTable.docx");
 
-            DataSet ds = TestTables.AddClientsTestData();
+            DataSet ds = DataTables.AddClientsTestData();
             BuildReport(doc, ds, "ds");
 
             doc.Save(MyDir + @"\Artifacts\ReportingEngine.TestNestedDataTable Out.docx");
@@ -100,7 +95,7 @@ namespace ApiExamples
         public void ChartTest()
         {
             Document doc = new Document(MyDir + "ReportingEngine.TestChart.docx");
-            DataSet ds = TestTables.AddClientsTestData();
+            DataSet ds = DataTables.AddClientsTestData();
 
             BuildReport(doc, ds.Managers, "managers");
             doc.Save(MyDir + @"\Artifacts\ReportingEngine.TestChart Out.docx");
@@ -112,7 +107,7 @@ namespace ApiExamples
         public void BubbleChartTest()
         {
             Document doc = new Document(MyDir + "ReportingEngine.TestBubbleChart.docx");
-            DataSet ds = TestTables.AddClientsTestData();
+            DataSet ds = DataTables.AddClientsTestData();
 
             BuildReport(doc, ds.Managers, "managers");
             doc.Save(MyDir + @"\Artifacts\ReportingEngine.TestBubbleChart Out.docx");
@@ -124,8 +119,8 @@ namespace ApiExamples
         public void IndexOf()
         {
             Document doc = new Document(MyDir + "ReportingEngine.TestIndexOf.docx");
-            DataSet ds = TestTables.AddClientsTestData();
-            
+            DataSet ds = DataTables.AddClientsTestData();
+
             BuildReport(doc, ds, "ds");
 
             MemoryStream dstStream = new MemoryStream();
@@ -138,7 +133,7 @@ namespace ApiExamples
         public void IfElse()
         {
             Document doc = new Document(MyDir + "ReportingEngine.IfElse.docx");
-            DataSet ds = TestTables.AddClientsTestData();
+            DataSet ds = DataTables.AddClientsTestData();
 
             BuildReport(doc, ds.Managers, "m");
 
@@ -166,8 +161,8 @@ namespace ApiExamples
         public void ExtensionMethods()
         {
             Document doc = new Document(MyDir + "ReportingEngine.ExtensionMethods.docx");
-            DataSet ds = TestTables.AddClientsTestData();
-            
+            DataSet ds = DataTables.AddClientsTestData();
+
             BuildReport(doc, ds, "ds");
             doc.Save(MyDir + @"\Artifacts\ReportingEngine.ExtensionMethods Out.docx");
 
@@ -178,23 +173,23 @@ namespace ApiExamples
         public void Operators()
         {
             Document doc = new Document(MyDir + "ReportingEngine.Operators.docx");
-            TestClass5 testData = new TestClass5(1, 2.0, 3, null, true);
+            NumericDataSourceWithMethod testData = new NumericDataSourceWithMethod(1, 2.0, 3, null, true);
 
             ReportingEngine report = new ReportingEngine();
-            report.KnownTypes.Add(typeof(TestClass5));
+            report.KnownTypes.Add(typeof(NumericDataSourceWithMethod));
             report.BuildReport(doc, testData, "ds");
-            
+
             doc.Save(MyDir + @"\Artifacts\ReportingEngine.Operators Out.docx");
 
             Assert.IsTrue(DocumentHelper.CompareDocs(MyDir + @"\Artifacts\ReportingEngine.Operators Out.docx", MyDir + @"\Golds\ReportingEngine.Operators Gold.docx"));
         }
-        
+
         [Test]
         public void ContextualObjectMemberAccess()
         {
             Document doc = new Document(MyDir + "ReportingEngine.ContextualObjectMemberAccess.docx");
-            DataSet ds = TestTables.AddClientsTestData();
-            
+            DataSet ds = DataTables.AddClientsTestData();
+
             BuildReport(doc, ds, "ds");
             doc.Save(MyDir + @"\Artifacts\ReportingEngine.ContextualObjectMemberAccess Out.docx");
 
@@ -207,7 +202,7 @@ namespace ApiExamples
             //By stream
             Document template = DocumentHelper.CreateSimpleDocument("<<doc [src.DocumentByStream]>>");
 
-            TestClass4 docStream = new TestClass4(new FileStream(this._doc, FileMode.Open, FileAccess.Read));
+            DocumentDataSource docStream = new DocumentDataSource(new FileStream(this._doc, FileMode.Open, FileAccess.Read));
 
             BuildReport(template, docStream, "src", ReportBuildOptions.None);
             template.Save(MyDir + @"\Artifacts\ReportingEngine.InsertDocumentDinamically Out.docx");
@@ -217,7 +212,7 @@ namespace ApiExamples
             //By doc
             template = DocumentHelper.CreateSimpleDocument("<<doc [src.Document]>>");
 
-            TestClass4 docByDoc = new TestClass4(new Document(MyDir + "ReportingEngine.TestDataTable.docx"));
+            DocumentDataSource docByDoc = new DocumentDataSource(new Document(MyDir + "ReportingEngine.TestDataTable.docx"));
 
             BuildReport(template, docByDoc, "src", ReportBuildOptions.None);
             template.Save(MyDir + @"\Artifacts\ReportingEngine.InsertDocumentDinamically Out.docx");
@@ -227,7 +222,7 @@ namespace ApiExamples
             //By uri
             template = DocumentHelper.CreateSimpleDocument("<<doc [src.DocumentByUri]>>");
 
-            TestClass4 docByUri = new TestClass4("http://www.aspose.com/demos/.net-components/aspose.words/csharp/general/Common/Documents/DinnerInvitationDemo.doc");
+            DocumentDataSource docByUri = new DocumentDataSource("http://www.aspose.com/demos/.net-components/aspose.words/csharp/general/Common/Documents/DinnerInvitationDemo.doc");
 
             BuildReport(template, docByUri, "src", ReportBuildOptions.None);
             template.Save(MyDir + @"\Artifacts\ReportingEngine.InsertDocumentDinamically Out.docx");
@@ -237,7 +232,7 @@ namespace ApiExamples
             //By byte
             template = DocumentHelper.CreateSimpleDocument("<<doc [src.DocumentByByte]>>");
 
-            TestClass4 docByByte = new TestClass4(File.ReadAllBytes(MyDir + "ReportingEngine.TestDataTable.docx"));
+            DocumentDataSource docByByte = new DocumentDataSource(File.ReadAllBytes(MyDir + "ReportingEngine.TestDataTable.docx"));
 
             BuildReport(template, docByByte, "src", ReportBuildOptions.None);
             template.Save(MyDir + @"\Artifacts\ReportingEngine.InsertDocumentDinamically Out.docx");
@@ -250,7 +245,7 @@ namespace ApiExamples
         {
             //By stream
             Document template = DocumentHelper.CreateTemplateDocumentWithDrawObjects("<<image [src.Stream]>>", ShapeType.TextBox);
-            TestClass2 docByStream = new TestClass2(new FileStream(this._image, FileMode.Open, FileAccess.Read));
+            ImageDataSource docByStream = new ImageDataSource(new FileStream(this._image, FileMode.Open, FileAccess.Read));
 
             BuildReport(template, docByStream, "src", ReportBuildOptions.None);
             template.Save(MyDir + @"\Artifacts\ReportingEngine.InsertImageDinamically Out.docx");
@@ -259,7 +254,7 @@ namespace ApiExamples
 
             //By image
             template = DocumentHelper.CreateTemplateDocumentWithDrawObjects("<<image [src.Image]>>", ShapeType.TextBox);
-            TestClass2 docByImg = new TestClass2(Image.FromFile(this._image, true));
+            ImageDataSource docByImg = new ImageDataSource(Image.FromFile(this._image, true));
 
             BuildReport(template, docByImg, "src", ReportBuildOptions.None);
             template.Save(MyDir + @"\Artifacts\ReportingEngine.InsertImageDinamically Out.docx");
@@ -268,7 +263,7 @@ namespace ApiExamples
 
             //By Uri
             template = DocumentHelper.CreateTemplateDocumentWithDrawObjects("<<image [src.Uri]>>", ShapeType.TextBox);
-            TestClass2 docByUri = new TestClass2("http://joomla-aspose.dynabic.com/templates/aspose/App_Themes/V3/images/customers/americanexpress.png");
+            ImageDataSource docByUri = new ImageDataSource("http://joomla-aspose.dynabic.com/templates/aspose/App_Themes/V3/images/customers/americanexpress.png");
 
             BuildReport(template, docByUri, "src", ReportBuildOptions.None);
             template.Save(MyDir + @"\Artifacts\ReportingEngine.InsertImageDinamically Out.docx");
@@ -277,7 +272,7 @@ namespace ApiExamples
 
             //By bytes
             template = DocumentHelper.CreateTemplateDocumentWithDrawObjects("<<image [src.Bytes]>>", ShapeType.TextBox);
-            TestClass2 docByBytes = new TestClass2(File.ReadAllBytes(this._image));
+            ImageDataSource docByBytes = new ImageDataSource(File.ReadAllBytes(this._image));
 
             BuildReport(template, docByBytes, "src", ReportBuildOptions.None);
             template.Save(MyDir + @"\Artifacts\ReportingEngine.InsertImageDinamically Out.docx");
@@ -292,7 +287,7 @@ namespace ApiExamples
             DocumentBuilder builder = new DocumentBuilder(doc);
 
             builder.Writeln("<<[new DateTime()]:”dd.MM.yyyy”>>");
-           
+
             ReportingEngine engine = new ReportingEngine();
             Assert.That(() => engine.BuildReport(doc, ""), Throws.TypeOf<InvalidOperationException>());
         }
@@ -303,17 +298,17 @@ namespace ApiExamples
             Document doc = new Document();
             DocumentBuilder builder = new DocumentBuilder(doc);
 
-            builder.Writeln("<<[DateTime.Now]:”dd.MM.yyyy”>>");
-            builder.Writeln("<<[DateTime.Now]:”dd”>>");
-            builder.Writeln("<<[DateTime.Now]:”MM”>>");
-            builder.Writeln("<<[DateTime.Now]:”yyyy”>>");
+            builder.Writeln("<<[new DateTime(2016, 1, 20)]:”dd.MM.yyyy”>>");
+            builder.Writeln("<<[new DateTime(2016, 1, 20)]:”dd”>>");
+            builder.Writeln("<<[new DateTime(2016, 1, 20)]:”MM”>>");
+            builder.Writeln("<<[new DateTime(2016, 1, 20)]:”yyyy”>>");
 
-            builder.Writeln("<<[DateTime.Now.Month]>>");
+            builder.Writeln("<<[new DateTime(2016, 1, 20).Month]>>");
 
             ReportingEngine engine = new ReportingEngine();
             engine.KnownTypes.Add(typeof(DateTime));
             engine.BuildReport(doc, "");
-            
+
             doc.Save(MyDir + @"\Artifacts\ReportingEngine.KnownTypes Out.docx");
 
             Assert.IsTrue(DocumentHelper.CompareDocs(MyDir + @"\Artifacts\ReportingEngine.KnownTypes Out.docx", MyDir + @"\Golds\ReportingEngine.KnownTypes Gold.docx"));
@@ -324,7 +319,7 @@ namespace ApiExamples
         {
             Document doc = DocumentHelper.CreateTemplateDocumentWithDrawObjects("<<image [src.Stream] -fitHeight>>", ShapeType.TextBox);
 
-            TestClass2 imageStream = new TestClass2(new FileStream(this._image, FileMode.Open, FileAccess.Read));
+            ImageDataSource imageStream = new ImageDataSource(new FileStream(this._image, FileMode.Open, FileAccess.Read));
 
             BuildReport(doc, imageStream, "src", ReportBuildOptions.None);
 
@@ -351,9 +346,9 @@ namespace ApiExamples
         [Test]
         public void StretchImagefitWidth()
         {
-            Document doc = DocumentHelper.CreateTemplateDocumentWithDrawObjects("<<image [src.Image] -fitWidth>>", ShapeType.TextBox);
+            Document doc = DocumentHelper.CreateTemplateDocumentWithDrawObjects("<<image [src.Stream] -fitWidth>>", ShapeType.TextBox);
 
-            TestClass2 imageStream = new TestClass2(new FileStream(this._image, FileMode.Open, FileAccess.Read));
+            ImageDataSource imageStream = new ImageDataSource(new FileStream(this._image, FileMode.Open, FileAccess.Read));
 
             BuildReport(doc, imageStream, "src", ReportBuildOptions.None);
 
@@ -380,9 +375,9 @@ namespace ApiExamples
         [Test]
         public void StretchImagefitSize()
         {
-            Document doc = DocumentHelper.CreateTemplateDocumentWithDrawObjects("<<image [src.Image] -fitSize>>", ShapeType.TextBox);
+            Document doc = DocumentHelper.CreateTemplateDocumentWithDrawObjects("<<image [src.Stream] -fitSize>>", ShapeType.TextBox);
 
-            TestClass2 imageStream = new TestClass2(new FileStream(this._image, FileMode.Open, FileAccess.Read));
+            ImageDataSource imageStream = new ImageDataSource(new FileStream(this._image, FileMode.Open, FileAccess.Read));
 
             BuildReport(doc, imageStream, "src", ReportBuildOptions.None);
 
@@ -429,9 +424,7 @@ namespace ApiExamples
             BuildReport(builder.Document, new DataSet(), "", ReportBuildOptions.AllowMissingMembers);
 
             //Assert that build report success with "ReportBuildOptions.AllowMissingMembers"
-            Assert.AreEqual(
-            ControlChar.ParagraphBreak + ControlChar.ParagraphBreak + ControlChar.SectionBreak,
-            builder.Document.GetText());
+            Assert.AreEqual(ControlChar.ParagraphBreak + ControlChar.ParagraphBreak + ControlChar.SectionBreak, builder.Document.GetText());
         }
 
         private static void BuildReport(Document document, object dataSource, string dataSourceName, ReportBuildOptions reportBuildOptions)

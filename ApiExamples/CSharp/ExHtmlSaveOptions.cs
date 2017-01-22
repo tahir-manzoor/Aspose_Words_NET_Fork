@@ -6,9 +6,7 @@
 //////////////////////////////////////////////////////////////////////////
 
 using Aspose.Words;
-
 using NUnit.Framework;
-
 using System;
 using System.IO;
 
@@ -26,11 +24,7 @@ namespace ApiExamples
         {
             Document doc = new Document(MyDir + "HtmlSaveOptions.ExportPageMargins.docx");
 
-            Aspose.Words.Saving.HtmlSaveOptions htmlSaveOptions = new Aspose.Words.Saving.HtmlSaveOptions
-            {
-                SaveFormat = saveFormat, 
-                ExportPageMargins = true
-            };
+            Aspose.Words.Saving.HtmlSaveOptions htmlSaveOptions = new Aspose.Words.Saving.HtmlSaveOptions { SaveFormat = saveFormat, ExportPageMargins = true };
 
             switch (saveFormat)
             {
@@ -85,15 +79,11 @@ namespace ApiExamples
 
             if (valueHtml)
             {
-                this.CompareFiles(
-                    MyDir + @"\Golds\HtmlSaveOptions.WithRoundtripInformation.html",
-                    MyDir + @"\Artifacts\HtmlSaveOptions.RoundtripInformation.html");
+                this.CompareFiles(MyDir + @"\Golds\HtmlSaveOptions.WithRoundtripInformation.html", MyDir + @"\Artifacts\HtmlSaveOptions.RoundtripInformation.html");
             }
             else
             {
-                this.CompareFiles(
-                    MyDir + @"\Golds\HtmlSaveOptions.WithoutRoundtripInformation.html",
-                    MyDir + @"\Artifacts\HtmlSaveOptions.RoundtripInformation.html");
+                this.CompareFiles(MyDir + @"\Golds\HtmlSaveOptions.WithoutRoundtripInformation.html", MyDir + @"\Artifacts\HtmlSaveOptions.RoundtripInformation.html");
             }
         }
 
