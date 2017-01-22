@@ -1,5 +1,4 @@
 ﻿using System.IO;
-
 using Aspose.Words;
 using Aspose.Words.Saving;
 using NUnit.Framework;
@@ -47,7 +46,7 @@ namespace ApiExamples
 
             doc.Save(MyDir + @"\Artifacts\Rendering.html", htmlFixedSaveOptions);
 
-            string[] filePaths = Directory.GetFiles(MyDir + @"\Artifacts\" , "Page_*.html");
+            string[] filePaths = Directory.GetFiles(MyDir + @"\Artifacts\", "Page_*.html");
 
             for (int i = 0; i < doc.PageCount; i++)
             {

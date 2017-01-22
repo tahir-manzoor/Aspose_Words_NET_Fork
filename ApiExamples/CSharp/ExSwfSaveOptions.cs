@@ -6,10 +6,8 @@
 //////////////////////////////////////////////////////////////////////////
 
 using System.IO;
-
 using Aspose.Words;
 using Aspose.Words.Saving;
-
 using NUnit.Framework;
 
 namespace ApiExamples
@@ -54,13 +52,13 @@ namespace ApiExamples
             options.ToolTips[SwfViewerControlIdentifier.TopPaneNextPageButton] = "Следующая страница";
             options.ToolTips[SwfViewerControlIdentifier.TopPaneSearchField] = "Введите искомый текст";
             options.ToolTips[SwfViewerControlIdentifier.TopPaneSearchButton] = "Искать";
-            
+
             // Left panel.
             options.ToolTips[SwfViewerControlIdentifier.LeftPaneDocumentMapButton] = "Карта документа";
             options.ToolTips[SwfViewerControlIdentifier.LeftPanePagePreviewPaneButton] = "Предварительный просмотр страниц";
             options.ToolTips[SwfViewerControlIdentifier.LeftPaneAboutButton] = "О приложении";
             options.ToolTips[SwfViewerControlIdentifier.LeftPaneCollapsePanelButton] = "Свернуть панель";
-            
+
             // Bottom panel.
             options.ToolTips[SwfViewerControlIdentifier.BottomPaneShowHideBottomPaneButton] = "Показать/Скрыть панель";
             //ExEnd
@@ -81,9 +79,7 @@ namespace ApiExamples
             // Create an instance of SwfSaveOptions and set some buttons as hidden.
             SwfSaveOptions options = new SwfSaveOptions();
             // Hide all the buttons with the exception of the page control buttons. Similar flags can be used for the left control pane as well.
-            options.TopPaneControlFlags = SwfTopPaneControlFlags.HideAll | SwfTopPaneControlFlags.ShowActualSize |
-                SwfTopPaneControlFlags.ShowFitToWidth | SwfTopPaneControlFlags.ShowFitToHeight |
-                SwfTopPaneControlFlags.ShowZoomIn | SwfTopPaneControlFlags.ShowZoomOut;
+            options.TopPaneControlFlags = SwfTopPaneControlFlags.HideAll | SwfTopPaneControlFlags.ShowActualSize | SwfTopPaneControlFlags.ShowFitToWidth | SwfTopPaneControlFlags.ShowFitToHeight | SwfTopPaneControlFlags.ShowZoomIn | SwfTopPaneControlFlags.ShowZoomOut;
 
             // You can also choose to show or hide the main elements of the viewer. Hide the search control.
             options.ShowSearch = false;

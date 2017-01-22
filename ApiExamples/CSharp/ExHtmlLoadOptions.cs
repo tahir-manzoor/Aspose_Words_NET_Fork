@@ -23,12 +23,12 @@ namespace ApiExamples
             //ExFor:HtmlLoadOptions.SupportVml
             //ExSummary:Demonstrates how to parse html document with conditional comments like "&lt;!--[if gte vml 1]&gt;" and "&lt;![if !vml]&gt;"
             HtmlLoadOptions loadOptions = new HtmlLoadOptions();
-            
+
             //If SupportVml = true, then we parse "&lt;!--[if gte vml 1]&gt;", else parse "&lt;![if !vml]&gt;"
             loadOptions.SupportVml = supportVml;
             //Wait for a response, when loading external resources
             loadOptions.WebRequestTimeout = 1000;
-            
+
             Document doc = new Document(MyDir + "Shape.VmlAndDml.htm", loadOptions);
             doc.Save(MyDir + @"\Artifacts\Shape.VmlAndDml.docx");
             //ExEnd

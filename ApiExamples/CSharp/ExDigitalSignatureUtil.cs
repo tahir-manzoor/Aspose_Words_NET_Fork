@@ -73,7 +73,7 @@ namespace ApiExamples
             string outputDocFileName = MyDir + @"\Artifacts\Document.DigitalSignature.docx";
 
             DigitalSignatureUtil.Sign(doc.OriginalFileName, outputDocFileName, ch, "My comment", DateTime.Now);
-            
+
             //By Stream
             Stream docInStream = new FileStream(MyDir + "Document.DigitalSignature.docx", FileMode.Open);
             Stream docOutStream = new FileStream(MyDir + @"\Artifacts\Document.DigitalSignature.docx", FileMode.OpenOrCreate);
@@ -95,10 +95,7 @@ namespace ApiExamples
             string outputDocFileName = MyDir + @"\Artifacts\Document.Encrypted.docx";
 
             // Digitally sign encrypted with "docPassword" document in the specified path.
-            Assert.That(
-                () =>
-                    DigitalSignatureUtil.Sign(doc.OriginalFileName, outputDocFileName, ch, "Comment", DateTime.Now, "docPassword1"),
-                Throws.TypeOf<IncorrectPasswordException>(), "The document password is incorrect.");
+            Assert.That(() => DigitalSignatureUtil.Sign(doc.OriginalFileName, outputDocFileName, ch, "Comment", DateTime.Now, "docPassword1"), Throws.TypeOf<IncorrectPasswordException>(), "The document password is incorrect.");
         }
 
         [Test]
@@ -159,9 +156,7 @@ namespace ApiExamples
         [Test]
         public void NoArgumentsForSing()
         {
-            Assert.That(() => DigitalSignatureUtil.Sign(String.Empty, String.Empty, null, String.Empty, DateTime.Now, String.Empty),
-                Throws.TypeOf<ArgumentException>());
-            
+            Assert.That(() => DigitalSignatureUtil.Sign(String.Empty, String.Empty, null, String.Empty, DateTime.Now, String.Empty), Throws.TypeOf<ArgumentException>());
         }
 
         [Test]
@@ -172,9 +167,7 @@ namespace ApiExamples
             string outputDocFileName = MyDir + @"\Artifacts\Document.DigitalSignature.docx";
 
             // Digitally sign encrypted with "docPassword" document in the specified path.
-            Assert.That(() => DigitalSignatureUtil.Sign(doc.OriginalFileName, outputDocFileName, null, "Comment", DateTime.Now, "docPassword"),
-               Throws.TypeOf<NullReferenceException>());
+            Assert.That(() => DigitalSignatureUtil.Sign(doc.OriginalFileName, outputDocFileName, null, "Comment", DateTime.Now, "docPassword"), Throws.TypeOf<NullReferenceException>());
         }
-        
     }
 }

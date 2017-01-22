@@ -8,14 +8,12 @@
 using System;
 using System.Drawing;
 using System.IO;
-
 using Aspose.Words;
 using Aspose.Words.Drawing;
 using Aspose.Words.Drawing.Charts;
 using Aspose.Words.Fields;
 using Aspose.Words.Replacing;
 using Aspose.Words.Tables;
-
 using NUnit.Framework;
 
 namespace ApiExamples
@@ -170,7 +168,7 @@ namespace ApiExamples
                 }
             }
         }
-        
+
         [Test]
         public void DocumentBuilderAndSave()
         {
@@ -300,11 +298,7 @@ namespace ApiExamples
             Document doc = new Document();
             DocumentBuilder builder = new DocumentBuilder(doc);
 
-            builder.InsertHtml(
-                "<P align='right'>Paragraph right</P>" +
-                "<b>Implicit paragraph left</b>" +
-                "<div align='center'>Div center</div>" +
-                "<h1 align='left'>Heading 1 left.</h1>");
+            builder.InsertHtml("<P align='right'>Paragraph right</P>" + "<b>Implicit paragraph left</b>" + "<div align='center'>Div center</div>" + "<h1 align='left'>Heading 1 left.</h1>");
 
             doc.Save(MyDir + @"\Artifacts\DocumentBuilder.InsertHtml.doc");
             //ExEnd
@@ -321,11 +315,7 @@ namespace ApiExamples
 
             bool useBuilderFormatting = true;
 
-            builder.InsertHtml(
-                "<P align='right'>Paragraph right</P>" +
-                "<b>Implicit paragraph left</b>" +
-                "<div align='center'>Div center</div>" +
-                "<h1 align='left'>Heading 1 left.</h1>", useBuilderFormatting);
+            builder.InsertHtml("<P align='right'>Paragraph right</P>" + "<b>Implicit paragraph left</b>" + "<div align='center'>Div center</div>" + "<h1 align='left'>Heading 1 left.</h1>", useBuilderFormatting);
 
             doc.Save(MyDir + @"\Artifacts\DocumentBuilder.InsertHtml.doc");
             //ExEnd
@@ -380,15 +370,7 @@ namespace ApiExamples
             builder.Writeln("");
             builder.Writeln("");
 
-            string[] items = new string[]
-                {
-                    "-- Select your favorite footwear --",
-                    "Sneakers",
-                    "Oxfords",
-                    "Flip-flops",
-                    "Other",
-                    "I prefer to be barefoot"
-                };
+            string[] items = new string[] { "-- Select your favorite footwear --", "Sneakers", "Oxfords", "Flip-flops", "Other", "I prefer to be barefoot" };
 
             // Insert a combo box to select a footwear type.
             builder.InsertComboBox("", items, 0);
@@ -475,7 +457,7 @@ namespace ApiExamples
             FindReplaceOptions options = new FindReplaceOptions();
             options.MatchCase = false;
             options.FindWholeWordsOnly = true;
-            
+
             // Move to a particular paragraph's run and replace all occurrences of "bad" with "good" within this run.
             builder.MoveTo(doc.LastSection.Body.Paragraphs[0].Runs[0]);
             builder.CurrentNode.Range.Replace("bad", "good", options);
@@ -855,16 +837,7 @@ namespace ApiExamples
 
             // Insert the table from HTML. Note that AutoFitSettings does not apply to tables
             // inserted from HTML.
-            builder.InsertHtml("<table>" +
-                               "<tr>" +
-                               "<td>Row 1, Cell 1</td>" +
-                               "<td>Row 1, Cell 2</td>" +
-                               "</tr>" +
-                               "<tr>" +
-                               "<td>Row 2, Cell 2</td>" +
-                               "<td>Row 2, Cell 2</td>" +
-                               "</tr>" +
-                               "</table>");
+            builder.InsertHtml("<table>" + "<tr>" + "<td>Row 1, Cell 1</td>" + "<td>Row 1, Cell 2</td>" + "</tr>" + "<tr>" + "<td>Row 2, Cell 2</td>" + "<td>Row 2, Cell 2</td>" + "</tr>" + "</table>");
 
             doc.Save(MyDir + @"\Artifacts\DocumentBuilder.InsertTableFromHtml.doc");
             //ExEnd
@@ -1118,7 +1091,8 @@ namespace ApiExamples
             Assert.AreEqual(Color.Green.ToArgb(), table.FirstRow.Cells[1].CellFormat.Shading.BackgroundPatternColor.ToArgb());
             Assert.AreEqual(Color.Empty.ToArgb(), table.LastRow.FirstCell.CellFormat.Shading.BackgroundPatternColor.ToArgb());
 
-            Assert.AreEqual(Color.Black.ToArgb(), table.FirstRow.FirstCell.CellFormat.Borders.Left.Color.ToArgb()); Assert.AreEqual(Color.Black.ToArgb(), table.FirstRow.FirstCell.CellFormat.Borders.Left.Color.ToArgb());
+            Assert.AreEqual(Color.Black.ToArgb(), table.FirstRow.FirstCell.CellFormat.Borders.Left.Color.ToArgb());
+            Assert.AreEqual(Color.Black.ToArgb(), table.FirstRow.FirstCell.CellFormat.Borders.Left.Color.ToArgb());
             Assert.AreEqual(LineStyle.Single, table.FirstRow.FirstCell.CellFormat.Borders.Left.LineStyle);
             Assert.AreEqual(2.0, table.FirstRow.FirstCell.CellFormat.Borders.Left.LineWidth);
             Assert.AreEqual(4.0, table.LastRow.FirstCell.CellFormat.Borders.Left.LineWidth);
@@ -1475,14 +1449,7 @@ namespace ApiExamples
             Document doc = new Document();
             DocumentBuilder builder = new DocumentBuilder(doc);
 
-            builder.InsertImage(MyDir + @"\Images\Watermark.png",
-                RelativeHorizontalPosition.Margin,
-                100,
-                RelativeVerticalPosition.Margin,
-                100,
-                200,
-                100,
-                WrapType.Square);
+            builder.InsertImage(MyDir + @"\Images\Watermark.png", RelativeHorizontalPosition.Margin, 100, RelativeVerticalPosition.Margin, 100, 200, 100, WrapType.Square);
             //ExEnd
         }
 
@@ -1516,14 +1483,7 @@ namespace ApiExamples
             DocumentBuilder builder = new DocumentBuilder(doc);
 
             // Pass a negative value to the width and height values to specify using the size of the source image.
-            builder.InsertImage(MyDir + @"\Images\LogoSmall.png",
-                RelativeHorizontalPosition.Margin,
-                200,
-                RelativeVerticalPosition.Margin,
-                100,
-                -1,
-                -1,
-                WrapType.Square);
+            builder.InsertImage(MyDir + @"\Images\LogoSmall.png", RelativeHorizontalPosition.Margin, 200, RelativeVerticalPosition.Margin, 100, -1, -1, WrapType.Square);
             //ExEnd
 
             doc.Save(MyDir + @"\Artifacts\DocumentBuilder.InsertImageOriginalSize.doc");
@@ -1606,12 +1566,6 @@ namespace ApiExamples
         }
 
         [Test]
-        public void InsertSignatureLine()
-        {
-            
-        }
-        
-        [Test]
         public void InsertSignatureLineCurrentPozition()
         {
             //ExStart
@@ -1634,7 +1588,7 @@ namespace ApiExamples
 
             builder.InsertSignatureLine(options);
             builder.InsertSignatureLine(options, RelativeHorizontalPosition.RightMargin, 2.0, RelativeVerticalPosition.Page, 3.0, WrapType.Inline);
-            
+
             MemoryStream dstStream = new MemoryStream();
             doc.Save(dstStream, SaveFormat.Docx);
 
@@ -1871,7 +1825,7 @@ namespace ApiExamples
 
             doc = new Document(dstStream);
             foot = (Footnote)doc.GetChildNodes(NodeType.Footnote, true)[0];
-            
+
             Assert.IsFalse(foot.IsAuto);
             Assert.AreEqual("242", foot.ReferenceMark);
             Assert.AreEqual("242 Footnote text.\r", foot.GetText());
@@ -1980,9 +1934,9 @@ namespace ApiExamples
             //ExSummary:Shows how to insert an OLE object into a document.
             Document doc = new Document();
             DocumentBuilder builder = new DocumentBuilder(doc);
-            
+
             Image representingImage = Image.FromFile(MyDir + @"\Images\Aspose.Words.gif");
-            
+
             Shape oleObject = builder.InsertOleObject(MyDir + "Document.Spreadsheet.xlsx", false, false, representingImage);
             Shape oleObjectProgId = builder.InsertOleObject("http://www.aspose.com", "htmlfile", true, true, null);
 
@@ -2013,8 +1967,7 @@ namespace ApiExamples
             Document doc = new Document();
             DocumentBuilder builder = new DocumentBuilder(doc);
 
-            builder.InsertChart(ChartType.Pie, ConvertUtil.PixelToPoint(300),
-                                ConvertUtil.PixelToPoint(300));
+            builder.InsertChart(ChartType.Pie, ConvertUtil.PixelToPoint(300), ConvertUtil.PixelToPoint(300));
 
             doc.Save(MyDir + @"\Artifacts\Document.InsertedChartDouble.doc");
             //ExEnd
@@ -2042,13 +1995,13 @@ namespace ApiExamples
             Assert.That(() => seriesColl.Add("AW Series 3", categories, new double[] { double.NaN, 4, 5, double.NaN, double.NaN }), Throws.TypeOf<ArgumentException>());
             Assert.That(() => seriesColl.Add("AW Series 4", categories, new double[] { double.NaN, double.NaN, double.NaN, double.NaN, double.NaN }), Throws.TypeOf<ArgumentException>());
         }
-        
+
         [Test]
         public void EmptyValuesInChartData()
         {
             Document doc = new Document();
             DocumentBuilder builder = new DocumentBuilder(doc);
-            
+
             // Add chart with default data.
             Shape shape = builder.InsertChart(ChartType.Line, 432, 252);
             Chart chart = shape.Chart;
@@ -2077,8 +2030,7 @@ namespace ApiExamples
             Document doc = new Document();
             DocumentBuilder builder = new DocumentBuilder(doc);
 
-            builder.InsertChart(ChartType.Pie, RelativeHorizontalPosition.Margin, 100, RelativeVerticalPosition.Margin, 100,
-                                    200, 100, WrapType.Square);
+            builder.InsertChart(ChartType.Pie, RelativeHorizontalPosition.Margin, 100, RelativeVerticalPosition.Margin, 100, 200, 100, WrapType.Square);
 
             doc.Save(MyDir + @"\Artifacts\Document.InsertedChartRelativePosition.doc");
             //ExEnd

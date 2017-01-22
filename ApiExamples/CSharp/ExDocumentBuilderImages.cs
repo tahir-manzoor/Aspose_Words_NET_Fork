@@ -7,10 +7,8 @@
 
 using System.Drawing;
 using System.IO;
-
 using Aspose.Words;
 using Aspose.Words.Drawing;
-
 using NUnit.Framework;
 
 namespace ApiExamples
@@ -30,11 +28,10 @@ namespace ApiExamples
             Stream stream = File.OpenRead(MyDir + @"\Images\Aspose.Words.gif");
             try
             {
-                builder.InsertImage(stream, RelativeHorizontalPosition.Margin, 100, RelativeVerticalPosition.Margin, 100,
-                                    200, 100, WrapType.Square);
+                builder.InsertImage(stream, RelativeHorizontalPosition.Margin, 100, RelativeVerticalPosition.Margin, 100, 200, 100, WrapType.Square);
             }
             finally
-            { 
+            {
                 stream.Close();
             }
 
@@ -54,7 +51,7 @@ namespace ApiExamples
             // Prepare a byte array of an image.
             Image image = Image.FromFile(MyDir + @"\Images\Aspose.Words.gif");
             ImageConverter imageConverter = new ImageConverter();
-            byte[] imageBytes = (byte[])imageConverter.ConvertTo(image, typeof (byte[]));
+            byte[] imageBytes = (byte[])imageConverter.ConvertTo(image, typeof(byte[]));
 
             builder.InsertImage(imageBytes);
             builder.Document.Save(MyDir + @"\Artifacts\Image.CreateFromByteArrayDefault.doc");
@@ -94,8 +91,7 @@ namespace ApiExamples
             ImageConverter imageConverter = new ImageConverter();
             byte[] imageBytes = (byte[])imageConverter.ConvertTo(image, typeof(byte[]));
 
-            builder.InsertImage(imageBytes, RelativeHorizontalPosition.Margin, 100, RelativeVerticalPosition.Margin, 100,
-                                    200, 100, WrapType.Square);
+            builder.InsertImage(imageBytes, RelativeHorizontalPosition.Margin, 100, RelativeVerticalPosition.Margin, 100, 200, 100, WrapType.Square);
             builder.Document.Save(MyDir + @"\Artifacts\Image.CreateFromByteArrayRelativePosition.doc");
             //ExEnd
         }
@@ -112,8 +108,7 @@ namespace ApiExamples
             Image rasterImage = Image.FromFile(MyDir + @"\Images\Aspose.Words.gif");
             try
             {
-                builder.InsertImage(rasterImage,
-                                    ConvertUtil.PixelToPoint(450), ConvertUtil.PixelToPoint(144));
+                builder.InsertImage(rasterImage, ConvertUtil.PixelToPoint(450), ConvertUtil.PixelToPoint(144));
                 builder.Writeln();
             }
             finally
@@ -136,8 +131,7 @@ namespace ApiExamples
             Image rasterImage = Image.FromFile(MyDir + @"\Images\Aspose.Words.gif");
             try
             {
-                builder.InsertImage(rasterImage, RelativeHorizontalPosition.Margin, 100, RelativeVerticalPosition.Margin, 100,
-                                    200, 100, WrapType.Square);
+                builder.InsertImage(rasterImage, RelativeHorizontalPosition.Margin, 100, RelativeVerticalPosition.Margin, 100, 200, 100, WrapType.Square);
             }
             finally
             {
@@ -181,12 +175,10 @@ namespace ApiExamples
             DocumentBuilder builder = new DocumentBuilder(doc);
 
             // Remote URI
-            builder.InsertImage("http://www.aspose.com/images/aspose-logo.gif",
-                ConvertUtil.PixelToPoint(450), ConvertUtil.PixelToPoint(144));
+            builder.InsertImage("http://www.aspose.com/images/aspose-logo.gif", ConvertUtil.PixelToPoint(450), ConvertUtil.PixelToPoint(144));
 
             // Local URI
-            builder.InsertImage(MyDir + @"\Images\Aspose.Words.gif",
-                ConvertUtil.PixelToPoint(400), ConvertUtil.PixelToPoint(400));
+            builder.InsertImage(MyDir + @"\Images\Aspose.Words.gif", ConvertUtil.PixelToPoint(400), ConvertUtil.PixelToPoint(400));
 
             doc.Save(MyDir + @"\Artifacts\DocumentBuilder.InsertImageFromUrlCustomSize.doc");
             //ExEnd

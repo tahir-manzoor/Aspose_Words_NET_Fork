@@ -46,7 +46,7 @@ namespace ApiExamples
             //"CreateMissingOutlineLevels" determining whether or not to create missing heading levels
             PdfSaveOptions pdfSaveOptions = new PdfSaveOptions();
 
-            pdfSaveOptions.OutlineOptions.HeadingsOutlineLevels = 9; 
+            pdfSaveOptions.OutlineOptions.HeadingsOutlineLevels = 9;
             pdfSaveOptions.OutlineOptions.CreateMissingOutlineLevels = true;
             pdfSaveOptions.SaveFormat = SaveFormat.Pdf;
 
@@ -140,7 +140,7 @@ namespace ApiExamples
             PdfSaveOptions optionsA1b = new PdfSaveOptions();
             optionsA1b.Compliance = PdfCompliance.PdfA1b;
             optionsA1b.ImageCompression = PdfImageCompression.Jpeg;
-            optionsA1b.JpegQuality = 100;  // Use JPEG compression at 50% quality to reduce file size.
+            optionsA1b.JpegQuality = 100; // Use JPEG compression at 50% quality to reduce file size.
 
             doc.Save(MyDir + @"\Artifacts\SaveOptions.PdfImageComppression PDF_A_1_B Out.pdf", optionsA1b);
             //ExEnd
@@ -160,7 +160,7 @@ namespace ApiExamples
             //ExStart
             //ExFor:PdfSaveOptions.ColorMode
             //ExSummary:Shows how change image color with save options property
-            
+
             //Open document with color image
             Document doc = new Document(MyDir + "Rendering.doc");
 

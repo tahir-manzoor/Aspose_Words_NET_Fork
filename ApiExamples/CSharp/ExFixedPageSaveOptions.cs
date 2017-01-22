@@ -7,9 +7,7 @@
 
 using Aspose.Words;
 using Aspose.Words.Saving;
-
 using NUnit.Framework;
-
 using System.Collections.Generic;
 
 namespace ApiExamples
@@ -46,7 +44,7 @@ namespace ApiExamples
                 yield return new TestCaseData(new SwfSaveOptions(), 100, NumeralFormat.ArabicIndic, int.MaxValue, 1, EmfPlusDualRenderingMode.Emf, false, MetafileRenderingMode.Vector, false);
             }
         }
-        
+
         [Test]
         [TestCaseSource(nameof(FixedPageSaveOptionsDefaultValuesData))]
         public void FixedPageSaveOptionsDefaultValues(FixedPageSaveOptions objectSaveOptions)
@@ -65,8 +63,7 @@ namespace ApiExamples
 
         [Test]
         [TestCaseSource(nameof(FixedPageSaveOptionsData))]
-        public void SaveInFixedFormat(FixedPageSaveOptions objectSaveOptions, int jpegQuality, NumeralFormat numeralFormat, int pageCount, int pageIndex, 
-            EmfPlusDualRenderingMode emfPlusDualRenderingMode, bool emulateRasterOperations,  MetafileRenderingMode metafileRendering, bool useEmfEmbeddedToWmf)
+        public void SaveInFixedFormat(FixedPageSaveOptions objectSaveOptions, int jpegQuality, NumeralFormat numeralFormat, int pageCount, int pageIndex, EmfPlusDualRenderingMode emfPlusDualRenderingMode, bool emulateRasterOperations, MetafileRenderingMode metafileRendering, bool useEmfEmbeddedToWmf)
         {
             FixedPageSaveOptions saveOptions = objectSaveOptions;
 

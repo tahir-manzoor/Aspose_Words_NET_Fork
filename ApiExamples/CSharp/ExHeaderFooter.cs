@@ -10,7 +10,6 @@ using Aspose.Words.Drawing;
 using Aspose.Words.Saving;
 using Aspose.Words.Tables;
 using Aspose.Words.Replacing;
-
 using NUnit.Framework;
 
 namespace ApiExamples
@@ -114,7 +113,7 @@ namespace ApiExamples
 
             HeaderFooterCollection headersFooters = doc.FirstSection.HeadersFooters;
             HeaderFooter footer = headersFooters[HeaderFooterType.FooterPrimary];
-            
+
             FindReplaceOptions options = new FindReplaceOptions();
             options.MatchCase = false;
             options.FindWholeWordsOnly = false;
