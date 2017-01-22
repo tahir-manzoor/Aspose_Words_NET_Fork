@@ -222,7 +222,7 @@ namespace ApiExamples
             //By uri
             template = DocumentHelper.CreateSimpleDocument("<<doc [src.DocumentByUri]>>");
 
-            DocumentDataSource docByUri = new DocumentDataSource("http://www.aspose.com/demos/.net-components/aspose.words/csharp/general/Common/Documents/DinnerInvitationDemo.doc");
+            DocumentDataSource docByUri = new DocumentDataSource("http://www.sample-videos.com/doc/Sample-doc-file-100kb.doc");
 
             BuildReport(template, docByUri, "src", ReportBuildOptions.None);
             template.Save(MyDir + @"\Artifacts\ReportingEngine.InsertDocumentDinamically Out.docx");
