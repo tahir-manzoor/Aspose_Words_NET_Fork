@@ -74,6 +74,84 @@ namespace ApiExamples
         }
 
         [Test]
+        public void revNumSupport()
+        {
+            // Create new field with field builder
+            Document doc = new Document();
+
+            Run run = DocumentHelper.InsertNewRun(doc, " Hello World!", 0);
+
+            FieldBuilder fieldBuilder = new FieldBuilder(FieldType.FieldRevisionNum);
+            fieldBuilder.BuildAndInsert(run);
+
+            doc.UpdateFields();
+
+            MemoryStream dstStream = new MemoryStream();
+            doc.Save(dstStream, SaveFormat.Docx);
+
+            FieldRevNum revNum = (FieldRevNum)doc.Range.Fields[0];
+
+            Assert.NotNull(revNum);
+
+            // Create new field by document builder insertfield
+            doc = new Document();
+            DocumentBuilder b = new DocumentBuilder(doc);
+            b.InsertField("REVNUM MERGEFORMAT");
+
+            dstStream = new MemoryStream();
+            doc.Save(dstStream, SaveFormat.Docx);
+
+            revNum = (FieldRevNum)doc.Range.Fields[0];
+
+            Assert.NotNull(revNum);
+
+            // Get field from word file
+            doc = new Document(MyDir + "RevNum.docx");
+            revNum = (FieldRevNum)doc.Range.Fields[0];
+
+            Assert.NotNull(revNum);
+        }
+
+        [Test]
+        public void infoSupport()
+        {
+            // Create new field with field builder
+            Document doc = new Document();
+
+            Run run = DocumentHelper.InsertNewRun(doc, " Hello World!", 0);
+
+            FieldBuilder fieldBuilder = new FieldBuilder(FieldType.FieldInfo);
+            fieldBuilder.BuildAndInsert(run);
+
+            doc.UpdateFields();
+
+            MemoryStream dstStream = new MemoryStream();
+            doc.Save(dstStream, SaveFormat.Docx);
+
+            FieldInfo info = (FieldInfo)doc.Range.Fields[0];
+
+            Assert.NotNull(info);
+
+            // Create new field by document builder insertfield
+            doc = new Document();
+            DocumentBuilder b = new DocumentBuilder(doc);
+            b.InsertField("INFO MERGEFORMAT");
+
+            dstStream = new MemoryStream();
+            doc.Save(dstStream, SaveFormat.Docx);
+
+            info = (FieldInfo)doc.Range.Fields[0];
+
+            Assert.NotNull(info);
+
+            // Get field from word file
+            doc = new Document(MyDir + "RevNum.docx");
+            info = (FieldInfo)doc.Range.Fields[1];
+
+            Assert.NotNull(info);
+        }
+
+        [Test]
         public void GetFieldFromFieldCollection()
         {
             //ExStart
@@ -232,7 +310,7 @@ namespace ApiExamples
                 .AddArgument(20.0)
                 .AddSwitch("12", "13")
                 .BuildAndInsert(run);
-
+                
             doc.UpdateFields();
         }
 
