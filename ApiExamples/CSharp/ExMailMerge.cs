@@ -374,7 +374,25 @@ namespace ApiExamples
         }
 
         [Test]
-        public void UseNonMergeFields()
+        public void GetFields()
+        {
+            Document doc = new Document(MyDir + "MailMerge.GetFieldNames.docx");
+
+            string[] addressFieldsExpect = { "Company", "First Name", "Middle Name", "Last Name", "Suffix", "Address 1", "City", "State", "Country or Region", "Postal Code" };
+            FieldAddressBlock addressBlockField = (FieldAddressBlock)doc.Range.Fields[0]; 
+            string[] addressBlockFieldNames = addressBlockField.GetFieldNames();                     
+                                                                                         
+            Assert.AreEqual(addressFieldsExpect, addressBlockFieldNames);
+
+            string[] greetingFieldsExpect = { "Courtesy Title", "Last Name" };
+            FieldGreetingLine greetingLineField = (FieldGreetingLine)doc.Range.Fields[1];
+            string[] greetingLineFieldNames = greetingLineField.GetFieldNames();
+
+            Assert.AreEqual(greetingFieldsExpect, greetingLineFieldNames);
+        }                                                                                
+                                                                                         
+        [Test]                                                                           
+        public void UseNonMergeFields()                                                  
         {
             Document doc = new Document();
             //ExStart
